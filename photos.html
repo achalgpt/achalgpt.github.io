@@ -271,11 +271,12 @@
       transition: width 0.3s ease;
     }    
 
-    /* Photography carousel */
+    /* Improved carousel styles */
     .carousel-container {
       position: relative;
       width: 100%;
       overflow: hidden;
+      -webkit-overflow-scrolling: touch;
     }
     
     .carousel {
@@ -284,20 +285,18 @@
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      padding: 2rem 0;
+      padding: 2rem 1rem;
       gap: 1.5rem;
-    }
-    
-    .carousel::-webkit-scrollbar {
-      display: none;
+      touch-action: pan-y;
     }
     
     .carousel-item {
       scroll-snap-align: start;
       flex: 0 0 auto;
-      width: 80vw;
+      width: 85vw;
       max-width: 400px;
       transition: transform 0.3s ease;
+      touch-action: manipulation;
     }
     
     .carousel-item:hover {
@@ -310,6 +309,17 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent iframe from capturing all touch events */
+    .instagram-media {
+      pointer-events: none;
+    }
+    
+    /* Enable pointer events only when actively interacting */
+    .carousel-item.active .instagram-media {
+      pointer-events: auto;
     }
     
     /* Device showcase */
@@ -740,36 +750,70 @@
         });
       }
       
-      // Auto-scrolling carousel
+      // Improved carousel functionality for mobile
       const carousel = document.getElementById('photoCarousel');
-      let scrollAmount = 0;
-      let scrollInterval;
+      const items = document.querySelectorAll('.carousel-item');
+      let isScrolling = false;
+      let startX, scrollLeft;
       
-      function startAutoScroll() {
-        scrollInterval = setInterval(() => {
-          if (carousel) {
-            scrollAmount += 1;
-            if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-              scrollAmount = 0;
-              carousel.scrollTo({ left: 0, behavior: 'auto' });
-            } else {
-              carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-            }
-          }
-        }, 30);
-      }
-      
-      // Pause auto-scroll on hover
       if (carousel) {
-        carousel.addEventListener('mouseenter', () => {
-          clearInterval(scrollInterval);
-        });
+        // Touch event handlers for better mobile scrolling
+        carousel.addEventListener('touchstart', (e) => {
+          isScrolling = true;
+          startX = e.touches[0].pageX - carousel.offsetLeft;
+          scrollLeft = carousel.scrollLeft;
+          
+          // Deactivate all items during scroll
+          items.forEach(item => item.classList.remove('active'));
+        }, { passive: true });
         
-        carousel.addEventListener('mouseleave', () => {
-          startAutoScroll();
-        });
+        carousel.addEventListener('touchmove', (e) => {
+          if (!isScrolling) return;
+          e.preventDefault();
+          const x = e.touches[0].pageX - carousel.offsetLeft;
+          const walk = (x - startX) * 2; // Scroll faster
+          carousel.scrollLeft = scrollLeft - walk;
+        }, { passive: false });
         
-        startAutoScroll();
+        carousel.addEventListener('touchend', () => {
+          isScrolling = false;
+          
+          // Find the center item and activate it
+          const centerPosition = carousel.scrollLeft + (carousel.clientWidth / 2);
+          items.forEach(item => {
+            const itemPosition = item.offsetLeft + (item.offsetWidth / 2);
+            if (Math.abs(itemPosition - centerPosition) < item.offsetWidth) {
+              item.classList.add('active');
+            }
+          });
+        }, { passive: true });
+        
+        // Auto-scroll only on desktop
+        if (window.innerWidth > 768) {
+          let scrollAmount = 0;
+          const scrollInterval = setInterval(() => {
+            if (carousel) {
+              scrollAmount += 1;
+              if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+                scrollAmount = 0;
+                carousel.scrollTo({ left: 0, behavior: 'auto' });
+              } else {
+                carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+              }
+            }
+          }, 30);
+          
+          // Pause auto-scroll on hover
+          carousel.addEventListener('mouseenter', () => {
+            clearInterval(scrollInterval);
+          });
+          
+          carousel.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 768) {
+              startAutoScroll();
+            }
+          });
+        }
       }
       
       // Mobile menu toggle
