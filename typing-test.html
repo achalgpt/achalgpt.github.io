@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Speed Test | Achal Gupta</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+    
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      margin: 0;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .glass {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+    }
+    
+    .typing-cursor {
+      position: relative;
+    }
+    
+    .typing-cursor::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 1.2em;
+      background: #0f0;
+      animation: blink 1s step-end infinite;
+    }
+    
+    @keyframes blink {
+      from, to { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .correct {
+      color: #0f0;
+    }
+    
+    .incorrect {
+      color: #f00;
+      text-decoration: underline;
+    }
+    
+    .current {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .stats-glow {
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    }
+    
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.3s;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    
+    .quote-text {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle background -->
+  <div id="particles-js"></div>
+
+  <!-- Main Container -->
+  <div class="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-screen">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+        Typing Speed Test
+      </h1>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">
+        Test your typing speed with programming quotes. Type the text below as quickly and accurately as possible.
+      </p>
+    </div>
+    
+    <!-- Stats Panel -->
+    <div class="glass p-6 mb-8 w-full max-w-3xl grid grid-cols-3 gap-4 text-center">
+      <div class="stat-item">
+        <div class="text-3xl font-mono font-bold" id="wpm">0</div>
+        <div class="text-sm opacity-70">WPM</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl font-mono font-bold" id="accuracy">100</div>
+        <div class="text-sm opacity-70">Accuracy</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl font-mono font-bold" id="time">60</div>
+        <div class="text-sm opacity-70">Seconds</div>
+      </div>
+    </div>
+    
+    <!-- Typing Area -->
+    <div class="glass p-8 w-full max-w-4xl mb-8">
+      <div id="quoteDisplay" class="quote-text text-xl md:text-2xl leading-relaxed mb-8 opacity-90">
+        Loading quote...
+      </div>
+      
+      <div class="relative">
+        <textarea 
+          id="typingInput" 
+          class="w-full bg-transparent border-b-2 border-green-500 focus:outline-none p-2 text-xl font-mono resize-none"
+          rows="3"
+          placeholder="Start typing here..."
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        ></textarea>
+        <div id="typingCursor" class="typing-cursor"></div>
+      </div>
+    </div>
+    
+    <!-- Controls -->
+    <div class="flex gap-4 mb-12">
+      <button id="newQuoteBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all">
+        <i class="fas fa-sync-alt mr-2"></i> New Quote
+      </button>
+      <button id="restartBtn" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full font-semibold transition-all">
+        <i class="fas fa-redo mr-2"></i> Restart
+      </button>
+    </div>
+    
+    <!-- Results Modal -->
+    <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+      <div class="glass p-8 max-w-md w-full rounded-xl relative">
+        <h2 class="text-3xl font-bold mb-6 text-center">Test Complete!</h2>
+        
+        <div class="space-y-4 mb-8">
+          <div class="flex justify-between">
+            <span class="opacity-70">Speed:</span>
+            <span class="font-mono font-bold" id="finalWpm">0 WPM</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-70">Accuracy:</span>
+            <span class="font-mono font-bold" id="finalAccuracy">100%</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-70">Characters:</span>
+            <span class="font-mono font-bold" id="finalChars">0</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-70">Errors:</span>
+            <span class="font-mono font-bold" id="finalErrors">0</span>
+          </div>
+        </div>
+        
+        <div class="flex justify-center gap-4">
+          <button id="tryAgainBtn" class="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all">
+            Try Again
+          </button>
+          <button id="closeModalBtn" class="px-6 py-2 bg-gray-600 hover:bg-gray-700 rounded-full font-semibold transition-all">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize particle.js background
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.getElementById('particles-js')) {
+        particlesJS('particles-js', {
+          "particles": {
+            "number": { "value": 60 },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.3, "random": true },
+            "size": { "value": 3, "random": true },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.2,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1.5,
+              "direction": "none",
+              "random": true
+            }
+          },
+          "interactivity": {
+            "events": {
+              "onhover": { "enable": true, "mode": "grab" },
+              "onclick": { "enable": true, "mode": "push" }
+            }
+          }
+        });
+      }
+      
+      // Typing test logic
+      const quotes = [
+        "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler",
+        "First, solve the problem. Then, write the code. - John Johnson",
+        "The most disastrous thing that you can ever learn is your first programming language. - Alan Kay",
+        "The best error message is the one that never shows up. - Thomas Fuchs",
+        "Programming isn't about what you know; it's about what you can figure out. - Chris Pine",
+        "The only way to learn a new programming language is by writing programs in it. - Dennis Ritchie",
+        "Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code. - Dan Salomon",
+        "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. - Brian Kernighan",
+        "Measuring programming progress by lines of code is like measuring aircraft building progress by weight. - Bill Gates",
+        "There are two ways to write error-free programs; only the third one works. - Alan J. Perlis"
+      ];
+      
+      let currentQuote = '';
+      let timer = null;
+      let timeLeft = 60;
+      let isTyping = false;
+      let errors = 0;
+      let correctChars = 0;
+      let totalTyped = 0;
+      
+      const quoteDisplay = document.getElementById('quoteDisplay');
+      const typingInput = document.getElementById('typingInput');
+      const wpmDisplay = document.getElementById('wpm');
+      const accuracyDisplay = document.getElementById('accuracy');
+      const timeDisplay = document.getElementById('time');
+      const newQuoteBtn = document.getElementById('newQuoteBtn');
+      const restartBtn = document.getElementById('restartBtn');
+      const resultsModal = document.getElementById('resultsModal');
+      const finalWpm = document.getElementById('finalWpm');
+      const finalAccuracy = document.getElementById('finalAccuracy');
+      const finalChars = document.getElementById('finalChars');
+      const finalErrors = document.getElementById('finalErrors');
+      const tryAgainBtn = document.getElementById('tryAgainBtn');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      
+      // Load a new random quote
+      function loadNewQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        currentQuote = quotes[randomIndex];
+        quoteDisplay.innerHTML = '';
+        
+        // Create span for each character
+        currentQuote.split('').forEach(char => {
+          const charSpan = document.createElement('span');
+          charSpan.innerText = char;
+          quoteDisplay.appendChild(charSpan);
+        });
+        
+        resetTest();
+      }
+      
+      // Reset the typing test
+      function resetTest() {
+        clearInterval(timer);
+        timer = null;
+        timeLeft = 60;
+        isTyping = false;
+        errors = 0;
+        correctChars = 0;
+        totalTyped = 0;
+        
+        typingInput.value = '';
+        wpmDisplay.textContent = '0';
+        accuracyDisplay.textContent = '100';
+        timeDisplay.textContent = '60';
+        
+        // Reset all character styles
+        const spans = quoteDisplay.querySelectorAll('span');
+        spans.forEach(span => {
+          span.className = '';
+        });
+        
+        if (spans.length > 0) {
+          spans[0].className = 'current';
+        }
+        
+        typingInput.focus();
+      }
+      
+      // Start the typing test timer
+      function startTimer() {
+        timeDisplay.textContent = timeLeft;
+        
+        timer = setInterval(() => {
+          timeLeft--;
+          timeDisplay.textContent = timeLeft;
+          
+          if (timeLeft <= 0) {
+            finishTest();
+          }
+        }, 1000);
+      }
+      
+      // Calculate WPM
+      function calculateWPM() {
+        const words = correctChars / 5;
+        const minutes = (60 - timeLeft) / 60;
+        return minutes > 0 ? Math.round(words / minutes) : 0;
+      }
+      
+      // Calculate accuracy
+      function calculateAccuracy() {
+        return totalTyped > 0 ? Math.round((correctChars / totalTyped) * 100) : 100;
+      }
+      
+      // Finish the test
+      function finishTest() {
+        clearInterval(timer);
+        isTyping = false;
+        
+        const wpm = calculateWPM();
+        const accuracy = calculateAccuracy();
+        
+        // Show results modal
+        finalWpm.textContent = `${wpm} WPM`;
+        finalAccuracy.textContent = `${accuracy}%`;
+        finalChars.textContent = `${totalTyped}`;
+        finalErrors.textContent = `${errors}`;
+        
+        resultsModal.classList.remove('hidden');
+      }
+      
+      // Handle typing input
+      typingInput.addEventListener('input', () => {
+        const inputText = typingInput.value;
+        const quoteText = currentQuote;
+        const spans = quoteDisplay.querySelectorAll('span');
+        
+        // Start timer on first keystroke
+        if (!isTyping) {
+          isTyping = true;
+          startTimer();
+        }
+        
+        // Reset all spans
+        spans.forEach(span => {
+          span.className = '';
+        });
+        
+        let correctCount = 0;
+        let errorCount = 0;
+        
+        // Check each character
+        for (let i = 0; i < inputText.length; i++) {
+          if (i < quoteText.length) {
+            if (inputText[i] === quoteText[i]) {
+              spans[i].className = 'correct';
+              correctCount++;
+            } else {
+              spans[i].className = 'incorrect';
+              errorCount++;
+            }
+          }
+        }
+        
+        // Highlight current position
+        if (inputText.length < quoteText.length) {
+          spans[inputText.length].className = 'current';
+        }
+        
+        // Update stats
+        correctChars = correctCount;
+        errors = errorCount;
+        totalTyped = inputText.length;
+        
+        wpmDisplay.textContent = calculateWPM();
+        accuracyDisplay.textContent = calculateAccuracy();
+        
+        // Check if quote is completed
+        if (inputText.length === quoteText.length && errorCount === 0) {
+          finishTest();
+        }
+      });
+      
+      // Event listeners for buttons
+      newQuoteBtn.addEventListener('click', loadNewQuote);
+      restartBtn.addEventListener('click', resetTest);
+      tryAgainBtn.addEventListener('click', () => {
+        resultsModal.classList.add('hidden');
+        loadNewQuote();
+      });
+      closeModalBtn.addEventListener('click', () => {
+        resultsModal.classList.add('hidden');
+      });
+      
+      // Initialize
+      loadNewQuote();
+    });
+  </script>
+</body>
+</html>
