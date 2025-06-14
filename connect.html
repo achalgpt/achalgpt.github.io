@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects | Achal Gupta</title>
+  <title>Connect | Achal Gupta</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -349,48 +349,100 @@
       }
     }
     
-    .project-card {
+    .contact-card {
       transition: all 0.3s ease;
       overflow: hidden;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
     }
     
-    .project-card:hover {
-      transform: translateY(-10px);
+    .contact-card:hover {
+      transform: translateY(-5px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
     
-    .project-image {
-      height: 200px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
+    .contact-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
     }
     
-    .project-card:hover .project-image {
-      transform: scale(1.05);
+    .contact-card:hover .contact-icon {
+      transform: scale(1.1);
+      color: #fff;
     }
     
-    .tech-tag {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
+    .contact-method {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-detail {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .qr-code {
+      width: 150px;
+      height: 150px;
+      margin: 1rem auto;
+      background: white;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    
+    .qr-code img {
+      width: 100%;
+      height: 100%;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
+      color: white;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
     }
     
-    .secret-link {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      opacity: 0.3;
-      transition: opacity 0.3s;
+    .social-link:hover {
+      transform: translateY(-3px) scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     
-    .secret-link:hover {
-      opacity: 1;
-    }
+    .linkedin { color: #0A66C2; }
+    .instagram { color: #E1306C; }
   </style>
 </head>
 <body>
@@ -402,11 +454,11 @@
     <div class="container mx-auto px-4 flex justify-between items-center">
       <div class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="projects.html" class="nav-link active">Projects</a>
+        <a href="projects.html" class="nav-link">Projects</a>
         <a href="photos.html" class="nav-link">Photography</a>
         <a href="articles.html" class="nav-link">Mind Space</a>
         <a href="about.html" class="nav-link">About</a>
-        <a href="connect.html" class="nav-link">Connect</a>
+        <a href="connect.html" class="nav-link active">Connect</a>
       </div>
       <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
         <span></span><span></span><span></span>
@@ -414,103 +466,95 @@
     </div>
     <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
       <a href="index.html">Home</a>
-      <a href="projects.html" class="active">Projects</a>
+      <a href="projects.html">Projects</a>
       <a href="photos.html">Photography</a>
       <a href="articles.html">Mind Space</a>
       <a href="about.html">About</a>
-      <a href="connect.html">Connect</a>
+      <a href="connect.html" class="active">Connect</a>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero-container">
     <div class="hero-content">
-      <h1 class="hero-title fade-in">My Projects</h1>
-      <p class="text-xl opacity-90 max-w-2xl mx-auto">Engineering solutions, capturing moments, and building digital experiences</p>
+      <h1 class="hero-title fade-in">Let's Connect</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">Reach out through professional networks or creative platforms</p>
+      <div class="mt-8">
+        <a href="#contact-methods" class="glow-button pulse">View Connection Options</a>
+      </div>
     </div>
   </section>
 
-  <!-- Projects Grid -->
-  <section class="max-w-6xl mx-auto" data-aos="fade-up">
-    <div class="grid md:grid-cols-2 gap-8">
-      <!-- Cars4Mars -->
-      <div class="project-card glass" data-aos="fade-up" data-aos-delay="100">
-        <img src="videos/cars4mars.jpg" alt="Cars4Mars Rover" class="project-image w-full">
-        <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">UCT Space Society Cars4Mars Team</h3>
-          <p class="text-gray-300 mb-4">A Mars rover prototype designed for extreme terrain navigation and scientific data collection.</p>
-          
-          <div class="mb-4">
-            <span class="tech-tag">Robotics</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Engineering</span>
-            <span class="tech-tag">CAD Design</span>
-          </div>
-          
-          <div class="flex flex-wrap gap-2">
-            <a href="#" class="glow-button">View Details</a>
-            <a href="#" class="glow-button">See Demo</a>
-          </div>
+  <!-- Contact Methods -->
+  <section id="contact-methods" class="max-w-4xl mx-auto" data-aos="fade-up">
+    <h2 class="section-heading">How to Reach Me</h2>
+    
+    <div class="contact-grid">
+      <!-- LinkedIn -->
+      <div class="contact-card glass">
+        <div class="contact-icon">
+          <i class="fab fa-linkedin-in linkedin"></i>
         </div>
+        <h3 class="contact-method">LinkedIn</h3>
+        <p class="contact-detail">For professional inquiries, networking, and career opportunities</p>
+        <a href="https://www.linkedin.com/in/achal-gupta" target="_blank" class="glow-button">Connect on LinkedIn</a>
       </div>
       
-      <!-- Photography Portfolio -->
-      <div class="project-card glass" data-aos="fade-up" data-aos-delay="200">
-        <video src="videos/projvi.mp4" autoplay loop muted playsinline class="project-image w-full"></video>
-        <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">Frames Photography Official</h3>
-          <p class="text-gray-300 mb-4">A curated collection of my photographic work capturing landscapes, urban scenes, and special moments.</p>
-          
-          <div class="mb-4">
-            <span class="tech-tag">Photography</span>
-            <span class="tech-tag">Lightroom</span>
-            <span class="tech-tag">Composition</span>
-            <span class="tech-tag">Storytelling</span>
-          </div>
-          
-          <div class="flex flex-wrap gap-2">
-            <a href="https://www.instagram.com/framesofficial__/" class="glow-button">View Collection</a>
-            <a href="photos.html" class="glow-button">More About It</a>
-          </div>
+      <!-- Instagram -->
+      <div class="contact-card glass">
+        <div class="contact-icon">
+          <i class="fab fa-instagram instagram"></i>
         </div>
+        <h3 class="contact-method">Photography</h3>
+        <p class="contact-detail">For creative collaborations and visual projects</p>
+        <a href="https://www.instagram.com/framesofficial__/" target="_blank" class="glow-button">View My Portfolio</a>
       </div>
-      
-      <!-- Personal Website -->
-      <div class="project-card glass" data-aos="fade-up" data-aos-delay="300">
-        <img src="videos/website.jpg" alt="Personal Website" class="project-image w-full">
-        <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">Personal Website</h3>
-          <p class="text-gray-300 mb-4">This very website - a digital representation of my skills, projects, and personality.</p>
-          
-          <div class="mb-4">
-            <span class="tech-tag">HTML/CSS</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">Tailwind CSS</span>
-            <span class="tech-tag">UI/UX</span>
+    </div>
+  </section>
+
+  <!-- QR Code Section -->
+  <section class="max-w-4xl mx-auto" data-aos="fade-up">
+    <h2 class="section-heading">Quick Connect</h2>
+    <div class="glass p-6 rounded-2xl">
+      <p class="mb-6 text-center">Scan these QR codes with your phone for instant access:</p>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="text-center">
+          <div class="qr-code mx-auto">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.linkedin.com/in/achal-gupta" alt="LinkedIn QR Code">
           </div>
-          
-          <div class="flex flex-wrap gap-2">
-            <a href="index.html" class="glow-button">Visit Home</a>
-            <a href="secret.html" class="glow-button">Easter Egg</a>
+          <h3 class="text-xl font-bold mt-4">LinkedIn</h3>
+          <p class="mt-2">Professional networking</p>
+        </div>
+        <div class="text-center">
+          <div class="qr-code mx-auto">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.instagram.com/framesofficial__/" alt="Instagram QR Code">
           </div>
+          <h3 class="text-xl font-bold mt-4">Instagram</h3>
+          <p class="mt-2">Creative work & photography</p>
         </div>
       </div>
     </div>
   </section>
 
- 
-
-  <!-- CTA -->
-  <section class="text-center" data-aos="fade-up" data-aos-delay="700">
-    <h2 class="text-2xl font-bold mb-6">Want to collaborate on a project?</h2>
-    <a href="connect.html" class="glow-button inline-block mx-2">Get In Touch</a>
-    <a href="about.html" class="glow-button inline-block mx-2 mt-4 md:mt-0">Learn About Me</a>
+  <!-- Collaboration CTA -->
+  <section id="collaborate" class="text-center" data-aos="fade-up">
+    <h2 class="text-3xl font-bold mb-6">Interested in Collaborating?</h2>
+    <p class="max-w-2xl mx-auto mb-8">I'm open to discussing creative projects, photography collaborations, and professional opportunities.</p>
+    <a href="https://www.linkedin.com/in/achal-gupta" target="_blank" class="glow-button inline-block mx-2 px-8 py-4 text-lg">Get in Touch</a>
   </section>
 
-  <!-- Secret Link -->
-  <a href="secret.html" class="secret-link glass p-3 rounded-full">
-    <i class="fas fa-egg text-xl"></i>
-  </a>
+  <!-- Social Links -->
+  <section class="text-center" data-aos="fade-up">
+    <h2 class="text-2xl font-bold mb-6">Find Me Online</h2>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/achal-gupta" target="_blank" class="social-link" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://www.instagram.com/framesofficial__/" target="_blank" class="social-link" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </section>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -675,6 +719,24 @@
         } else {
           navbar.classList.remove('scrolled');
         }
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        });
       });
     });
   </script>
