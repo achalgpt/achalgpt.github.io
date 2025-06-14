@@ -1,26 +1,974 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About – Achal Gupta</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Achal Gupta</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+    
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    
+    /* Particle background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Glass effects */
+    .glass {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+    }
+    
+    .glass-nav {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+    
+    nav.scrolled {
+      padding: 0.5rem 0;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .burger {
+        display: none;
+      }
+    }
+    
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: #fff;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 70%;
+    }
+    
+    .nav-link.active {
+      color: #fff;
+    }
+    
+    .nav-link.active::after {
+      width: 70%;
+    }
+    
+    /* Mobile menu */
+    .burger {
+      cursor: pointer;
+      width: 28px;
+      height: 21px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 60;
+    }
+    
+    .burger span {
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: 0.3s;
+      transform-origin: left center;
+    }
+    
+    .burger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(0px, -2px);
+    }
+    
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .burger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(0px, 2px);
+    }
+    
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+      padding: 2rem 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .mobile-nav.open {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .mobile-nav a {
+      color: white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 1.25rem;
+      margin: 0.5rem 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+    
+    .mobile-nav a:hover::after {
+      width: 50%;
+    }
+    
+    .mobile-nav a.active {
+      color: #fff;
+    }
+    
+    .mobile-nav a.active::after {
+      width: 50%;
+    }
+    
+    /* Hero section */
+    .hero-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 1rem;
+    }
+    
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      animation: fadeIn 1s ease forwards;
+      padding: 0.5rem 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .hero-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      transition: width 0.3s ease;
+    }
+    
+    /* CTA button */
+    .glow-button {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .glow-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+      z-index: -1;
+    }
+    
+    .glow-button:hover {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .glow-button:hover::before {
+      left: 100%;
+    }
+    
+    /* Section headings */
+    .section-heading {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+    }
+    
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      transition: width 0.3s ease;
+    }
+    
+    .section-heading:hover::after {
+      width: 90%;
+    }
+    
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+    
+    /* Responsive spacing */
+    section {
+      padding: 4rem 1rem;
+    }
+    
+    @media (min-width: 768px) {
+      section {
+        padding: 6rem 2rem;
+      }
+    }
+    
+    /* Skill bars */
+    .skill-container {
+      margin-bottom: 20px;
+    }
+    
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    
+    .skill-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .skill-level {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+    }
+    
+    /* Values grid */
+    .value-card {
+      transition: all 0.3s ease;
+    }
+    
+    .value-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Stats */
+    .stat-card {
+      text-align: center;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Profile image */
+    .profile-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .profile-img:hover {
+      transform: scale(1.05);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* New Timeline Styles */
+    .timeline-container {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      border: 3px solid #000;
+      transform: translateX(-50%);
+    }
+
+    @media (min-width: 768px) {
+      .timeline-container {
+        padding-left: 4rem;
+      }
+      .timeline-line {
+        left: 2rem;
+      }
+      .timeline-item {
+        padding-left: 3rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="essays.html">Essay Archive</a>
-        <a href="projects.html">Projects</a>
-    </nav>
-    <main>
-        <h1>About Me</h1>
-        <p>I’m Achal Gupta, a Mechatronics Engineering student at the University of Cape Town with a deep-rooted passion for space, sustainability, and systems that make the world work better. I’ve represented Botswana internationally at the International Mathematical Olympiad, volunteered at the International Astronomical Union’s General Assembly, and currently lead the UCT Space Society’s participation in the African Rover Challenge with our <strong>Cars4Mars</strong> project.</p>
+  <!-- Particle background -->
+  <div id="particles-js"></div>
 
-        <p>I’ve been fascinated by the cosmos since I was six—when I cracked open my first encyclopedia and started asking the kind of questions that don’t fit into multiple choice answers. I thrive at the intersection of logic and imagination, whether it’s in the lab, behind a camera, or writing about African development, neoliberalism, and plastic pollution (and winning essay competitions for it).</p>
+  <!-- Navbar -->
+  <nav id="navbar" class="glass-nav">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="photos.html" class="nav-link">Photography</a>
+        <a href="articles.html" class="nav-link">Articles</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="connect.html" class="nav-link">Connect</a>
+      </div>
+      <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="photos.html">Photography</a>
+      <a href="articles.html">Articles</a>
+      <a href="about.html" class="active">About</a>
+      <a href="connect.html">Connect</a>
+    </div>
+  </nav>
 
-        <p>Right now, I’m building robots, launching rockets, and trying not to forget how to sleep. But the dream is bigger: to push Africa’s role in space science forward, with engineering as my toolkit and storytelling as my sidearm.</p>
-    </main>
+  <!-- Hero Section -->
+  <section class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title fade-in">Achal Gupta</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">Engineer • Storyteller • Leader</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="max-w-6xl mx-auto" data-aos="fade-up">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <div class="md:w-1/3 flex justify-center">
+        <img src="videos/profile.png" alt="Achal Gupta" class="profile-img" />
+      </div>
+      <div class="md:w-2/3 glass p-8">
+        <h2 class="text-3xl font-bold mb-6">Who Am I?</h2>
+        <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+          Hi, I'm Achal Gupta. <br /> <br />
+          I build things, not just robots and code, but movements, moments, and meaning.
+        </p>
+        <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+         I study Mechatronics Engineering at the University of Cape Town, but the learning started long before lecture halls. I was the kid pulling apart clocks and reading encyclopedias about the cosmo. Now I'm someone who leads rover design teams by day and captures fleeting light on mountain trails by sunset. <br /> <br /> I think like an engineer, lead like a strategist, and see like an artist. Whether it's solving a technical problem, mobilizing a team, or framing a photograph - I' always asking: <strong>what matters most, and how can I do it better?</strong>
+        </p>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          This isn't just about skill - it's about stewardship. The systems I design, the roles I take on, and the stories I tell all come from a place of curiosity, care, and quiet ambition. I'm not here to follow tracks - I'm here to lay them down.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="max-w-6xl mx-auto text-center" data-aos="fade-up" data-aos-delay="100">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="stat-card glass">
+        <div class="text-4xl font-bold mb-2">6+</div>
+        <div class="text-lg">Leadership Roles</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="text-4xl font-bold mb-2">3x</div>
+        <div class="text-lg">Cambridge Outstanding Learner Awards</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="text-4xl font-bold mb-2">Top 4</div>
+        <div class="text-lg">A-Level Computer Science</div>
+      </div>
+      <div class="stat-card glass">
+        <div class="text-4xl font-bold mb-2">2x</div>
+        <div class="text-lg">International Math Olympiad</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+    <h2 class="section-heading">My Journey</h2>
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      
+      <!-- Education -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="glass p-6">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">BSc Eng in Mechatronics</h3>
+              <p class="text-gray-300">University of Cape Town</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm mb-3">2024 - Present</p>
+          <ul class="list-disc pl-5 text-gray-300 space-y-1">
+            <li>Currently in Second Year</li>
+            <li>Participated in IAU General Assembly 2024</li>
+            <li>Chairperson of the UCT Space Society</li>
+            <li>Vice Chairperson of the UCT Hindu Students Society</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Leadership -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="glass p-6">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">Cambridge A-Level</h3>
+              <p class="text-gray-300">Legae Academy, Gaborone</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm mb-3">2022 - 2023</p>
+          <ul class="list-disc pl-5 text-gray-300 space-y-1">
+            <li>Founded and led the school Astronomy Club alongside the ASB</li>
+            <li>Co-founded the school Maths Club</li>
+            <li>Participated in the International Math Olympiad in 2022</li>
+            <li>Achieved Top 4 in the World for A-Level Computer Science (Oct/Nov 2023)</li>
+            <li>Achieved Top in the Country for AS-Level Computer Science (Oct/Nov 2022)</li>
+            <li>Achieved Top in the Country for AS-Level Mathematics (Oct/Nov 2022)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Achievement -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="glass p-6">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">Cambridge IGCSE</h3>
+              <p class="text-gray-300">Legae Academy, Gaborone</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm mb-3">2020 - 2021</p>
+          <ul class="list-disc pl-5 text-gray-300 space-y-1">
+            <li>Participated in the International Math Olympiad in 2021</li>
+            <li>Served as the school headboy from May 2020 - April 2021</li>
+          </ul>
+        </div>
+      </div>
+      
+  </section>
+
+  <!-- Skills Section -->
+  <section class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+    <h2 class="section-heading">Skills & Expertise</h2>
+    <div class="glass p-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-6 text-center">Technical Expertise</h3>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Systems Design and Mechatronics</span>
+              <span>95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Embedded Programming and Integration</span>
+              <span>92%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 92%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Computer Vision and Autonomous Nav</span>
+              <span>88%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 88%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Hardware Software Co-Design</span>
+              <span>85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Strategic Technical Leadership</span>
+              <span>85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Scientific Communication</span>
+              <span>82%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 82%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-6 text-center">Human-Centered Strengths</h3>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Leadership and Vision Alignment</span>
+              <span>95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Team Mentorship and Empowerment</span>
+              <span>93%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 93%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Public Speaking</span>
+              <span>90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-container">
+            <div class="skill-info">
+              <span>Visual Storytelling</span>
+              <span>85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="width: 85%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+    <h2 class="section-heading">Core Values</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="value-card glass p-6 text-center">
+        <div class="text-5xl mb-4 text-white opacity-80">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Innovation</h3>
+        <p class="text-gray-300">I constantly seek new approaches and creative solutions to technical challenges.</p>
+      </div>
+      
+      <div class="value-card glass p-6 text-center">
+        <div class="text-5xl mb-4 text-white opacity-80">
+          <i class="fas fa-hands-helping"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Collaboration</h3>
+        <p class="text-gray-300">Great things happen when diverse minds work together towards a common goal.</p>
+      </div>
+      
+      <div class="value-card glass p-6 text-center">
+        <div class="text-5xl mb-4 text-white opacity-80">
+          <i class="fas fa-book"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-3">Lifelong Learning</h3>
+        <p class="text-gray-300">Technology evolves rapidly, and I'm committed to continuous growth and education.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="500">
+    <h2 class="section-heading">Achievements</h2>
+    <div class="glass p-8">
+      <ul class="space-y-4">
+        <li class="flex items-start">
+          <span class="text-white text-2xl mr-3">🧠</span>
+          <div>
+            <h3 class="text-lg font-bold">Top 4 in the World</h3>
+            <p class="text-gray-300">2023 - A-Level Computer Science</p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <span class="text-white text-2xl mr-3">🌍</span>
+          <div>
+            <h3 class="text-lg font-bold">International Math Olympiad Participant</h3>
+            <p class="text-gray-300">IMO 2021 + IMO 2022</p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <span class="text-white text-2xl mr-3">🚀</span>
+          <div>
+            <h3 class="text-lg font-bold">Chairperson of UCT Space Society</h3>
+            <p class="text-gray-300">Currently also leading a team that is building a Mars-style rover</p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <span class="text-white text-2xl mr-3">📷</span>
+          <div>
+            <h3 class="text-lg font-bold">Photographer</h3>
+            <p class="text-gray-300">Running an Instagram account for my best work</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="text-center" data-aos="fade-up" data-aos-delay="600">
+    <a href="projects.html" class="glow-button inline-block mx-2">View My Projects</a>
+    <a href="connect.html" class="glow-button inline-block mx-2 mt-4 md:mt-0">Get In Touch</a>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // Initialize particle.js background
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.getElementById('particles-js')) {
+        particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 100,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": "#ffffff"
+            },
+            "shape": {
+              "type": "circle",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              },
+              "polygon": {
+                "nb_sides": 5
+              }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 1,
+                "opacity_min": 0.3,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 4,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 2,
+                "size_min": 0.3,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 2,
+              "direction": "none",
+              "random": true,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+              "attract": {
+                "enable": true,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 140,
+                "line_linked": {
+                  "opacity": 0.5
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
+          },
+          "retina_detect": true
+        });
+      }
+      
+      // Mobile menu toggle
+      const burger = document.getElementById('burger');
+      const mobileNav = document.getElementById('mobileNav');
+      
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        mobileNav.classList.toggle('open');
+        mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
+        
+        // Toggle body scroll when menu is open
+        if (mobileNav.classList.contains('open')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close mobile menu when clicking outside or pressing escape
+      document.addEventListener('click', (e) => {
+        if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
+          burger.classList.remove('open');
+          mobileNav.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+          burger.classList.remove('open');
+          mobileNav.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
