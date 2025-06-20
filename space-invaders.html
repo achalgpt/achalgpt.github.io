@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Space Invaders | Achal Gupta</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       scrollbar-width: none;
@@ -25,6 +25,7 @@
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
+      touch-action: manipulation;
     }
     
     #particles-js {
@@ -46,177 +47,6 @@
       border-radius: 20px;
     }
     
-    .glass-nav {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.15);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 50;
-      display: flex;
-      justify-content: center;
-      padding: 1rem 0;
-      transition: all 0.3s ease;
-    }
-    
-    nav.scrolled {
-      padding: 0.5rem 0;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    
-    .nav-links {
-      display: none;
-    }
-    
-    @media (min-width: 768px) {
-      .nav-links {
-        display: flex;
-        gap: 1.5rem;
-      }
-      .burger {
-        display: none;
-      }
-    }
-    
-    .nav-link {
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      transition: all 0.3s;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 0.875rem;
-      letter-spacing: 0.05em;
-      position: relative;
-    }
-    
-    .nav-link:hover {
-      color: #fff;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background: #fff;
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::after {
-      width: 70%;
-    }
-    
-    .nav-link.active {
-      color: #fff;
-    }
-    
-    .nav-link.active::after {
-      width: 70%;
-    }
-    
-    .burger {
-      cursor: pointer;
-      width: 28px;
-      height: 21px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      z-index: 60;
-    }
-    
-    .burger span {
-      height: 3px;
-      background: white;
-      border-radius: 2px;
-      transition: 0.3s;
-      transform-origin: left center;
-    }
-    
-    .burger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(0px, -2px);
-    }
-    
-    .burger.open span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .burger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(0px, 2px);
-    }
-    
-    .mobile-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 50;
-      padding: 2rem 0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .mobile-nav.open {
-      display: flex;
-      opacity: 1;
-    }
-    
-    .mobile-nav a {
-      color: white;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 1.25rem;
-      margin: 0.5rem 0;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    
-    .mobile-nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background: #fff;
-      transition: width 0.3s ease;
-    }
-    
-    .mobile-nav a:hover::after {
-      width: 50%;
-    }
-    
-    .mobile-nav a.active {
-      color: #fff;
-    }
-    
-    .mobile-nav a.active::after {
-      width: 50%;
-    }
-    
-    /* Game Specific Styles */
     .game-container {
       display: flex;
       flex-direction: column;
@@ -245,14 +75,6 @@
       100% { background-position: 500%; }
     }
     
-    .game-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      opacity: 0.8;
-      margin-bottom: 2rem;
-      text-align: center;
-      max-width: 600px;
-    }
-    
     .game-canvas-container {
       position: relative;
       margin: 1rem 0;
@@ -263,6 +85,7 @@
       box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
       max-width: 100%;
       height: auto;
+      touch-action: none;
     }
     
     .game-stats {
@@ -280,12 +103,6 @@
       padding: 0.75rem 1.5rem;
       text-align: center;
       min-width: 120px;
-    }
-    
-    .stat-label {
-      font-size: 0.8rem;
-      opacity: 0.7;
-      margin-bottom: 0.25rem;
     }
     
     .stat-value {
@@ -327,17 +144,9 @@
       border: 1px solid rgba(0, 255, 255, 0.5);
     }
     
-    .game-btn.primary:hover {
-      background: rgba(0, 255, 255, 0.3);
-    }
-    
     .game-btn.danger {
       background: rgba(255, 0, 0, 0.2);
       border: 1px solid rgba(255, 0, 0, 0.5);
-    }
-    
-    .game-btn.danger:hover {
-      background: rgba(255, 0, 0, 0.3);
     }
     
     .game-modal {
@@ -370,12 +179,6 @@
       width: 90%;
       text-align: center;
       position: relative;
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-    
-    .game-modal.show .modal-content {
-      transform: translateY(0);
     }
     
     .modal-title {
@@ -385,171 +188,56 @@
       color: cyan;
     }
     
-    .modal-text {
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
+    /* Mobile controls */
+    .mobile-controls {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 100;
     }
     
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      cursor: pointer;
-      font-size: 1.5rem;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-    
-    .modal-close:hover {
-      opacity: 1;
-    }
-    
-    .powerup-indicator {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.5);
+    .mobile-btn {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.5rem;
-      opacity: 0;
-      transition: opacity 0.3s;
+      font-size: 24px;
+      color: white;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
     
-    .powerup-indicator.active {
-      opacity: 1;
-    }
-    
-    .instructions {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      max-width: 600px;
-    }
-    
-    .instructions-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: cyan;
-    }
-    
-    .instructions-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .instructions-item {
-      margin-bottom: 0.75rem;
+    .mobile-shoot {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 0, 0, 0.3);
       display: flex;
-      align-items: flex-start;
-    }
-    
-    .instructions-item i {
-      margin-right: 0.75rem;
-      color: cyan;
-      margin-top: 2px;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      color: white;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
     
     @media (max-width: 768px) {
-      .game-stats {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
+      .mobile-controls {
+        display: flex;
       }
-      
-      .stat-box {
-        width: 100%;
-        max-width: 200px;
+      .mobile-shoot {
+        display: flex;
       }
-    }
-    
-    /* Animations */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
-    
-    .shake {
-      animation: shake 0.5s;
-    }
-    
-    /* High scores table */
-    .high-scores {
-      width: 100%;
-      max-width: 600px;
-      margin-top: 2rem;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    
-    .high-scores-title {
-      background: rgba(0, 255, 255, 0.2);
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-    }
-    
-    .high-scores-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .high-score-item {
-      padding: 0.75rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .high-score-item:last-child {
-      border-bottom: none;
-    }
-    
-    .high-score-item:nth-child(odd) {
-      background: rgba(255, 255, 255, 0.03);
-    }
-    
-    .high-score-rank {
-      font-weight: 600;
-      color: cyan;
-      min-width: 30px;
-    }
-    
-    .high-score-name {
-      flex-grow: 1;
-      padding: 0 1rem;
-    }
-    
-    .high-score-value {
-      font-family: 'Fira Code', monospace;
-      font-weight: 600;
-    }
-    
-    .current-player {
-      background: rgba(0, 255, 255, 0.1) !important;
-      font-weight: 600;
     }
   </style>
 </head>
@@ -557,60 +245,32 @@
   <!-- Particle background -->
   <div id="particles-js"></div>
 
-  <!-- Navbar -->
-  <nav id="navbar" class="glass-nav">
-    <div class="container mx-auto px-4 flex justify-between items-center">
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="projects.html" class="nav-link">Projects</a>
-        <a href="photos.html" class="nav-link">Photography</a>
-        <a href="articles.html" class="nav-link">Articles</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="connect.html" class="nav-link">Connect</a>
-      </div>
-      <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="photos.html">Photography</a>
-      <a href="articles.html">Articles</a>
-      <a href="about.html">About</a>
-      <a href="connect.html">Connect</a>
-    </div>
-  </nav>
-
   <!-- Game Container -->
   <div class="game-container">
     <h1 class="game-title">SPACE INVADERS</h1>
-    <p class="game-subtitle">Defend Earth from alien invaders! Use arrow keys to move and spacebar to shoot.</p>
+    <p class="text-white opacity-80 mb-4 text-center max-w-2xl">Defend Earth from alien invaders! Collect power-ups and defeat the boss every 5 levels.</p>
     
     <div class="game-stats">
       <div class="stat-box">
-        <div class="stat-label">Score</div>
+        <div class="text-sm opacity-70 mb-1">Score</div>
         <div class="stat-value" id="score">0</div>
       </div>
       <div class="stat-box">
-        <div class="stat-label">Level</div>
+        <div class="text-sm opacity-70 mb-1">Level</div>
         <div class="stat-value" id="level">1</div>
       </div>
       <div class="stat-box">
-        <div class="stat-label">Lives</div>
+        <div class="text-sm opacity-70 mb-1">Lives</div>
         <div class="stat-value" id="lives">3</div>
       </div>
       <div class="stat-box">
-        <div class="stat-label">High Score</div>
+        <div class="text-sm opacity-70 mb-1">High Score</div>
         <div class="stat-value" id="highScore">0</div>
       </div>
     </div>
     
     <div class="game-canvas-container">
       <canvas id="gameCanvas" width="600" height="600"></canvas>
-      <div class="powerup-indicator" id="powerupIndicator">
-        <i class="fas fa-bolt"></i>
-      </div>
     </div>
     
     <div class="game-buttons">
@@ -620,50 +280,56 @@
       <button class="game-btn" id="soundBtn">Sound: ON</button>
     </div>
     
-    <div class="instructions">
-      <h3 class="instructions-title">How to Play</h3>
-      <ul class="instructions-list">
-        <li class="instructions-item">
-          <i class="fas fa-arrow-left"></i>
+    <div class="bg-white bg-opacity-5 border border-white border-opacity-10 rounded-xl p-6 mt-6 max-w-2xl">
+      <h3 class="text-xl font-bold mb-4 text-cyan-400">How to Play</h3>
+      <ul class="space-y-3">
+        <li class="flex items-start">
+          <i class="fas fa-arrow-left mr-3 mt-1 text-cyan-400"></i>
           <span>Move left with <strong>Left Arrow</strong> or <strong>A</strong> key</span>
         </li>
-        <li class="instructions-item">
-          <i class="fas fa-arrow-right"></i>
+        <li class="flex items-start">
+          <i class="fas fa-arrow-right mr-3 mt-1 text-cyan-400"></i>
           <span>Move right with <strong>Right Arrow</strong> or <strong>D</strong> key</span>
         </li>
-        <li class="instructions-item">
-          <i class="fas fa-arrow-up"></i>
+        <li class="flex items-start">
+          <i class="fas fa-arrow-up mr-3 mt-1 text-cyan-400"></i>
           <span>Shoot with <strong>Spacebar</strong> or <strong>Up Arrow</strong></span>
         </li>
-        <li class="instructions-item">
-          <i class="fas fa-bolt"></i>
+        <li class="flex items-start">
+          <i class="fas fa-bolt mr-3 mt-1 text-cyan-400"></i>
           <span>Collect power-ups for special abilities</span>
         </li>
-        <li class="instructions-item">
-          <i class="fas fa-skull"></i>
+        <li class="flex items-start">
+          <i class="fas fa-skull mr-3 mt-1 text-cyan-400"></i>
           <span>Defeat the boss every 5 levels to progress</span>
         </li>
       </ul>
     </div>
     
-    <div class="high-scores">
-      <div class="high-scores-title">
+    <div class="w-full max-w-2xl mt-6 bg-black bg-opacity-30 rounded-xl overflow-hidden">
+      <div class="bg-cyan-400 bg-opacity-20 px-4 py-3 font-bold flex justify-between">
         <span>High Scores</span>
         <span id="lastUpdated"></span>
       </div>
-      <ul class="high-scores-list" id="highScoresList">
+      <ul class="divide-y divide-white divide-opacity-10" id="highScoresList">
         <!-- Scores will be populated by JavaScript -->
       </ul>
     </div>
   </div>
   
+  <!-- Mobile controls -->
+  <div class="mobile-controls">
+    <div class="mobile-btn" id="mobileLeft"><i class="fas fa-arrow-left"></i></div>
+    <div class="mobile-btn" id="mobileRight"><i class="fas fa-arrow-right"></i></div>
+  </div>
+  <div class="mobile-shoot" id="mobileShoot"><i class="fas fa-arrow-up"></i></div>
+  
   <!-- Game Over Modal -->
   <div class="game-modal" id="gameOverModal">
     <div class="modal-content">
-      <span class="modal-close" onclick="closeModal('gameOverModal')">×</span>
       <h2 class="modal-title">GAME OVER</h2>
-      <p class="modal-text">Your final score: <span id="finalScore" class="font-bold">0</span></p>
-      <div id="newHighScore" style="display: none;">
+      <p class="text-white mb-4">Your final score: <span id="finalScore" class="font-bold">0</span></p>
+      <div id="newHighScore" class="hidden">
         <p class="text-cyan-400 mb-4">🎉 New High Score! 🎉</p>
         <div class="mb-4">
           <label for="playerName" class="block mb-2">Enter your name:</label>
@@ -677,29 +343,17 @@
   <!-- Level Up Modal -->
   <div class="game-modal" id="levelUpModal">
     <div class="modal-content">
-      <span class="modal-close" onclick="closeModal('levelUpModal')">×</span>
       <h2 class="modal-title">LEVEL <span id="levelDisplay">1</span> COMPLETE!</h2>
-      <p class="modal-text">Get ready for the next wave of invaders!</p>
+      <p class="text-white mb-4">Get ready for the next wave of invaders!</p>
       <button class="game-btn primary" onclick="closeModal('levelUpModal')">Continue</button>
-    </div>
-  </div>
-  
-  <!-- Boss Defeated Modal -->
-  <div class="game-modal" id="bossDefeatedModal">
-    <div class="modal-content">
-      <span class="modal-close" onclick="closeModal('bossDefeatedModal')">×</span>
-      <h2 class="modal-title">BOSS DEFEATED!</h2>
-      <p class="modal-text">You've earned an extra life and bonus points!</p>
-      <button class="game-btn primary" onclick="closeModal('bossDefeatedModal')">Continue</button>
     </div>
   </div>
   
   <!-- Power Up Modal -->
   <div class="game-modal" id="powerUpModal">
     <div class="modal-content">
-      <span class="modal-close" onclick="closeModal('powerUpModal')">×</span>
       <h2 class="modal-title">POWER UP!</h2>
-      <p class="modal-text" id="powerUpText">You've collected a power-up!</p>
+      <p class="text-white mb-4" id="powerUpText">You've collected a power-up!</p>
       <div class="text-4xl mb-4" id="powerUpIcon"></div>
       <button class="game-btn primary" onclick="closeModal('powerUpModal')">Got it!</button>
     </div>
@@ -709,13 +363,6 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Initialize AOS animations
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out',
-      once: true
-    });
-    
     // Initialize particle.js background
     document.addEventListener('DOMContentLoaded', function() {
       if (document.getElementById('particles-js')) {
@@ -736,9 +383,6 @@
               "stroke": {
                 "width": 0,
                 "color": "#000000"
-              },
-              "polygon": {
-                "nb_sides": 5
               }
             },
             "opacity": {
@@ -775,12 +419,7 @@
               "random": true,
               "straight": false,
               "out_mode": "out",
-              "bounce": false,
-              "attract": {
-                "enable": true,
-                "rotateX": 600,
-                "rotateY": 1200
-              }
+              "bounce": false
             }
           },
           "interactivity": {
@@ -795,82 +434,13 @@
                 "mode": "push"
               },
               "resize": true
-            },
-            "modes": {
-              "grab": {
-                "distance": 140,
-                "line_linked": {
-                  "opacity": 0.5
-                }
-              },
-              "bubble": {
-                "distance": 400,
-                "size": 40,
-                "duration": 2,
-                "opacity": 8,
-                "speed": 3
-              },
-              "repulse": {
-                "distance": 200,
-                "duration": 0.4
-              },
-              "push": {
-                "particles_nb": 4
-              },
-              "remove": {
-                "particles_nb": 2
-              }
             }
           },
           "retina_detect": true
         });
       }
-      
-      // Mobile menu toggle
-      const burger = document.getElementById('burger');
-      const mobileNav = document.getElementById('mobileNav');
-      
-      burger.addEventListener('click', () => {
-        burger.classList.toggle('open');
-        mobileNav.classList.toggle('open');
-        mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
-        
-        if (mobileNav.classList.contains('open')) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
-        }
-      });
-      
-      document.addEventListener('click', (e) => {
-        if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
-          burger.classList.remove('open');
-          mobileNav.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-          burger.classList.remove('open');
-          mobileNav.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      // Navbar scroll effect
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
     });
-    
+
     // Game Variables
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
@@ -882,7 +452,11 @@
     const levelDisplay = document.getElementById('level');
     const livesDisplay = document.getElementById('lives');
     const highScoreDisplay = document.getElementById('highScore');
-    const powerupIndicator = document.getElementById('powerupIndicator');
+    
+    // Mobile controls
+    const mobileLeft = document.getElementById('mobileLeft');
+    const mobileRight = document.getElementById('mobileRight');
+    const mobileShoot = document.getElementById('mobileShoot');
     
     // Game state
     let gameRunning = false;
@@ -891,8 +465,8 @@
     let score = 0;
     let level = 1;
     let lives = 3;
-    let highScore = localStorage.getItem('spaceInvadersHighScore') || 0;
-    let lastUpdated = localStorage.getItem('spaceInvadersLastUpdated') || 'Never';
+    let highScore = 0;
+    let lastUpdated = 'Never';
     
     // Player
     const player = {
@@ -928,7 +502,7 @@
       bulletSpeed: 5,
       lastShot: 0,
       shootDelay: 2000,
-      points: [10, 20, 30, 40, 50] // Points for each row
+      points: [50, 40, 30, 20, 10] // Points for each row (top to bottom)
     };
     
     // Boss
@@ -939,15 +513,15 @@
       width: 100,
       height: 40,
       speed: 3,
-      health: 10,
-      maxHealth: 10,
+      health: 15,
+      maxHealth: 15,
       color: '#ff00ff',
       direction: 1,
       bullets: [],
       bulletSpeed: 6,
       lastShot: 0,
       shootDelay: 1000,
-      points: 500
+      points: 1000
     };
     
     // Power-ups
@@ -999,10 +573,46 @@
             updateLives();
           },
           remove: function() {}
+        },
+        {
+          name: 'Bomb',
+          color: '#ff00ff',
+          icon: 'fa-bomb',
+          duration: 0, // Instant
+          apply: function() {
+            // Destroy all invaders on screen
+            for (let r = 0; r < invaders.grid.length; r++) {
+              for (let c = 0; c < invaders.grid[r].length; c++) {
+                if (invaders.grid[r][c]) {
+                  // Add explosion
+                  const invaderX = c * (invaders.width + invaders.padding) + invaders.offsetLeft;
+                  const invaderY = r * (invaders.height + invaders.padding) + invaders.offsetTop;
+                  
+                  explosions.push({
+                    x: invaderX + invaders.width / 2,
+                    y: invaderY + invaders.height / 2,
+                    radius: 15,
+                    alpha: 1,
+                    color: '#ffff00'
+                  });
+                  
+                  // Add score
+                  score += invaders.points[r];
+                  
+                  invaders.grid[r][c] = false;
+                }
+              }
+            }
+            updateScore();
+            
+            // Play sound
+            if (soundOn) sounds.explosion.play();
+          },
+          remove: function() {}
         }
       ],
       active: [],
-      spawnChance: 0.02 // 2% chance per invader killed
+      spawnChance: 0.03 // 3% chance per invader killed
     };
     
     // Explosions
@@ -1024,9 +634,6 @@
     Object.values(sounds).forEach(sound => {
       sound.volume = 0.3;
     });
-    
-    // High scores
-    let highScores = JSON.parse(localStorage.getItem('spaceInvadersHighScores')) || [];
     
     // Initialize game
     function initGame() {
@@ -1051,6 +658,8 @@
       invaders.bullets = [];
       invaders.speed = 1 + (level - 1) * 0.2;
       invaders.direction = 1;
+      invaders.offsetTop = 60;
+      invaders.offsetLeft = 30;
       
       // Reset boss
       boss.active = false;
@@ -1069,9 +678,6 @@
       updateLives();
       updateHighScore();
       updateHighScoresList();
-      
-      // Hide power-up indicator
-      powerupIndicator.classList.remove('active');
       
       // Draw initial state
       draw();
@@ -1141,23 +747,29 @@
     
     // Update game state
     function update() {
+      const now = Date.now();
+      
       // Move player
-      if (keys.ArrowLeft || keys.a) {
+      if (keys.ArrowLeft || keys.a || mobileLeft.pressed) {
         player.x = Math.max(0, player.x - player.speed);
       }
-      if (keys.ArrowRight || keys.d) {
+      if (keys.ArrowRight || keys.d || mobileRight.pressed) {
         player.x = Math.min(canvas.width - player.width, player.x + player.speed);
       }
       
       // Player shooting
-      const now = Date.now();
-      if ((keys.ArrowUp || keys.space || keys.w) && !player.isShooting && now - player.lastShot > player.shootDelay) {
+      if ((keys.ArrowUp || keys.space || keys.w || mobileShoot.pressed) && 
+          !player.isShooting && now - player.lastShot > player.shootDelay) {
         shoot();
         player.lastShot = now;
       }
       
       // Update player bullets
       for (let i = player.bullets.length - 1; i >= 0; i--) {
+        // Handle spread shot movement
+        if (player.bullets[i].speedX) {
+          player.bullets[i].x += player.bullets[i].speedX;
+        }
         player.bullets[i].y -= player.bulletSpeed;
         
         // Remove bullets that go off screen
@@ -1195,7 +807,7 @@
                 // Play sound
                 if (soundOn) sounds.explosion.play();
                 
-                // Add score
+                // Add score (more points for higher rows)
                 score += invaders.points[r];
                 updateScore();
                 
@@ -1255,12 +867,8 @@
               // Play sound
               if (soundOn) sounds.bossDefeat.play();
               
-              // Show boss defeated modal
-              showModal('bossDefeatedModal');
-              
-              // Give bonus
-              lives++;
-              updateLives();
+              // Show level complete
+              levelComplete();
             }
             
             continue;
@@ -1300,14 +908,16 @@
           // Play sound
           if (soundOn) sounds.explosion.play();
           
-          // Lose life
-          lives--;
-          updateLives();
-          
-          // Check for game over
-          if (lives <= 0) {
-            gameOver();
-            return;
+          // Lose life (unless shield is active)
+          if (player.powerUp !== 'Shield') {
+            lives--;
+            updateLives();
+            
+            // Check for game over
+            if (lives <= 0) {
+              gameOver();
+              return;
+            }
           }
           
           // Brief invulnerability
@@ -1326,7 +936,8 @@
       
       // Update boss bullets
       for (let i = boss.bullets.length - 1; i >= 0; i--) {
-        boss.bullets[i].y += boss.bulletSpeed;
+        boss.bullets[i].x += boss.bullets[i].speedX;
+        boss.bullets[i].y += boss.bullets[i].speedY;
         
         // Remove bullets that go off screen
         if (boss.bullets[i].y > canvas.height) {
@@ -1356,14 +967,16 @@
           // Play sound
           if (soundOn) sounds.explosion.play();
           
-          // Lose life
-          lives--;
-          updateLives();
-          
-          // Check for game over
-          if (lives <= 0) {
-            gameOver();
-            return;
+          // Lose life (unless shield is active)
+          if (player.powerUp !== 'Shield') {
+            lives--;
+            updateLives();
+            
+            // Check for game over
+            if (lives <= 0) {
+              gameOver();
+              return;
+            }
           }
           
           // Brief invulnerability
@@ -1405,7 +1018,7 @@
         if (moveDown) break;
       }
       
-      // If no invaders left, level complete
+      // If no invaders left and no boss, level complete
       if (!invadersLeft && !boss.active) {
         levelComplete();
         return;
@@ -1468,6 +1081,7 @@
           if (soundOn) sounds.invaderShoot.play();
           
           invaders.lastShot = now;
+          invaders.shootDelay = 1500 + Math.random() * 1000;
         }
       }
       
@@ -1502,12 +1116,6 @@
           boss.lastShot = now;
           boss.shootDelay = 800 + Math.random() * 700;
         }
-        
-        // Update boss bullets with spread
-        for (let i = 0; i < boss.bullets.length; i++) {
-          boss.bullets[i].x += boss.bullets[i].speedX;
-          boss.bullets[i].y += boss.bullets[i].speedY;
-        }
       }
       
       // Update power-ups
@@ -1536,11 +1144,6 @@
           player.powerUpEnd = now + powerUp.type.duration;
           powerUp.type.apply();
           
-          // Show power-up indicator
-          powerupIndicator.innerHTML = `<i class="fas ${powerUp.type.icon}"></i>`;
-          powerupIndicator.style.color = powerUp.type.color;
-          powerupIndicator.classList.add('active');
-          
           // Show power-up modal
           document.getElementById('powerUpText').textContent = `You've collected: ${powerUp.type.name}`;
           document.getElementById('powerUpIcon').innerHTML = `<i class="fas ${powerUp.type.icon}" style="color: ${powerUp.type.color}"></i>`;
@@ -1562,7 +1165,6 @@
         }
         
         player.powerUp = null;
-        powerupIndicator.classList.remove('active');
       }
       
       // Update explosions
@@ -1695,13 +1297,16 @@
       // Draw power-up timer if active
       if (player.powerUp) {
         const timeLeft = Math.max(0, player.powerUpEnd - Date.now());
-        const percentLeft = timeLeft / powerUps.types.find(p => p.name === player.powerUp).duration;
+        const powerUpType = powerUps.types.find(p => p.name === player.powerUp);
+        const percentLeft = powerUpType.duration > 0 ? timeLeft / powerUpType.duration : 1;
         
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-        ctx.fillRect(10, canvas.height - 20, canvas.width - 20, 10);
-        
-        ctx.fillStyle = powerupIndicator.style.color;
-        ctx.fillRect(10, canvas.height - 20, (canvas.width - 20) * percentLeft, 10);
+        if (powerUpType.duration > 0) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+          ctx.fillRect(10, canvas.height - 20, canvas.width - 20, 10);
+          
+          ctx.fillStyle = powerUpType.color;
+          ctx.fillRect(10, canvas.height - 20, (canvas.width - 20) * percentLeft, 10);
+        }
       }
     }
     
@@ -1808,40 +1413,14 @@
       // Check for new high score
       if (score > highScore) {
         highScore = score;
-        localStorage.setItem('spaceInvadersHighScore', highScore);
         updateHighScore();
         
-        document.getElementById('newHighScore').style.display = 'block';
+        document.getElementById('newHighScore').classList.remove('hidden');
       } else {
-        document.getElementById('newHighScore').style.display = 'none';
+        document.getElementById('newHighScore').classList.add('hidden');
       }
       
       showModal('gameOverModal');
-    }
-    
-    // Save high score
-    function saveHighScore(name) {
-      // Add new score
-      highScores.push({
-        name: name || 'Anonymous',
-        score: score,
-        date: new Date().toLocaleDateString()
-      });
-      
-      // Sort by score (descending)
-      highScores.sort((a, b) => b.score - a.score);
-      
-      // Keep only top 10
-      if (highScores.length > 10) {
-        highScores = highScores.slice(0, 10);
-      }
-      
-      // Save to localStorage
-      localStorage.setItem('spaceInvadersHighScores', JSON.stringify(highScores));
-      localStorage.setItem('spaceInvadersLastUpdated', new Date().toLocaleString());
-      
-      // Update display
-      updateHighScoresList();
     }
     
     // Update score display
@@ -1870,30 +1449,66 @@
       const lastUpdated = document.getElementById('lastUpdated');
       
       highScoresList.innerHTML = '';
-      lastUpdated.textContent = `Last updated: ${localStorage.getItem('spaceInvadersLastUpdated') || 'Never'}`;
       
-      if (highScores.length === 0) {
+      // Load high scores from localStorage
+      const savedScores = localStorage.getItem('spaceInvadersHighScores');
+      const scores = savedScores ? JSON.parse(savedScores) : [];
+      
+      if (scores.length === 0) {
         const item = document.createElement('li');
-        item.className = 'high-score-item';
+        item.className = 'px-4 py-3 text-center text-gray-400';
         item.textContent = 'No high scores yet!';
         highScoresList.appendChild(item);
       } else {
-        highScores.forEach((score, index) => {
+        scores.forEach((score, index) => {
           const item = document.createElement('li');
-          item.className = 'high-score-item';
-          if (score.score === highScore && score.name === (document.getElementById('playerName')?.value || 'Anonymous')) {
-            item.classList.add('current-player');
+          item.className = 'px-4 py-3 flex justify-between items-center';
+          if (index === 0) {
+            item.classList.add('bg-cyan-400', 'bg-opacity-10');
           }
           
           item.innerHTML = `
-            <span class="high-score-rank">${index + 1}</span>
-            <span class="high-score-name">${score.name}</span>
-            <span class="high-score-value">${score.score}</span>
+            <span class="font-bold ${index === 0 ? 'text-cyan-400' : ''}">${index + 1}.</span>
+            <span class="flex-1 px-4 ${index === 0 ? 'text-cyan-400' : ''}">${score.name}</span>
+            <span class="font-mono ${index === 0 ? 'text-cyan-400' : ''}">${score.score}</span>
           `;
           
           highScoresList.appendChild(item);
         });
       }
+      
+      // Update last updated time
+      const updated = localStorage.getItem('spaceInvadersLastUpdated');
+      lastUpdated.textContent = updated ? `Updated: ${updated}` : '';
+    }
+    
+    // Save high score
+    function saveHighScore(name) {
+      // Load existing scores
+      const savedScores = localStorage.getItem('spaceInvadersHighScores');
+      const scores = savedScores ? JSON.parse(savedScores) : [];
+      
+      // Add new score
+      scores.push({
+        name: name || 'Anonymous',
+        score: score,
+        date: new Date().toLocaleDateString()
+      });
+      
+      // Sort by score (descending)
+      scores.sort((a, b) => b.score - a.score);
+      
+      // Keep only top 10
+      const topScores = scores.slice(0, 10);
+      
+      // Save to localStorage
+      localStorage.setItem('spaceInvadersHighScores', JSON.stringify(topScores));
+      localStorage.setItem('spaceInvadersLastUpdated', new Date().toLocaleString());
+      
+      // Update high score
+      highScore = topScores[0]?.score || 0;
+      updateHighScore();
+      updateHighScoresList();
     }
     
     // Show modal
@@ -1934,17 +1549,64 @@
       keys[e.key] = false;
     });
     
+    // Mobile touch controls
+    mobileLeft.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      mobileLeft.pressed = true;
+    });
+    
+    mobileLeft.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      mobileLeft.pressed = false;
+    });
+    
+    mobileLeft.addEventListener('touchcancel', (e) => {
+      e.preventDefault();
+      mobileLeft.pressed = false;
+    });
+    
+    mobileRight.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      mobileRight.pressed = true;
+    });
+    
+    mobileRight.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      mobileRight.pressed = false;
+    });
+    
+    mobileRight.addEventListener('touchcancel', (e) => {
+      e.preventDefault();
+      mobileRight.pressed = false;
+    });
+    
+    mobileShoot.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      mobileShoot.pressed = true;
+    });
+    
+    mobileShoot.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      mobileShoot.pressed = false;
+    });
+    
+    mobileShoot.addEventListener('touchcancel', (e) => {
+      e.preventDefault();
+      mobileShoot.pressed = false;
+    });
+    
+    // Prevent touch scroll
+    document.addEventListener('touchmove', (e) => {
+      if (e.target === canvas || e.target === mobileLeft || e.target === mobileRight || e.target === mobileShoot) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+    
     // Button event listeners
     startBtn.addEventListener('click', startGame);
     pauseBtn.addEventListener('click', togglePause);
     resetBtn.addEventListener('click', resetGame);
     soundBtn.addEventListener('click', toggleSound);
-    
-    // Handle game over modal submission
-    document.getElementById('gameOverModal').addEventListener('submit', (e) => {
-      e.preventDefault();
-      closeModal('gameOverModal');
-    });
     
     // Initialize game
     initGame();
