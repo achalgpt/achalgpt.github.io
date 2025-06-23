@@ -522,7 +522,7 @@
                 tolerance: 10, // °C
                 unit: "°C",
                 clues: {
-                    tooLow: "Mars is colder than that!",
+                    tooLow: "Mars is not that cold!",
                     tooHigh: "Mars isn't quite that warm on average!",
                     close: "You're very close! Just a small adjustment needed."
                 }
@@ -705,6 +705,7 @@
         }
         
         // Check answer
+        // Check answer
         function checkAnswer(guess) {
             const data = gameData.level3;
             const difference = Math.abs(guess - data.correct);
@@ -723,7 +724,7 @@
                 // Provide a clue instead of the answer
                 let clue = "";
                 if (difference > data.tolerance * 2) {
-                    clue = guess < data.correct ? data.clues.tooLow : data.clues.tooHigh;
+                    clue = guess > data.correct ? data.clues.tooHigh : data.clues.tooLow;
                 } else {
                     clue = data.clues.close;
                 }
