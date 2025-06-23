@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Period Challenge</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        *::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            box-sizing: border-box;
+        }
+        
+        .game-screen {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 550px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #1abc9c;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .game-instruction {
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #1abc9c, #16a085);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4);
+        }
+        
+        .btn-next {
+            display: none;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Orbital Simulation */
+        .orbit-display {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            margin: 20px auto;
+            overflow: visible;
+            border-radius: 15px;
+            background: radial-gradient(circle at center, #1a1a2e, #000);
+        }
+        
+        .sun {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #f39c12, #e74c3c);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px #f39c12;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .planet-orbit {
+            position: absolute;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 300px;
+            max-height: 300px;
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px currentColor;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .planet-icon {
+            color: white;
+            font-size: 1rem;
+        }
+        
+        /* Planet Selector */
+        .planet-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .planet-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid transparent;
+            font-size: 1.5rem;
+        }
+        
+        .planet-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .planet-option.selected {
+            border: 2px solid white;
+            box-shadow: 0 0 20px currentColor;
+            transform: scale(1.1);
+        }
+        
+        /* Planet colors */
+        .mercury { background: radial-gradient(circle at 30% 30%, #b8b8b8, #5a5a5a); color: #b8b8b8; }
+        .venus { background: radial-gradient(circle at 30% 30%, #e6b800, #cc9900); color: #e6b800; }
+        .earth { background: radial-gradient(circle at 30% 30%, #4a8fe7, #0b3d91); color: #4a8fe7; }
+        .mars { background: radial-gradient(circle at 30% 30%, #e67e22, #c0392b); color: #e67e22; }
+        .jupiter { background: radial-gradient(circle at 30% 30%, #f1c40f, #d35400); color: #f1c40f; }
+        .saturn { background: radial-gradient(circle at 30% 30%, #f39c12, #e67e22); color: #f39c12; }
+        .uranus { background: radial-gradient(circle at 30% 30%, #1abc9c, #16a085); color: #1abc9c; }
+        .neptune { background: radial-gradient(circle at 30% 30%, #3498db, #2980b9); color: #3498db; }
+        
+        /* Time Controls */
+        .time-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .time-slider {
+            flex-grow: 1;
+            max-width: 300px;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #1abc9c, #16a085);
+            outline: none;
+        }
+        
+        .time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        .time-value {
+            min-width: 60px;
+            font-weight: bold;
+            color: #1abc9c;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            .game-screen {
+                padding: 15px;
+                min-height: 500px;
+            }
+            
+            .game-title {
+                font-size: 1.5rem;
+            }
+            
+            .orbit-display {
+                height: 200px;
+            }
+            
+            .planet-option {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle background -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <div class="game-screen glass">
+            <!-- Orbital Period Challenge -->
+            <div id="level8">
+                <h2 class="game-title">Orbital Period Challenge</h2>
+                <p class="game-instruction">
+                    Guess how many Earth days it takes for each planet to orbit the Sun! 
+                    Adjust the slider to simulate the orbit and test your knowledge.
+                </p>
+                
+                <div class="orbit-display">
+                    <div class="sun">
+                        <i class="fas fa-sun" style="color: white; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="planet-orbit" id="planetOrbit"></div>
+                    <div class="planet earth" id="planetDisplay">
+                        <i class="fas fa-globe-americas planet-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="planet-selector">
+                    <div class="planet-option mercury" data-planet="mercury"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option venus" data-planet="venus"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option earth" data-planet="earth"><i class="fas fa-globe-americas"></i></div>
+                    <div class="planet-option mars" data-planet="mars"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option jupiter" data-planet="jupiter"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option saturn" data-planet="saturn"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option uranus" data-planet="uranus"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option neptune" data-planet="neptune"><i class="fas fa-circle-notch"></i></div>
+                </div>
+                
+                <div class="time-controls">
+                    <span class="time-value" id="timeValue">365 days</span>
+                    <input type="range" min="10" max="1000" step="1" value="365" class="time-slider" id="timeSlider">
+                </div>
+                
+                <button class="btn" id="submitPeriod">Submit Orbital Period</button>
+                <button class="btn btn-next" id="nextLevel">Next Level →</button>
+                
+                <div class="result" id="orbitResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Game data for Level 8
+        const gameData = {
+            level8: {
+                planets: {
+                    "mercury": {
+                        name: "Mercury",
+                        period: 88,  // Earth days
+                        description: "Mercury orbits the Sun every 88 Earth days - the shortest year in our solar system!",
+                        icon: "fas fa-circle-notch",
+                        distance: 0.39,  // AU
+                        size: 10
+                    },
+                    "venus": {
+                        name: "Venus",
+                        period: 225,
+                        description: "Venus takes 225 Earth days to complete one orbit around the Sun.",
+                        icon: "fas fa-circle-notch",
+                        distance: 0.72,
+                        size: 15
+                    },
+                    "earth": {
+                        name: "Earth",
+                        period: 365,
+                        description: "Our home planet takes exactly 365.25 days to orbit the Sun, giving us our year.",
+                        icon: "fas fa-globe-americas",
+                        distance: 1,
+                        size: 15
+                    },
+                    "mars": {
+                        name: "Mars",
+                        period: 687,
+                        description: "Mars has a longer year than Earth - about 687 Earth days to orbit the Sun.",
+                        icon: "fas fa-circle-notch",
+                        distance: 1.52,
+                        size: 12
+                    },
+                    "jupiter": {
+                        name: "Jupiter",
+                        period: 4333,
+                        description: "Jupiter takes about 12 Earth years to orbit the Sun once!",
+                        icon: "fas fa-circle-notch",
+                        distance: 5.2,
+                        size: 30
+                    },
+                    "saturn": {
+                        name: "Saturn",
+                        period: 10759,
+                        description: "Saturn's orbital period is approximately 29.5 Earth years.",
+                        icon: "fas fa-circle-notch",
+                        distance: 9.58,
+                        size: 25
+                    },
+                    "uranus": {
+                        name: "Uranus",
+                        period: 30687,
+                        description: "Uranus takes about 84 Earth years to complete one orbit around the Sun.",
+                        icon: "fas fa-circle-notch",
+                        distance: 19.22,
+                        size: 20
+                    },
+                    "neptune": {
+                        name: "Neptune",
+                        period: 60190,
+                        description: "Neptune has the longest orbital period at about 165 Earth years!",
+                        icon: "fas fa-circle-notch",
+                        distance: 30.05,
+                        size: 20
+                    }
+                },
+                tolerance: 0.15,  // 15% tolerance
+                clues: {
+                    tooSlow: "This planet actually orbits faster than that!",
+                    tooFast: "This planet orbits more slowly than that!",
+                    close: "You're getting close! Adjust your period slightly."
+                }
+            }
+        };
+
+        // DOM elements
+        const planetDisplay = document.getElementById('planetDisplay');
+        const planetOrbit = document.getElementById('planetOrbit');
+        const planetOptions = document.querySelectorAll('.planet-option');
+        const timeSlider = document.getElementById('timeSlider');
+        const timeValue = document.getElementById('timeValue');
+        const submitPeriodBtn = document.getElementById('submitPeriod');
+        const orbitResult = document.getElementById('orbitResult');
+        const nextLevelBtn = document.getElementById('nextLevel');
+        
+        // Game state
+        let currentPlanet = "earth";
+        let currentAngle = 0;
+        let animationId = null;
+        let orbitRadius = 100;
+        
+        // Initialize game
+        function initGame() {
+            // Set up planet selection
+            planetOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const planet = option.getAttribute('data-planet');
+                    selectPlanet(planet);
+                });
+            });
+            
+            // Time slider
+            timeSlider.addEventListener('input', updateTime);
+            
+            // Submit button
+            submitPeriodBtn.addEventListener('click', checkOrbitalPeriod);
+            
+            nextLevelBtn.addEventListener('click', () => {
+                window.location.href = "level9.html";
+            });
+            
+            // Start with Earth
+            selectPlanet("earth");
+            
+            // Initialize particle.js background
+            if (document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#1abc9c"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 2,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#1abc9c",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": true,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.5
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        }
+        
+        // Select a planet
+        function selectPlanet(planet) {
+            // Stop any existing animation
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            
+            // Update UI
+            planetOptions.forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`.planet-option[data-planet="${planet}"]`).classList.add('selected');
+            
+            // Update planet display
+            const planetData = gameData.level8.planets[planet];
+            planetDisplay.className = `planet ${planet}`;
+            planetDisplay.innerHTML = `<i class="${planetData.icon} planet-icon"></i>`;
+            
+            // Set planet size
+            planetDisplay.style.width = `${planetData.size}px`;
+            planetDisplay.style.height = `${planetData.size}px`;
+            
+            // Set orbit size based on distance from sun (scaled for display)
+            // Limit maximum orbit radius to ensure visibility
+            const maxOrbitRadius = Math.min(planetData.distance * 80, 150);
+            orbitRadius = maxOrbitRadius;
+            planetOrbit.style.width = `${orbitRadius * 2}px`;
+            planetOrbit.style.height = `${orbitRadius * 2}px`;
+            
+            // Set slider to a value that's not the actual answer but reasonable
+            let initialGuess;
+            if (planetData.period < 100) {
+                initialGuess = Math.floor(planetData.period * 1.5); // 50% higher for small periods
+            } else if (planetData.period > 10000) {
+                initialGuess = Math.floor(planetData.period * 0.7); // 30% lower for huge periods
+            } else {
+                // For medium periods, choose between 70-130% of actual value randomly
+                const variation = 0.3 * Math.random() + 0.7;
+                initialGuess = Math.floor(planetData.period * variation);
+            }
+            
+            // Ensure guess is within slider bounds and not exactly correct
+            initialGuess = Math.max(10, Math.min(1000, initialGuess));
+            if (Math.abs(initialGuess - planetData.period) < 5) {
+                initialGuess += 20; // Add offset if too close to correct answer
+            }
+            
+            timeSlider.value = initialGuess;
+            updateTime();
+            
+            // Reset result display
+            orbitResult.style.display = 'none';
+            nextLevelBtn.style.display = 'none';
+            
+            // Store current planet
+            currentPlanet = planet;
+            
+            // Start orbit animation
+            animateOrbit();
+        }
+        
+        // Update time display
+        function updateTime() {
+            const days = parseInt(timeSlider.value);
+            timeValue.textContent = `${days} day${days !== 1 ? 's' : ''}`;
+            
+            // Update orbit speed
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animateOrbit();
+            }
+        }
+        
+        // Animate planet orbit
+        function animateOrbit() {
+            let angle = 0;
+            const planetElement = planetDisplay;
+            const speed = parseInt(timeSlider.value);
+            
+            // The slower the orbit (higher days), the slower the animation
+            const animationSpeed = 1 / (speed / 100);
+            
+            function animate() {
+                angle += 0.005 * animationSpeed;
+                const x = Math.cos(angle) * orbitRadius;
+                const y = Math.sin(angle) * orbitRadius;
+                
+                planetElement.style.left = `calc(50% + ${x}px)`;
+                planetElement.style.top = `calc(50% + ${y}px)`;
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // Check orbital period
+        function checkOrbitalPeriod() {
+            const planetData = gameData.level8.planets[currentPlanet];
+            const guess = parseInt(timeSlider.value);
+            const difference = Math.abs(guess - planetData.period) / planetData.period;
+            
+            orbitResult.style.display = 'block';
+            
+            if (difference <= gameData.level8.tolerance) {
+                orbitResult.className = 'result correct';
+                orbitResult.innerHTML = `
+                    <i class="fas fa-check-circle"></i> Correct! ${planetData.name} orbits the Sun every ${planetData.period} Earth days.
+                    ${planetData.description}
+                `;
+                nextLevelBtn.style.display = 'block';
+            } else {
+                orbitResult.className = 'result incorrect';
+                
+                // Provide a clue
+                let clue = "";
+                if (difference > gameData.level8.tolerance * 2) {
+                    clue = guess < planetData.period ? gameData.level8.clues.tooSlow : gameData.level8.clues.tooFast;
+                } else {
+                    clue = gameData.level8.clues.close;
+                }
+                
+                orbitResult.innerHTML = `
+                    <i class="fas fa-times-circle"></i> ${clue} Try again!
+                `;
+            }
+        }
+        
+        // Start the game when page loads
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
