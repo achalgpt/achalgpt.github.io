@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetary Rotation Challenge</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        *::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            box-sizing: border-box;
+        }
+        
+        .game-screen {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 550px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #9b59b6;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .game-instruction {
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+        
+        .btn-next {
+            display: none;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Planetary Rotation Display */
+        .rotation-display {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            background: radial-gradient(circle at center, #1a1a2e, #000);
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px currentColor;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease-out;
+        }
+        
+        .planet-icon {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Planet colors */
+        .mercury { background: radial-gradient(circle at 30% 30%, #b8b8b8, #5a5a5a); color: #b8b8b8; }
+        .venus { background: radial-gradient(circle at 30% 30%, #e6b800, #cc9900); color: #e6b800; }
+        .earth { background: radial-gradient(circle at 30% 30%, #4a8fe7, #0b3d91); color: #4a8fe7; }
+        .mars { background: radial-gradient(circle at 30% 30%, #e67e22, #c0392b); color: #e67e22; }
+        .jupiter { background: radial-gradient(circle at 30% 30%, #f1c40f, #d35400); color: #f1c40f; }
+        .saturn { background: radial-gradient(circle at 30% 30%, #f39c12, #e67e22); color: #f39c12; }
+        .uranus { background: radial-gradient(circle at 30% 30%, #1abc9c, #16a085); color: #1abc9c; }
+        .neptune { background: radial-gradient(circle at 30% 30%, #3498db, #2980b9); color: #3498db; }
+        
+        /* Planet Selector */
+        .planet-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .planet-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid transparent;
+            font-size: 1.5rem;
+        }
+        
+        .planet-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .planet-option.selected {
+            border: 2px solid white;
+            box-shadow: 0 0 20px currentColor;
+            transform: scale(1.1);
+        }
+        
+        /* Speed Controls */
+        .speed-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .speed-slider {
+            flex-grow: 1;
+            max-width: 300px;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            outline: none;
+        }
+        
+        .speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        .speed-value {
+            min-width: 60px;
+            font-weight: bold;
+            color: #9b59b6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            .game-screen {
+                padding: 15px;
+                min-height: 500px;
+            }
+            
+            .game-title {
+                font-size: 1.5rem;
+            }
+            
+            .rotation-display {
+                height: 200px;
+            }
+            
+            .planet-option {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle background -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <div class="game-screen glass">
+            <!-- Planetary Rotation Challenge -->
+            <div id="level7">
+                <h2 class="game-title">Planetary Rotation Challenge</h2>
+                <p class="game-instruction">
+                    Match each planet's rotation speed by adjusting the slider! 
+                    Observe how different planets rotate at vastly different speeds compared to Earth.
+                </p>
+                
+                <div class="rotation-display">
+                    <div class="planet earth" id="planetDisplay">
+                        <i class="fas fa-globe-americas planet-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="planet-selector">
+                    <div class="planet-option mercury" data-planet="mercury"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option venus" data-planet="venus"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option earth" data-planet="earth"><i class="fas fa-globe-americas"></i></div>
+                    <div class="planet-option mars" data-planet="mars"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option jupiter" data-planet="jupiter"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option saturn" data-planet="saturn"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option uranus" data-planet="uranus"><i class="fas fa-circle-notch"></i></div>
+                    <div class="planet-option neptune" data-planet="neptune"><i class="fas fa-circle-notch"></i></div>
+                </div>
+                
+                <div class="speed-controls">
+                    <span class="speed-value" id="speedValue">1x</span>
+                    <input type="range" min="0.1" max="10" step="0.1" value="1" class="speed-slider" id="speedSlider">
+                </div>
+                
+                <button class="btn" id="submitSpeed">Submit Rotation Speed</button>
+                <button class="btn btn-next" id="nextLevel">Next Level →</button>
+                
+                <div class="result" id="rotationResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Game data for Level 7
+        const gameData = {
+            level7: {
+                planets: {
+                    "mercury": {
+                        name: "Mercury",
+                        speed: 1.5,  // Relative to Earth's rotation
+                        description: "Mercury rotates once every 58.6 Earth days - a slow spin for a small planet!",
+                        icon: "fas fa-circle-notch"
+                    },
+                    "venus": {
+                        name: "Venus",
+                        speed: 0.004,  // Venus rotates backwards very slowly
+                        description: "Venus has the slowest rotation in the solar system, taking 243 Earth days to complete one rotation!",
+                        icon: "fas fa-circle-notch"
+                    },
+                    "earth": {
+                        name: "Earth",
+                        speed: 1,
+                        description: "Earth rotates at about 1,670 km/h at the equator, giving us our 24-hour day.",
+                        icon: "fas fa-globe-americas"
+                    },
+                    "mars": {
+                        name: "Mars",
+                        speed: 0.97,
+                        description: "Mars rotates at nearly the same speed as Earth, with a day lasting 24.6 hours.",
+                        icon: "fas fa-circle-notch"
+                    },
+                    "jupiter": {
+                        name: "Jupiter",
+                        speed: 2.4,
+                        description: "Despite its massive size, Jupiter is the fastest spinner, completing a rotation in just under 10 hours!",
+                        icon: "fas fa-circle-notch"
+                    },
+                    "saturn": {
+                        name: "Saturn",
+                        speed: 2.3,
+                        description: "Saturn rotates quickly too, with a day lasting about 10.7 hours.",
+                        icon: "fas fa-circle-notch"
+                    },
+                    "uranus": {
+                        name: "Uranus",
+                        speed: 1.4,
+                        description: "Uranus rotates on its side and completes a rotation every 17 hours.",
+                        icon: "fas fa-circle-notch"
+                    },
+                    "neptune": {
+                        name: "Neptune",
+                        speed: 1.5,
+                        description: "Neptune's rotation takes about 16 hours, similar to Uranus despite being smaller.",
+                        icon: "fas fa-circle-notch"
+                    }
+                },
+                tolerance: 0.2,
+                clues: {
+                    tooSlow: "This planet actually rotates faster than that!",
+                    tooFast: "This planet rotates more slowly than that!",
+                    close: "You're getting close! Adjust your speed slightly."
+                }
+            }
+        };
+
+        // DOM elements
+        const planetDisplay = document.getElementById('planetDisplay');
+        const planetOptions = document.querySelectorAll('.planet-option');
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        const submitSpeedBtn = document.getElementById('submitSpeed');
+        const rotationResult = document.getElementById('rotationResult');
+        const nextLevelBtn = document.getElementById('nextLevel');
+        
+        // Game state
+        let currentPlanet = "earth";
+        let currentRotation = null;
+        let animationId = null;
+        
+        // Initialize game
+        function initGame() {
+            // Set up planet selection
+            planetOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const planet = option.getAttribute('data-planet');
+                    selectPlanet(planet);
+                });
+            });
+            
+            // Speed slider
+            speedSlider.addEventListener('input', updateSpeed);
+            
+            // Submit button
+            submitSpeedBtn.addEventListener('click', checkRotationSpeed);
+            
+            nextLevelBtn.addEventListener('click', () => {
+                window.location.href = "level8.html";
+            });
+            
+            // Start with Earth
+            selectPlanet("earth");
+            
+            // Initialize particle.js background
+            if (document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#9b59b6"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 2,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#9b59b6",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": true,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.5
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        }
+        
+        // Select a planet
+        function selectPlanet(planet) {
+            // Stop any existing animation
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            
+            // Update UI
+            planetOptions.forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`.planet-option[data-planet="${planet}"]`).classList.add('selected');
+            
+            // Update planet display
+            const planetData = gameData.level7.planets[planet];
+            planetDisplay.className = `planet ${planet}`;
+            planetDisplay.innerHTML = `<i class="${planetData.icon} planet-icon"></i>`;
+            
+            // Set slider to planet's default speed
+            speedSlider.value = planet === "venus" ? 0.1 : 1; // Venus is too slow for default range
+            updateSpeed();
+            
+            // Reset result display
+            rotationResult.style.display = 'none';
+            nextLevelBtn.style.display = 'none';
+            
+            // Store current planet
+            currentPlanet = planet;
+            
+            // Start rotation animation
+            animatePlanet();
+        }
+        
+        // Update speed display
+        function updateSpeed() {
+            const speed = parseFloat(speedSlider.value);
+            speedValue.textContent = `${speed.toFixed(1)}x`;
+            
+            // Update rotation speed
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animatePlanet();
+            }
+        }
+        
+        // Animate planet rotation
+        function animatePlanet() {
+            let rotation = 0;
+            const speed = parseFloat(speedSlider.value);
+            const planetElement = planetDisplay;
+            
+            function animate() {
+                rotation += 0.5 * speed;
+                planetElement.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // Check rotation speed
+        function checkRotationSpeed() {
+            const planetData = gameData.level7.planets[currentPlanet];
+            const guess = parseFloat(speedSlider.value);
+            const difference = Math.abs(guess - planetData.speed);
+            
+            rotationResult.style.display = 'block';
+            
+            if (difference <= gameData.level7.tolerance) {
+                rotationResult.className = 'result correct';
+                rotationResult.innerHTML = `
+                    <i class="fas fa-check-circle"></i> Correct! ${planetData.name} rotates at ${planetData.speed.toFixed(3)}x Earth's speed.
+                    ${planetData.description}
+                `;
+                nextLevelBtn.style.display = 'block';
+            } else {
+                rotationResult.className = 'result incorrect';
+                
+                // Provide a clue
+                let clue = "";
+                if (difference > gameData.level7.tolerance * 2) {
+                    clue = guess < planetData.speed ? gameData.level7.clues.tooSlow : gameData.level7.clues.tooFast;
+                } else {
+                    clue = gameData.level7.clues.close;
+                }
+                
+                rotationResult.innerHTML = `
+                    <i class="fas fa-times-circle"></i> ${clue} Try again!
+                `;
+            }
+        }
+        
+        // Start the game when page loads
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
