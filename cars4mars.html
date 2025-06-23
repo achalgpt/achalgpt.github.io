@@ -218,47 +218,40 @@
     }
     
     .hero-container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      padding: 0 1rem;
-    }
-    
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      color: rgba(255, 255, 255, 0.9);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      animation: fadeIn 1s ease forwards;
-      padding: 0.5rem 1rem;
-      position: relative;
-      display: inline-block;
-    }
-    
-    .hero-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 70%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
-      transition: width 0.3s ease;
-    }
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .hero-container {
+    padding: 0;
+    height: 100vh;
+  }
+  
+  .hero-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
     
     .glow-button {
       display: inline-block;
@@ -580,44 +573,90 @@
       opacity: 1;
     }
     
-    .sticky-countdown {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 40;
-      background: rgba(26, 0, 0, 0.8);
-      border: 1px solid #ff6b35;
-      border-radius: 50px;
-      padding: 0.5rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      backdrop-filter: blur(10px);
-    }
-    
-    .sticky-countdown .countdown-value {
-      width: 40px;
-      height: 40px;
-      font-size: 1.2rem;
-      margin: 0;
-    }
-    
-    .sticky-countdown .countdown-label {
-      display: none;
-    }
-    
-    .sticky-countdown .mars-icon {
-      font-size: 1.5rem;
-      color: #ff6b35;
-    }
+.sticky-countdown {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(26, 0, 0, 0.9);
+  border: 1px solid #ff6b35;
+  border-radius: 50px;
+  padding: 0.5rem 1.5rem;
+  display: inline-flex; /* Changed from flex to inline-flex */
+  align-items: center;
+  gap: 0.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  width: auto; /* Explicitly set to auto */
+  max-width: 90%; /* Prevent it from getting too wide */
+}
+
+/* Keep all other .sticky-countdown child styles the same as before */
+
+.sticky-countdown .countdown-value {
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 107, 53, 0.2);
+  border: 1px solid rgba(255, 107, 53, 0.5);
+  border-radius: 12px;
+}
+
+.sticky-countdown .mars-icon {
+  font-size: 1.3rem;
+  color: #ff6b35;
+  flex-shrink: 0;
+}
+
+.sticky-countdown span {
+  color: white;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .sticky-countdown {
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+  }
+  
+  .sticky-countdown .countdown-value {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  .sticky-countdown span:not(:first-child):not(:last-child) {
+    display: none;
+  }
+  
+  .sticky-countdown .mars-icon {
+    font-size: 1.1rem;
+  }
+}
+
     
     @media (max-width: 768px) {
       .hero-container {
         flex-direction: column;
         text-align: center;
+        padding:0;
+        height: 100vh;
       }
-      
+      .hero-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+      }
       .countdown-container {
         flex-wrap: wrap;
       }
@@ -669,6 +708,7 @@
     margin: 0;
     padding: 0;
   }  
+
   </style>
 </head>
 <body>
@@ -701,54 +741,57 @@
   </nav>
 
     <!-- Hero Section -->
-  <section class="hero-container">
-    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
-      <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-        <h1 class="hero-title fade-in mars-text">Cars4Mars <span class="text-white">Earth-Built, Mars-Bound</span></h1>
-        <p class="text-xl opacity-90 mb-8 max-w-2xl" id="typewriter"></p>
-        
-        <div class="countdown-container glass p-4 rounded-xl">
-          <div class="countdown-item">
-            <div class="countdown-value" id="days">00</div>
-            <div class="countdown-label">Days</div>
-          </div>
-          <div class="countdown-item">
-            <div class="countdown-value" id="hours">00</div>
-            <div class="countdown-label">Hours</div>
-          </div>
-          <div class="countdown-item">
-            <div class="countdown-value" id="minutes">00</div>
-            <div class="countdown-label">Minutes</div>
-          </div>
-          <div class="countdown-item">
-            <div class="countdown-value" id="seconds">00</div>
-            <div class="countdown-label">Seconds</div>
-          </div>
+  <!-- Hero Section -->
+<section class="hero-container">
+  <div class="hero-content">
+    <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+      <h1 class="hero-title fade-in mars-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight mb-6">
+        Cars4Mars <span class="text-white">Earth-Built, Mars-Bound</span>
+      </h1>
+      <p class="text-xl opacity-90 mb-8 max-w-2xl" id="typewriter"></p>
+      
+      <div class="countdown-container glass p-4 rounded-xl">
+        <div class="countdown-item">
+          <div class="countdown-value" id="days">00</div>
+          <div class="countdown-label">Days</div>
         </div>
-        
-        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-          <a href="#about" class="glow-button mars-bg mars-border">Explore the Rover</a>
-          <a href="#" class="glow-button">Download Project Strategy Report</a>
+        <div class="countdown-item">
+          <div class="countdown-value" id="hours">00</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="minutes">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="seconds">00</div>
+          <div class="countdown-label">Seconds</div>
         </div>
       </div>
       
-      <div class="md:w-1/2" data-aos="fade-left">
-        <model-viewer 
-          src="Rover.glb" 
-          alt="Cars4Mars Rover" 
-          auto-rotate 
-          camera-controls 
-          shadow-intensity="1" 
-          exposure="0.9" 
-          style="width: 100%; height: 500px;"
-          class="rounded-xl"
-          id="rover-model"
-          camera-orbit="0deg 75deg 105%">
-        </model-viewer>
-        <div class="text-center mt-2 text-sm opacity-70">Interactive 3D Model - Drag to rotate, scroll to zoom</div>
+      <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+        <a href="#about" class="glow-button mars-bg mars-border">Explore the Rover</a>
+        <a href="project_strategy_report.pdf" class="glow-button" download>Download Project Strategy Report</a>
       </div>
     </div>
-  </section>
+    
+    <div class="md:w-1/2" data-aos="fade-left">
+      <model-viewer 
+        src="Rover.glb" 
+        alt="Cars4Mars Rover" 
+        auto-rotate 
+        camera-controls 
+        shadow-intensity="1" 
+        exposure="0.9" 
+        style="width: 100%; height: 500px;"
+        class="rounded-xl"
+        id="rover-model"
+        camera-orbit="0deg 75deg 105%">
+      </model-viewer>
+      <div class="text-center mt-2 text-sm opacity-70">Interactive 3D Model - Drag to rotate, scroll to zoom</div>
+    </div>
+  </div>
+</section>
 
 
 
@@ -758,25 +801,25 @@
     
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div>
-        <p class="text-lg mb-6">Cars4Mars is a 6-wheeled Mars terrain rover designed and constructed by students of the UCT Space Society for the African Rover Challenge 2025.</p>
-        <p class="mb-8">Built for science, engineering excellence, and planetary exploration readiness, this rover represents the cutting edge of student-led space technology development in Africa.</p>
+        <p class="text-lg mb-6">Cars4Mars is our student-led entry into the 2025 African Rover Challenge—a cutting-edge robotics competition where university teams from across the continent engineer semi-autonomous planetary rovers designed to operate on Martian terrain.</p>
+        <p class="text-lg mb-6">Our mission? To design, build, and test a rugged planetary rover from scratch, under tight resource and time constraints. The rover must tackle a series of real-world tasks—terrain traversal, object manipulation, autonomous navigation—all on dusty, Mars-like terrain. Think NASA, but DIY, and on a student budget.</p>
         
         <div class="grid grid-cols-2 gap-4">
           <div class="spec-card glass p-4">
-            <h3 class="font-bold mb-2 mars-text">Max Weight</h3>
-            <p class="text-2xl font-bold">40 kg</p>
+            <h3 class="font-bold mb-2 mars-text">Suspension</h3>
+            <p class="text-xl font-bold">Rocker-Bogie</p>
           </div>
           <div class="spec-card glass p-4">
-            <h3 class="font-bold mb-2 mars-text">Wheel Diameter</h3>
-            <p class="text-2xl font-bold">15 cm</p>
+            <h3 class="font-bold mb-2 mars-text">Drive System</h3>
+            <p class="text-xl font-bold">4WD Independent</p>
           </div>
           <div class="spec-card glass p-4">
-            <h3 class="font-bold mb-2 mars-text">Power System</h3>
-            <p class="text-xl font-bold">12.8V 24Ah LiFePO₄</p>
+            <h3 class="font-bold mb-2 mars-text">Weight</h3>
+            <p class="text-xl font-bold">30 kilograms</p>
           </div>
           <div class="spec-card glass p-4">
-            <h3 class="font-bold mb-2 mars-text">Steering</h3>
-            <p class="text-xl font-bold">Ackermann, 4-wheel</p>
+            <h3 class="font-bold mb-2 mars-text">Battery Runtime</h3>
+            <p class="text-xl font-bold">2 hours</p>
           </div>
         </div>
       </div>
@@ -849,7 +892,7 @@
           <div class="timeline-dot"></div>
           <div class="glass p-6 rounded-xl">
             <h3 class="text-xl font-bold mars-text">Final Design Report & Demo Video Due</h3>
-            <p class="text-gray-300 mt-2">Detailed engineering documentation and proof-of-concept demonstration.</p>
+            <p class="text-gray-300 mt-2">Detailed engineering documentation and rover demonstration.</p>
             <div class="mt-4 text-yellow-300">🟡 2 Aug 2025</div>
           </div>
         </div>
@@ -859,9 +902,9 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="glass p-6 rounded-xl">
-            <h3 class="text-xl font-bold mars-text">Prototype Testing Phase</h3>
-            <p class="text-gray-300 mt-2">Rigorous field testing of all rover systems.</p>
-            <div class="mt-4 text-blue-400">🔵 15 Sep 2025</div>
+            <h3 class="text-xl font-bold mars-text">Launch Stage Final</h3>
+            <p class="text-gray-300 mt-2">Live presentation of rover and project management methodology</p>
+            <div class="mt-4 text-blue-400">🔵 23 Aug 2025</div>
           </div>
         </div>
       </div>
@@ -870,9 +913,9 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="glass p-6 rounded-xl">
-            <h3 class="text-xl font-bold mars-text">Competition Event</h3>
-            <p class="text-gray-300 mt-2">African Rover Challenge 2025.</p>
-            <div class="mt-4 text-red-400">🔴 20 Oct 2025</div>
+            <h3 class="text-xl font-bold mars-text">Mars Stage</h3>
+            <p class="text-gray-300 mt-2">Travel to Johannesburg to compete with other teams</p>
+            <div class="mt-4 text-blue-400">🔵 20 Sep 2025</div>
           </div>
         </div>
       </div>
@@ -890,51 +933,483 @@
   </section>
 
 
-  <!-- Team Section -->
-  <section class="max-w-6xl mx-auto py-20" data-aos="fade-up">
-    <h2 class="section-heading">Team Showcase</h2>
-    
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="team-card glass p-6 text-center">
-        <img src="profile.png" alt="Achal Gupta" class="team-photo">
-        <h3 class="text-xl font-bold mars-text">Achal Gupta</h3>
-        <p class="text-gray-300 mb-4">Project Lead & Chairperson, UCT Space Society</p>
-        <div class="flex justify-center gap-4">
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fas fa-envelope"></i></a>
+<!-- Cosmic Team Section -->
+<section class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 overflow-hidden" data-aos="fade-up">
+  <!-- Cosmic Background Elements -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-[rgba(255,107,53,0.1)] filter blur-3xl animate-float-1"></div>
+    <div class="absolute top-3/4 right-1/4 w-40 h-40 rounded-full bg-[rgba(255,107,53,0.08)] filter blur-3xl animate-float-2"></div>
+    <div class="absolute bottom-1/3 left-1/2 w-28 h-28 rounded-full bg-[rgba(255,107,53,0.15)] filter blur-3xl animate-float-3"></div>
+  </div>
+  
+  <div class="relative z-10">
+    <h2 class="section-heading text-4xl md:text-5xl">
+      <span class="text-white">Mission</span> 
+      <span class="mars-text">Command</span>
+    </h2>
+    <p class="text-center max-w-2xl mx-auto text-lg text-gray-300 mb-16">The brilliant minds engineering humanity's interplanetary future</p>
+
+    <!-- Dual Leadership Core -->
+    <div class="relative flex flex-col lg:flex-row items-center justify-center gap-12 mb-24">
+      <!-- Cosmic Connection -->
+      <div class="absolute hidden lg:block w-full h-1 bg-gradient-to-r from-transparent via-mars-text/30 to-transparent top-1/2 left-0"></div>
+      
+      <!-- Achal Gupta Card -->
+      <div class="leader-orb commander-orb">
+        <div class="leader-orb-core glass-leader">
+          <div class="leader-orb-icon">
+            <i class="fas fa-rocket text-4xl mars-text"></i>
+          </div>
+          <div class="leader-orb-info">
+            <h3 class="leader-orb-name">Achal Gupta</h3>
+            <p class="leader-orb-title">Team Lead</p>
+            <div class="leader-orb-divider"></div>
+            <p class="leader-orb-quote"></p>
+          </div>
+          <div class="leader-orb-glow"></div>
         </div>
+        <div class="leader-orb-ring"></div>
+        <div class="leader-orb-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+      </div>
+    
+      
+      <!-- Irshaad Omar Card -->
+      <div class="leader-orb deputy-orb">
+        <div class="leader-orb-core glass-leader">
+          <div class="leader-orb-icon">
+            <i class="fas fa-microchip text-4xl mars-text"></i>
+          </div>
+          <div class="leader-orb-info">
+            <h3 class="leader-orb-name">Irshaad Omar</h3>
+            <p class="leader-orb-title">Team Lead</p>
+            <div class="leader-orb-divider"></div>
+            <p class="leader-orb-quote"></p>
+          </div>
+          <div class="leader-orb-glow"></div>
+        </div>
+        <div class="leader-orb-ring"></div>
+        <div class="leader-orb-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Department Showcase -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Systems Team -->
+      <div class="cosmic-card group">
+        <div class="cosmic-card-header">
+          <h3 class="text-xl font-bold mars-text">Systems and Integration</h3>
+          <div class="flex items-center mt-2">
+            <div class="cosmic-pulse-dot"></div>
+            <span class="text-sm text-gray-300">Francesca Fitzgerald</span>
+          </div>
+        </div>
+        <ul class="cosmic-team-list">
+          <li class="cosmic-team-member">Phoenix Tennant</li>
+          <li class="cosmic-team-member">Siyabonga Ground</li>
+          <li class="cosmic-team-member">Israel Mathivha</li>
+          <li class="cosmic-team-member">Boitseko Senamela</li>
+          <li class="cosmic-team-member">Shradha Inder</li>
+          <li class="cosmic-team-member">Mitali Lalla</li>
+        </ul>
       </div>
       
-      <div class="team-card glass p-6 text-center">
-        <img src="profile.png" alt="Team Member" class="team-photo">
-        <h3 class="text-xl font-bold mars-text">Irshaad Omar</h3>
-        <p class="text-gray-300 mb-4">Mechanical Lead</p>
-        <div class="flex justify-center gap-4">
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+      <!-- Electronics Team -->
+      <div class="cosmic-card group">
+        <div class="cosmic-card-header">
+          <h3 class="text-xl font-bold mars-text">Electronics and Power</h3>
+          <div class="flex items-center mt-2">
+            <div class="cosmic-pulse-dot"></div>
+            <span class="text-sm text-gray-300">Anesuishe Mukwacha</span>
+          </div>
         </div>
+        <ul class="cosmic-team-list">
+          <li class="cosmic-team-member">Siyabonga Ground</li>
+          <li class="cosmic-team-member">Mulweli Sithomola</li>
+          <li class="cosmic-team-member">Razaan Lagardien</li>
+          <li class="cosmic-team-member">Idah Sumbi</li>
+          <li class="cosmic-team-member">Shradha Inder</li>
+        </ul>
       </div>
       
-      <div class="team-card glass p-6 text-center">
-        <img src="profile.png" alt="Team Member" class="team-photo">
-        <h3 class="text-xl font-bold mars-text">Francesca Fitzgerald</h3>
-        <p class="text-gray-300 mb-4">Software Lead</p>
-        <div class="flex justify-center gap-4">
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+      <!-- Programming Team -->
+      <div class="cosmic-card group">
+        <div class="cosmic-card-header">
+          <h3 class="text-xl font-bold mars-text">Programming and Navigation</h3>
+          <div class="flex items-center mt-2">
+            <div class="cosmic-pulse-dot"></div>
+            <span class="text-sm text-gray-300">Sonwabile Baartman</span>
+          </div>
         </div>
+        <ul class="cosmic-team-list">
+          <li class="cosmic-team-member">Anesuishe Mukwacha</li>
+          <li class="cosmic-team-member">Ofunwa Munyai</li>
+          <li class="cosmic-team-member">Israel Mathivha</li>
+          <li class="cosmic-team-member">Amahle Mjiwu</li>
+        </ul>
+      </div>
+      
+      <!-- Mechanical Team -->
+      <div class="cosmic-card group">
+        <div class="cosmic-card-header">
+          <h3 class="text-xl font-bold mars-text">Mechanical Systems</h3>
+          <div class="flex items-center mt-2">
+            <div class="cosmic-pulse-dot"></div>
+            <span class="text-sm text-gray-300">Mulweli Sithomola</span>
+          </div>
+        </div>
+        <ul class="cosmic-team-list">
+          <li class="cosmic-team-member">Ofunwa Munyai</li>
+          <li class="cosmic-team-member">Muso Motaung</li>
+          <li class="cosmic-team-member">Phoenix Tennant</li>
+          <li class="cosmic-team-member">Israel Mathivha</li>
+          <li class="cosmic-team-member">Idah Sumbi</li>
+        </ul>
+      </div>
+      
+      <!-- Operations Team -->
+      <div class="cosmic-card group">
+        <div class="cosmic-card-header">
+          <h3 class="text-xl font-bold mars-text">Operations and Logistics</h3>
+          <div class="flex items-center mt-2">
+            <div class="cosmic-pulse-dot"></div>
+            <span class="text-sm text-gray-300">Phila Tondile</span>
+          </div>
+        </div>
+        <ul class="cosmic-team-list">
+          <li class="cosmic-team-member">Muso Motaung</li>
+          <li class="cosmic-team-member">Boitseko Senamela</li>
+          <li class="cosmic-team-member">Amahle Mjiwu</li>
+          <li class="cosmic-team-member">Razaan Lagardien</li>
+        </ul>
+      </div>
+      
+      <!-- Media Team -->
+      <div class="cosmic-card group">
+        <div class="cosmic-card-header">
+          <h3 class="text-xl font-bold mars-text">Cosmic Communications</h3>
+          <div class="flex items-center mt-2">
+            <div class="cosmic-pulse-dot"></div>
+            <span class="text-sm text-gray-300">Razaan Lagardien</span>
+          </div>
+        </div>
+        <ul class="cosmic-team-list">
+          <li class="cosmic-team-member">Francesca Fitzgerald</li>
+          <li class="cosmic-team-member">Phila Tondile</li>
+        </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<style>
+  /* Glassmorphism Leader Orb Styles */
+  .glass-leader {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(26, 0, 0, 0.7);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+  }
+  
+  .leader-orb {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    perspective: 1000px;
+  }
+  
+  .commander-orb {
+    --orb-color: rgba(255, 107, 53, 0.8);
+  }
+  
+  .deputy-orb {
+    --orb-color: rgba(255, 107, 53, 0.6);
+  }
+  
+  .leader-orb-core {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    z-index: 2;
+    overflow: hidden;
+  }
+  
+  .leader-orb:hover .leader-orb-core {
+    transform: scale(1.05) rotateY(10deg);
+    box-shadow: 0 0 50px rgba(255, 107, 53, 0.3);
+    background-color: rgba(26, 0, 0, 0.8);
+  }
+  
+  .leader-orb-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 107, 53, 0.1);
+    border: 2px solid var(--orb-color);
+    transition: all 0.5s ease;
+  }
+  
+  .leader-orb:hover .leader-orb-icon {
+    transform: scale(1.1);
+    background: rgba(255, 107, 53, 0.2);
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+  }
+  
+  .leader-orb-ring {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    border: 2px dashed var(--orb-color);
+    opacity: 0.5;
+    animation: rotate-ring 60s linear infinite;
+    z-index: 1;
+  }
+  
+  .leader-orb-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: white;
+  }
+  
+  .leader-orb-title {
+    font-size: 1rem;
+    color: var(--orb-color);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .leader-orb-divider {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--orb-color), transparent);
+    margin: 0.75rem auto;
+  }
+  
+  .leader-orb-quote {
+    font-style: italic;
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+  
+  .leader-orb-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--orb-color) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+  }
+  
+  .leader-orb:hover .leader-orb-glow {
+    opacity: 0.1;
+  }
+  
+  .leader-orb-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+  }
+  
+  .leader-orb-particles .particle {
+    position: absolute;
+    background: var(--orb-color);
+    border-radius: 50%;
+    opacity: 0;
+  }
+  
+  .leader-orb:hover .particle {
+    opacity: 0.6;
+    animation: float-particle 4s infinite;
+  }
+  
+  @keyframes rotate-ring {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes float-particle {
+    0% { transform: translate(0, 0); opacity: 0; }
+    20% { opacity: 0.6; }
+    100% { transform: translate(random(60) - 30px, random(60) - 30px); opacity: 0; }
+  }
+
+  /* Cosmic Animations */
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(1.1); }
+  }
+  @keyframes float-1 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-10px) translateX(-5px); }
+  }
+  @keyframes float-2 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(10px) translateX(5px); }
+  }
+  @keyframes float-3 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-15px) translateX(0); }
+  }
+  @keyframes float-4 {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(5px) translateX(-5px); }
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .animate-float-1 {
+    animation: float-1 8s ease-in-out infinite;
+  }
+  .animate-float-2 {
+    animation: float-2 7s ease-in-out infinite;
+  }
+  .animate-float-3 {
+    animation: float-3 9s ease-in-out infinite;
+  }
+  .animate-float-4 {
+    animation: float-4 6s ease-in-out infinite;
+  }
+  
+  /* Cosmic Card Styles */
+  .cosmic-card {
+    background: linear-gradient(145deg, rgba(26,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  .cosmic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(255,107,53,0.1);
+    border-color: rgba(255,107,53,0.4);
+  }
+  .cosmic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,107,53,0.8), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .cosmic-card:hover::before {
+    opacity: 1;
+  }
+  .cosmic-card-header {
+    background: linear-gradient(90deg, rgba(26,0,0,0.9) 0%, rgba(0,0,0,0.9) 100%);
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,107,53,0.2);
+  }
+  .cosmic-pulse-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff6b35;
+    margin-right: 8px;
+    box-shadow: 0 0 10px #ff6b35;
+    animation: pulse-slow 2s infinite;
+  }
+  .cosmic-team-list {
+    padding: 1.5rem;
+    background: rgba(10,0,0,0.5);
+  }
+  .cosmic-team-member {
+    position: relative;
+    padding: 0.75rem 0 0.75rem 1.75rem;
+    border-bottom: 1px solid rgba(255,107,53,0.05);
+    transition: all 0.3s ease;
+  }
+  .cosmic-team-member:last-child {
+    border-bottom: none;
+  }
+  .cosmic-team-member::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,107,53,0.7);
+    transition: all 0.3s ease;
+  }
+  .cosmic-team-member:hover {
+    padding-left: 2rem;
+    color: white;
+  }
+  .cosmic-team-member:hover::before {
+    background: #ff6b35;
+    box-shadow: 0 0 8px #ff6b35;
+    transform: translateY(-50%) scale(1.3);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .leader-orb {
+      width: 240px;
+      height: 240px;
+    }
     
-    <div class="mt-12 text-center">
-      <button id="viewAllBtn" class="glow-button">View Full Team</button>
-    </div>
+    .leader-orb-icon {
+      width: 70px;
+      height: 70px;
+      font-size: 1.8rem;
+    }
     
-    <div id="fullTeam" class="hidden mt-8 grid md:grid-cols-3 gap-8">
-      <!-- Additional team members would appear here when button is clicked -->
-    </div>
-  </section>
+    .leader-orb-name {
+      font-size: 1.3rem;
+    }
+    
+    .leader-orb-title {
+      font-size: 0.9rem;
+    }
+    
+    .leader-orb-quote {
+      font-size: 0.8rem;
+    }
+  }
+</style>
 
   <!-- Gallery Section -->
   <section class="max-w-6xl mx-auto py-20" data-aos="fade-up">
@@ -992,12 +1467,8 @@
   <!-- Mission Section -->
   <section class="max-w-4xl mx-auto py-20 text-center" data-aos="fade-up">
     <blockquote class="text-2xl md:text-3xl italic mb-8">
-      "To imagine tomorrow's world, we build it — one wheel, one line of code, and one sleepless night at a time."
+      "The future isn’t found in the stars; it’s forged by hands willing to build what others only dream of."
     </blockquote>
-    
-    <p class="text-lg">
-      This project represents hands-on learning, cross-discipline teamwork, and bold imagination. We're not waiting for the future — we're designing it. From Cape Town to Mars, Cars4Mars is just the beginning.
-    </p>
   </section>
 
   <!-- Contact Section -->
@@ -1016,19 +1487,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Sticky Countdown -->
-  <div class="sticky-countdown" id="stickyCountdown">
-    <i class="fas fa-rocket mars-icon"></i>
-    <div class="countdown-value" id="sticky-days">00</div>
-    <span>:</span>
-    <div class="countdown-value" id="sticky-hours">00</div>
-    <span>:</span>
-    <div class="countdown-value" id="sticky-minutes">00</div>
-    <span>:</span>
-    <div class="countdown-value" id="sticky-seconds">00</div>
-    <span class="ml-2">Countdown to Mars Stage</span>
-  </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -1195,21 +1653,7 @@
         }
       });
       
-      // Typewriter effect
-      const typewriterText = "UCT's Interplanetary Rover for the African Rover Challenge 2025";
-      const typewriterElement = document.getElementById('typewriter');
-      let i = 0;
-      
-      function typeWriter() {
-        if (i < typewriterText.length) {
-          typewriterElement.innerHTML += typewriterText.charAt(i);
-          i++;
-          setTimeout(typeWriter, 50);
-        }
-      }
-      
-      typeWriter();
-      
+   
       // Countdown timer
       const countdownDate = new Date("Aug 2, 2025 00:00:00").getTime();
       
