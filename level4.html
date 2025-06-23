@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Quiz Level 1</title>
+    <title>Space Quiz Level 4</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -257,7 +257,7 @@
         .game-title {
             font-size: 1.8rem;
             margin-bottom: 15px;
-            color: #4facfe;
+            color: #f9d71c;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -269,7 +269,7 @@
         }
         
         .btn {
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(to right, #f9d71c, #f9b71c);
             border: none;
             color: white;
             padding: 12px 25px;
@@ -285,12 +285,12 @@
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+            box-shadow: 0 5px 15px rgba(249, 215, 28, 0.4);
         }
         
         .btn-next {
             display: none;
-            background: linear-gradient(to right, #f9d71c, #f9b71c);
+            background: linear-gradient(to right, #5ab3e8, #4fd0b5);
         }
         
         .btn-restart {
@@ -323,65 +323,71 @@
             color: #e74c3c;
         }
         
-        /* Level 1: Earth-Moon Distance */
-        .distance-container {
+        /* Level 4: Saturn Rings */
+        .rings-container {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         
-        .planet-display {
+        .saturn-display {
             position: relative;
-            width: 100%;
-            height: 150px;
-            margin-bottom: 30px;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
         }
         
-        .earth-planet {
+        .saturn-planet {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle at 30% 30%, #4a8fe7, #0b3d91);
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, #e3d7bf, #b8a98f);
             border-radius: 50%;
-            left: 20%;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 20px rgba(74, 143, 231, 0.7);
+            top: 40px;
+            left: 40px;
+            box-shadow: 0 0 20px rgba(227, 215, 191, 0.7);
             z-index: 2;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
-        .moon-planet {
+        .saturn-ring {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle at 30% 30%, #ccc, #888);
+            width: 150px;
+            height: 30px;
+            border: 8px solid rgba(227, 215, 191, 0.7);
             border-radius: 50%;
-            left: 40%;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            z-index: 1;
-            transition: left 0.5s ease-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            top: 85px;
+            left: 25px;
+            transform: rotateX(60deg);
+            transition: all 0.5s ease-out;
         }
         
-        .distance-slider {
+        .saturn-ring-inner {
+            position: absolute;
+            width: 150px;
+            height: 30px;
+            border: 5px solid rgba(227, 215, 191, 0.5);
+            border-radius: 50%;
+            top: 85px;
+            left: 25px;
+            transform: rotateX(60deg);
+            transition: all 0.5s ease-out;
+        }
+        
+        .ring-slider {
             width: 100%;
             max-width: 400px;
             margin: 20px 0;
             -webkit-appearance: none;
             height: 10px;
             border-radius: 5px;
-            background: linear-gradient(to right, #4a8fe7, #00f2fe);
+            background: linear-gradient(to right, #bdc3c7, #e3d7bf);
             outline: none;
         }
         
-        .distance-slider::-webkit-slider-thumb {
+        .ring-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 25px;
@@ -392,11 +398,11 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
         
-        .distance-value {
+        .ring-value {
             font-size: 1.2rem;
             margin: 10px 0;
             font-weight: bold;
-            color: #4facfe;
+            color: #f9d71c;
         }
         
         /* Responsive */
@@ -414,18 +420,22 @@
                 font-size: 1.5rem;
             }
             
-            .planet-display {
-                height: 120px;
+            .saturn-display {
+                width: 150px;
+                height: 150px;
             }
             
-            .earth-planet {
-                width: 50px;
-                height: 50px;
+            .saturn-planet {
+                width: 90px;
+                height: 90px;
+                top: 30px;
+                left: 30px;
             }
             
-            .moon-planet {
-                width: 15px;
-                height: 15px;
+            .saturn-ring, .saturn-ring-inner {
+                width: 120px;
+                top: 60px;
+                left: 15px;
             }
         }
     </style>
@@ -466,68 +476,68 @@
 
     <div class="container">
         <div class="game-screen glass">
-            <!-- Level 1: Earth-Moon Distance -->
-            <div class="distance-container" id="level1">
-                <h2 class="game-title">Moon Distance Challenge</h2>
+            <!-- Level 4: Saturn Rings -->
+            <div class="rings-container" id="level4">
+                <h2 class="game-title">Saturn's Rings Challenge</h2>
                 <p class="game-instruction">
-                    How far is the Moon from Earth? Slide to adjust the distance and test your cosmic knowledge!
+                    How wide are Saturn's rings compared to its diameter? Adjust the rings!
                 </p>
                 
-                <div class="planet-display">
-                    <div class="earth-planet">
-                        <i class="fas fa-globe-americas" style="color: white; font-size: 1.5rem;"></i>
+                <div class="saturn-display">
+                    <div class="saturn-planet">
+                        <i class="fas fa-globe" style="color: #8b6b4a; font-size: 2.5rem;"></i>
                     </div>
-                    <div class="moon-planet" id="moon">
-                        <i class="fas fa-moon" style="color: #ddd; font-size: 0.7rem;"></i>
-                    </div>
+                    <div class="saturn-ring" id="saturnRing"></div>
+                    <div class="saturn-ring-inner" id="saturnRingInner"></div>
                 </div>
                 
-                <input type="range" min="1000" max="1000000" value="69420" class="distance-slider" id="distanceSlider">
-                <div class="distance-value" id="distanceValue">384,400 km</div>
+                <input type="range" min="150" max="280" value="150" class="ring-slider" id="ringSlider">
+                <div class="ring-value" id="ringValue">1.5x planet width</div>
                 
-                <button class="btn" id="guessDistance">Submit Answer</button>
-                <button class="btn btn-next" id="nextLevel1">Next Level →</button>
+                <button class="btn" id="guessRings">Submit Answer</button>
+                <button class="btn btn-next" id="nextLevel4">Next Level →</button>
                 
-                <div class="result" id="distanceResult"></div>
+                <div class="result" id="ringResult"></div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Game data for Level 1
+        // Game data for Level 4
         const gameData = {
-            level1: {
-                correct: 384400, // km
-                tolerance: 50000, // km
-                unit: "km",
+            level4: {
+                correct: 280, // ring width
+                tolerance: 30,
+                unit: "x planet width",
                 clues: {
-                    tooLow: "The Moon is actually farther away than that!",
-                    tooHigh: "That's too far - the Moon is closer than that!",
-                    close: "You're getting close! Adjust your guess a bit."
+                    tooLow: "Saturn's rings are actually wider than that!",
+                    tooHigh: "That's too wide - the rings aren't quite that extensive!",
+                    close: "You're very close! Just a small adjustment needed."
                 }
             }
         };
 
         // DOM elements
-        const distanceSlider = document.getElementById('distanceSlider');
-        const distanceValue = document.getElementById('distanceValue');
-        const moon = document.getElementById('moon');
-        const guessDistanceBtn = document.getElementById('guessDistance');
-        const distanceResult = document.getElementById('distanceResult');
-        const nextLevel1Btn = document.getElementById('nextLevel1');
+        const ringSlider = document.getElementById('ringSlider');
+        const ringValue = document.getElementById('ringValue');
+        const saturnRing = document.getElementById('saturnRing');
+        const saturnRingInner = document.getElementById('saturnRingInner');
+        const guessRingsBtn = document.getElementById('guessRings');
+        const ringResult = document.getElementById('ringResult');
+        const nextLevel4Btn = document.getElementById('nextLevel4');
         
         // Initialize game
         function initGame() {
-            // Level 1 setup
-            distanceSlider.addEventListener('input', updateDistance);
-            guessDistanceBtn.addEventListener('click', () => checkAnswer(parseInt(distanceSlider.value)));
-            nextLevel1Btn.addEventListener('click', () => {
-                window.location.href = 'level2.html';
+            // Level 4 setup
+            ringSlider.addEventListener('input', updateRings);
+            guessRingsBtn.addEventListener('click', () => checkAnswer(parseInt(ringSlider.value)));
+            nextLevel4Btn.addEventListener('click', () => {
+                window.location.href = 'level5.html';
             });
             
             // Initial update
-            updateDistance();
+            updateRings();
             
             // Initialize particle.js background
             if (document.getElementById('particles-js')) {
@@ -541,7 +551,7 @@
                             }
                         },
                         "color": {
-                            "value": "#4facfe"
+                            "value": "#f9d71c"
                         },
                         "shape": {
                             "type": "circle",
@@ -573,7 +583,7 @@
                         "line_linked": {
                             "enable": true,
                             "distance": 150,
-                            "color": "#4facfe",
+                            "color": "#f9d71c",
                             "opacity": 0.4,
                             "width": 1
                         },
@@ -666,31 +676,37 @@
             });
         }
         
-        // Update distance display
-        function updateDistance() {
-            const value = distanceSlider.value;
-            distanceValue.textContent = `${Number(value).toLocaleString()} km`;
+        // Update rings display - now only changes width and thickness, not height
+        function updateRings() {
+            const value = ringSlider.value;
+            const ratio = (value / 100).toFixed(1);
+            ringValue.textContent = `${ratio}x planet width`;
             
-            // Update moon position (cap at 80% to prevent going off screen)
-            const percentage = Math.min((value / distanceSlider.max) * 100, 80);
-            moon.style.left = `calc(40% + ${percentage * 0.6}%)`;
+            // Update ring width and thickness only (not height)
+            saturnRing.style.width = `${value}px`;
+            saturnRing.style.borderWidth = `${8 + (value - 150) / 10}px`;
+            saturnRing.style.left = `${(200 - value) / 2}px`;
+            
+            saturnRingInner.style.width = `${value}px`;
+            saturnRingInner.style.borderWidth = `${5 + (value - 150) / 15}px`;
+            saturnRingInner.style.left = `${(200 - value) / 2}px`;
         }
         
         // Check answer
         function checkAnswer(guess) {
-            const data = gameData.level1;
+            const data = gameData.level4;
             const difference = Math.abs(guess - data.correct);
             
-            distanceResult.style.display = 'block';
+            ringResult.style.display = 'block';
             
             if (difference <= data.tolerance) {
-                distanceResult.className = 'result correct';
-                distanceResult.innerHTML = `
-                    <i class="fas fa-check-circle"></i> Correct! The average distance is 384,400 km!
+                ringResult.className = 'result correct';
+                ringResult.innerHTML = `
+                    <i class="fas fa-check-circle"></i> Correct! Saturn's rings are about 2.8x the planet's diameter!
                 `;
-                nextLevel1Btn.style.display = 'block';
+                nextLevel4Btn.style.display = 'block';
             } else {
-                distanceResult.className = 'result incorrect';
+                ringResult.className = 'result incorrect';
                 
                 // Provide a clue instead of the answer
                 let clue = "";
@@ -700,7 +716,7 @@
                     clue = data.clues.close;
                 }
                 
-                distanceResult.innerHTML = `
+                ringResult.innerHTML = `
                     <i class="fas fa-times-circle"></i> ${clue} Try again!
                 `;
             }

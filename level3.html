@@ -543,8 +543,7 @@
             tempSlider.addEventListener('input', updateTemp);
             guessTempBtn.addEventListener('click', () => checkAnswer(parseInt(tempSlider.value)));
             nextLevelBtn.addEventListener('click', () => {
-                // In a real implementation, this would redirect to the next level
-                alert("Congratulations! You've completed this challenge!");
+                window.location.href = 'level4.html';
             });
             
             // Initial update
