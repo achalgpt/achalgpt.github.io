@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Quiz Level 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        *::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-nav {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 1.5rem;
+            }
+            .burger {
+                display: none;
+            }
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 70%;
+        }
+        
+        .nav-link.active {
+            color: #fff;
+        }
+        
+        .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .burger {
+            cursor: pointer;
+            width: 28px;
+            height: 21px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1100;
+            position: relative;
+        }
+        
+        .burger span {
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: 0.3s;
+            transform-origin: left center;
+        }
+        
+        .burger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(0px, -2px);
+        }
+        
+        .burger.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(0px, 2px);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1050;
+            padding: 2rem 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-nav.open {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .mobile-nav a {
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 1.25rem;
+            margin: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .mobile-nav a:hover::after {
+            width: 50%;
+        }
+        
+        .mobile-nav a.active {
+            color: #fff;
+        }
+        
+        .mobile-nav a.active::after {
+            width: 50%;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            box-sizing: border-box;
+        }
+        
+        .game-screen {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #4facfe;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .game-instruction {
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+        }
+        
+        .btn-next {
+            display: none;
+            background: linear-gradient(to right, #f9d71c, #f9b71c);
+        }
+        
+        .btn-restart {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Level 1: Earth-Moon Distance */
+        .distance-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .planet-display {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            margin-bottom: 30px;
+        }
+        
+        .earth-planet {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #4a8fe7, #0b3d91);
+            border-radius: 50%;
+            left: 20%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 20px rgba(74, 143, 231, 0.7);
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .moon-planet {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, #ccc, #888);
+            border-radius: 50%;
+            left: 40%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            z-index: 1;
+            transition: left 0.5s ease-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .distance-slider {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px 0;
+            -webkit-appearance: none;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #4a8fe7, #00f2fe);
+            outline: none;
+        }
+        
+        .distance-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .distance-value {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #4facfe;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            .game-screen {
+                padding: 15px;
+                min-height: 400px;
+            }
+            
+            .game-title {
+                font-size: 1.5rem;
+            }
+            
+            .planet-display {
+                height: 120px;
+            }
+            
+            .earth-planet {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .moon-planet {
+                width: 15px;
+                height: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle background -->
+    <div id="particles-js"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="glass-nav">
+        <div class="nav-container">
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link active">Projects</a>
+                <a href="photos.html" class="nav-link">Photography</a>
+                <a href="articles.html" class="nav-link">Mind Space</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="connect.html" class="nav-link">Connect</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="photos.html">Photography</a>
+            <a href="articles.html">Mind Space</a>
+            <a href="about.html">About</a>
+            <a href="connect.html">Connect</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="game-screen glass">
+            <!-- Level 1: Earth-Moon Distance -->
+            <div class="distance-container" id="level1">
+                <h2 class="game-title">Moon Distance Challenge</h2>
+                <p class="game-instruction">
+                    How far is the Moon from Earth? Slide to adjust the distance and test your cosmic knowledge!
+                </p>
+                
+                <div class="planet-display">
+                    <div class="earth-planet">
+                        <i class="fas fa-globe-americas" style="color: white; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="moon-planet" id="moon">
+                        <i class="fas fa-moon" style="color: #ddd; font-size: 0.7rem;"></i>
+                    </div>
+                </div>
+                
+                <input type="range" min="1000" max="1000000" value="384400" class="distance-slider" id="distanceSlider">
+                <div class="distance-value" id="distanceValue">384,400 km</div>
+                
+                <button class="btn" id="guessDistance">Submit Answer</button>
+                <button class="btn btn-next" id="nextLevel1">Next Level →</button>
+                
+                <div class="result" id="distanceResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Game data for Level 1
+        const gameData = {
+            level1: {
+                correct: 384400, // km
+                tolerance: 50000, // km
+                unit: "km",
+                clues: {
+                    tooLow: "The Moon is actually farther away than that!",
+                    tooHigh: "That's too far - the Moon is closer than that!",
+                    close: "You're getting close! Adjust your guess a bit."
+                }
+            }
+        };
+
+        // DOM elements
+        const distanceSlider = document.getElementById('distanceSlider');
+        const distanceValue = document.getElementById('distanceValue');
+        const moon = document.getElementById('moon');
+        const guessDistanceBtn = document.getElementById('guessDistance');
+        const distanceResult = document.getElementById('distanceResult');
+        const nextLevel1Btn = document.getElementById('nextLevel1');
+        
+        // Initialize game
+        function initGame() {
+            // Level 1 setup
+            distanceSlider.addEventListener('input', updateDistance);
+            guessDistanceBtn.addEventListener('click', () => checkAnswer(parseInt(distanceSlider.value)));
+            nextLevel1Btn.addEventListener('click', () => {
+                window.location.href = 'level2.html';
+            });
+            
+            // Initial update
+            updateDistance();
+            
+            // Initialize particle.js background
+            if (document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#4facfe"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 2,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#4facfe",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": true,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.5
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+            
+            // Mobile menu toggle
+            const burger = document.getElementById('burger');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('open');
+                mobileNav.classList.toggle('open');
+                mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
+                
+                if (mobileNav.classList.contains('open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
+                    burger.classList.remove('open');
+                    mobileNav.classList.remove('open');
+                    mobileNav.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+                    burger.classList.remove('open');
+                    mobileNav.classList.remove('open');
+                    mobileNav.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+        
+        // Update distance display
+        function updateDistance() {
+            const value = distanceSlider.value;
+            distanceValue.textContent = `${Number(value).toLocaleString()} km`;
+            
+            // Update moon position (cap at 80% to prevent going off screen)
+            const percentage = Math.min((value / distanceSlider.max) * 100, 80);
+            moon.style.left = `calc(40% + ${percentage * 0.6}%)`;
+        }
+        
+        // Check answer
+        function checkAnswer(guess) {
+            const data = gameData.level1;
+            const difference = Math.abs(guess - data.correct);
+            
+            distanceResult.style.display = 'block';
+            
+            if (difference <= data.tolerance) {
+                distanceResult.className = 'result correct';
+                distanceResult.innerHTML = `
+                    <i class="fas fa-check-circle"></i> Correct! The average distance is 384,400 km!
+                `;
+                nextLevel1Btn.style.display = 'block';
+            } else {
+                distanceResult.className = 'result incorrect';
+                
+                // Provide a clue instead of the answer
+                let clue = "";
+                if (difference > data.tolerance * 2) {
+                    clue = guess < data.correct ? data.clues.tooLow : data.clues.tooHigh;
+                } else {
+                    clue = data.clues.close;
+                }
+                
+                distanceResult.innerHTML = `
+                    <i class="fas fa-times-circle"></i> ${clue} Try again!
+                `;
+            }
+        }
+        
+        // Start the game when page loads
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

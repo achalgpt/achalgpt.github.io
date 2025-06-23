@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Quiz Level 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        *::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-nav {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 1.5rem;
+            }
+            .burger {
+                display: none;
+            }
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 70%;
+        }
+        
+        .nav-link.active {
+            color: #fff;
+        }
+        
+        .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .burger {
+            cursor: pointer;
+            width: 28px;
+            height: 21px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1100;
+            position: relative;
+        }
+        
+        .burger span {
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: 0.3s;
+            transform-origin: left center;
+        }
+        
+        .burger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(0px, -2px);
+        }
+        
+        .burger.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(0px, 2px);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1050;
+            padding: 2rem 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-nav.open {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .mobile-nav a {
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 1.25rem;
+            margin: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .mobile-nav a:hover::after {
+            width: 50%;
+        }
+        
+        .mobile-nav a.active {
+            color: #fff;
+        }
+        
+        .mobile-nav a.active::after {
+            width: 50%;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            box-sizing: border-box;
+        }
+        
+        .game-screen {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #f9d71c;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .game-instruction {
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #f9d71c 0%, #f9b71c 100%);
+            border: none;
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(249, 215, 28, 0.4);
+        }
+        
+        .btn-next {
+            display: none;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+        }
+        
+        .btn-restart {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Level 2: Jupiter Mass */
+        .mass-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .jar-container {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 20px auto;
+        }
+        
+        .jar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(232, 181, 122, 0.1);
+            border-radius: 10px 10px 50px 50px;
+            border: 3px solid #e8b57a;
+            overflow: hidden;
+        }
+        
+        .jar-label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #e8b57a;
+            z-index: 2;
+        }
+        
+        .earth-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 0%;
+            background-color: rgba(74, 143, 231, 0.3);
+            transition: height 0.5s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            justify-content: center;
+            padding: 10px;
+            gap: 5px;
+            overflow: hidden;
+        }
+        
+        .earth-ball {
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle at 30% 30%, #4a8fe7, #0b3d91);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(74, 143, 231, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.7rem;
+            position: relative;
+            animation: dropIn 0.5s ease-out forwards;
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        
+        @keyframes dropIn {
+            0% { transform: translateY(-100px); opacity: 0; }
+            80% { transform: translateY(10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .earth-ball.bounce {
+            animation: dropInBounce 0.8s cubic-bezier(0.5, 1.5, 0.5, 1) forwards;
+        }
+        
+        @keyframes dropInBounce {
+            0% { transform: translateY(-100px); opacity: 0; }
+            50% { transform: translateY(20px); opacity: 1; }
+            70% { transform: translateY(-10px); }
+            85% { transform: translateY(5px); }
+            95% { transform: translateY(-2px); }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .mass-slider {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px 0;
+            -webkit-appearance: none;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #4a8fe7, #e8b57a);
+            outline: none;
+        }
+        
+        .mass-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .mass-value {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #f9d71c;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            .game-screen {
+                padding: 15px;
+                min-height: 400px;
+            }
+            
+            .game-title {
+                font-size: 1.5rem;
+            }
+            
+            .jar-container {
+                width: 150px;
+                height: 200px;
+            }
+            
+            .earth-ball {
+                width: 25px;
+                height: 25px;
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle background -->
+    <div id="particles-js"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="glass-nav">
+        <div class="nav-container">
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link active">Projects</a>
+                <a href="photos.html" class="nav-link">Photography</a>
+                <a href="articles.html" class="nav-link">Mind Space</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="connect.html" class="nav-link">Connect</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="photos.html">Photography</a>
+            <a href="articles.html">Mind Space</a>
+            <a href="about.html">About</a>
+            <a href="connect.html">Connect</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="game-screen glass">
+            <!-- Level 2: Jupiter Mass -->
+            <div class="mass-container" id="level2">
+                <h2 class="game-title">Jupiter Mass Challenge</h2>
+                <p class="game-instruction">
+                    How many Earths could fit inside Jupiter? Fill the jar to match Jupiter's mass!
+                </p>
+                
+                <div class="jar-container">
+                    <div class="jar">
+                        <div class="jar-label">Jupiter</div>
+                        <div class="earth-fill" id="earthFill"></div>
+                    </div>
+                </div>
+                
+                <input type="range" min="0" max="500" value="0" class="mass-slider" id="massSlider">
+                <div class="mass-value" id="massValue">0 Earths</div>
+                
+                <button class="btn" id="guessMass">Submit Answer</button>
+                <button class="btn btn-next" id="nextLevel2">Next Level →</button>
+                
+                <div class="result" id="massResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Game data for Level 2
+        const gameData = {
+            level2: {
+                correct: 318, // Earth masses
+                tolerance: 20,
+                unit: "Earths",
+                clues: {
+                    tooLow: "Jupiter can hold more Earths than that!",
+                    tooHigh: "That's too many - Jupiter is massive but not that massive!",
+                    close: "Almost there! Try adjusting slightly."
+                }
+            }
+        };
+
+        // DOM elements
+        const massSlider = document.getElementById('massSlider');
+        const massValue = document.getElementById('massValue');
+        const earthFill = document.getElementById('earthFill');
+        const guessMassBtn = document.getElementById('guessMass');
+        const massResult = document.getElementById('massResult');
+        const nextLevel2Btn = document.getElementById('nextLevel2');
+        
+        // Initialize game
+        function initGame() {
+            // Level 2 setup
+            massSlider.addEventListener('input', updateMass);
+            guessMassBtn.addEventListener('click', () => checkAnswer(parseInt(massSlider.value)));
+            nextLevel2Btn.addEventListener('click', () => {
+                window.location.href = 'level3.html';
+            });
+            
+            // Initial update
+            updateMass();
+            
+            // Initialize particle.js background
+            if (document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#f9d71c"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 2,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#f9d71c",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": true,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.5
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+            
+            // Mobile menu toggle
+            const burger = document.getElementById('burger');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('open');
+                mobileNav.classList.toggle('open');
+                mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
+                
+                if (mobileNav.classList.contains('open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
+                    burger.classList.remove('open');
+                    mobileNav.classList.remove('open');
+                    mobileNav.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+                    burger.classList.remove('open');
+                    mobileNav.classList.remove('open');
+                    mobileNav.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+        
+        // Update mass display
+        function updateMass() {
+            const value = massSlider.value;
+            massValue.textContent = `${value} Earth${value != 1 ? 's' : ''}`;
+            
+            // Update jar fill percentage
+            const fillPercentage = Math.min((value / massSlider.max) * 100, 100);
+            earthFill.style.height = `${fillPercentage}%`;
+            
+            // Clear previous earth balls
+            earthFill.innerHTML = '';
+            
+            // Calculate how many earths to show (limit to 50 visible)
+            const earthsToShow = Math.min(value, 50);
+            const rows = Math.ceil(earthsToShow / 5);
+            const visibleRows = Math.min(rows, 5); // Show max 5 rows
+            
+            // Create earth balls with bounce animation
+            for (let i = 0; i < earthsToShow; i++) {
+                const earthBall = document.createElement('div');
+                earthBall.className = 'earth-ball bounce';
+                earthBall.textContent = i < 30 ? i + 1 : ''; // Only number first 30
+                earthBall.style.animationDelay = `${i * 0.05}s`;
+                earthFill.appendChild(earthBall);
+            }
+        }
+        
+        // Check answer
+        function checkAnswer(guess) {
+            const data = gameData.level2;
+            const difference = Math.abs(guess - data.correct);
+            
+            massResult.style.display = 'block';
+            
+            if (difference <= data.tolerance) {
+                massResult.className = 'result correct';
+                massResult.innerHTML = `
+                    <i class="fas fa-check-circle"></i> Correct! Jupiter's mass equals about 318 Earths!
+                `;
+                nextLevel2Btn.style.display = 'block';
+            } else {
+                massResult.className = 'result incorrect';
+                
+                // Provide a clue instead of the answer
+                let clue = "";
+                if (difference > data.tolerance * 2) {
+                    clue = guess < data.correct ? data.clues.tooLow : data.clues.tooHigh;
+                } else {
+                    clue = data.clues.close;
+                }
+                
+                massResult.innerHTML = `
+                    <i class="fas fa-times-circle"></i> ${clue} Try again!
+                `;
+            }
+        }
+        
+        // Start the game when page loads
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
