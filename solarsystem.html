@@ -162,6 +162,7 @@
   <div class="loading-screen" id="loadingScreen">
     <div class="loading-spinner"></div>
     <p>Loading Solar System Simulation...</p>
+    <p id="loadingStatus" class="text-sm mt-2"></p>
   </div>
 
   <!-- Main Content -->
@@ -386,187 +387,205 @@
     
     // Solar System Simulation
     document.addEventListener('DOMContentLoaded', () => {
-      // Scene setup
-      const container = document.getElementById('solar-system-container');
       const loadingScreen = document.getElementById('loadingScreen');
+      const loadingStatus = document.getElementById('loadingStatus');
       
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      // First check if Three.js loaded properly
+      if (!window.THREE) {
+        loadingStatus.textContent = "Error: Three.js failed to load. Please check your internet connection.";
+        return;
+      }
+
+      loadingStatus.textContent = "Initializing 3D environment...";
       
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      container.appendChild(renderer.domElement);
-      
+      try {
+        // Scene setup  
+        const container = document.getElementById('solar-system-container');
+        
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        
+        loadingStatus.textContent = "Setting up renderer...";
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
       // Camera controls
-      const controls = new THREE.OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.05;
-      controls.minDistance = 5;
-      controls.maxDistance = 100;
+        loadingStatus.textContent = "Setting up controls...";
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.minDistance = 5;
+        controls.maxDistance = 100;
       
       // Lighting
-      const ambientLight = new THREE.AmbientLight(0x404040);
-      scene.add(ambientLight);
-      
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(5, 3, 5);
-      scene.add(directionalLight);
-      
-      // Sun
-      const sunGeometry = new THREE.SphereGeometry(2, 32, 32);
-      const sunMaterial = new THREE.MeshBasicMaterial({
-        color: 0xfdb813,
-        emissive: 0xfdb813,
-        emissiveIntensity: 1
-      });
-      const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-      scene.add(sun);
-      
-      // Planets data
-      const planets = [
-        {
-          name: "Mercury",
-          radius: 0.4,
-          distance: 5,
-          color: 0xb3b3b3,
-          speed: 0.04,
-          tilt: 0.1,
-          info: "The smallest planet in our solar system and closest to the Sun. Mercury is only slightly larger than Earth's Moon."
-        },
-        {
-          name: "Venus",
-          radius: 0.6,
-          distance: 7,
-          color: 0xe6e6e6,
-          speed: 0.015,
-          tilt: 177.4,
-          info: "Similar in size to Earth, Venus has a toxic atmosphere of carbon dioxide with clouds of sulfuric acid."
-        },
-        {
-          name: "Earth",
-          radius: 0.6,
-          distance: 10,
-          color: 0x3498db,
-          speed: 0.01,
-          tilt: 23.4,
-          info: "Our home planet is the only known place in the universe confirmed to host life."
-        },
-        {
-          name: "Mars",
-          radius: 0.5,
-          distance: 15,
-          color: 0xe67e22,
-          speed: 0.008,
-          tilt: 25.2,
-          info: "The Red Planet is dusty, cold desert world with a very thin atmosphere."
-        },
-        {
-          name: "Jupiter",
-          radius: 1.4,
-          distance: 20,
-          color: 0xf1c40f,
-          speed: 0.002,
-          tilt: 3.1,
-          info: "More than twice as massive as all other planets combined, Jupiter is a gas giant."
-        },
-        {
-          name: "Saturn",
-          radius: 1.2,
-          distance: 25,
-          color: 0xf39c12,
-          speed: 0.0009,
-          tilt: 26.7,
-          info: "Adorned with a dazzling ring system, Saturn is unique among the planets."
-        },
-        {
-          name: "Uranus",
-          radius: 0.8,
-          distance: 30,
-          color: 0x1abc9c,
-          speed: 0.0004,
-          tilt: 97.8,
-          info: "Uranus rotates at a nearly 90-degree angle from the plane of its orbit."
-        },
-        {
-          name: "Neptune",
-          radius: 0.8,
-          distance: 35,
-          color: 0x3498db,
-          speed: 0.0001,
-          tilt: 28.3,
-          info: "Neptune is dark, cold and whipped by supersonic winds of frozen methane."
-        }
-      ];
-      
-      // Create planets
-      const planetMeshes = [];
-      const orbitLines = [];
-      
-      planets.forEach((planet, index) => {
-        // Planet mesh
-        const geometry = new THREE.SphereGeometry(planet.radius, 32, 32);
-        const material = new THREE.MeshPhongMaterial({ 
-          color: planet.color,
-          shininess: 10
-        });
-        const planetMesh = new THREE.Mesh(geometry, material);
+        loadingStatus.textContent = "Setting up lighting...";
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
         
-        // Position planet
-        planetMesh.position.x = planet.distance;
-        planetMesh.userData = { planetInfo: planet };
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 3, 5);
+        scene.add(directionalLight);
+        
+        // Sun
+        loadingStatus.textContent = "Creating sun...";
+        const sunGeometry = new THREE.SphereGeometry(2, 32, 32);
+        const sunMaterial = new THREE.MeshBasicMaterial({
+          color: 0xfdb813,
+          emissive: 0xfdb813,
+          emissiveIntensity: 1
+        });
+        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+        scene.add(sun);
+
+      // Planets data
+        loadingStatus.textContent = "Preparing planets data...";
+        const planets = [
+          {
+            name: "Mercury",
+            radius: 0.4,
+            distance: 5,
+            color: 0xb3b3b3,
+            speed: 0.04,
+            tilt: 0.1,
+            info: "The smallest planet in our solar system and closest to the Sun. Mercury is only slightly larger than Earth's Moon."
+          },
+          {
+            name: "Venus",
+            radius: 0.6,
+            distance: 7,
+            color: 0xe6e6e6,
+            speed: 0.015,
+            tilt: 177.4,
+            info: "Similar in size to Earth, Venus has a toxic atmosphere of carbon dioxide with clouds of sulfuric acid."
+          },
+          {
+            name: "Earth",
+            radius: 0.6,
+            distance: 10,
+            color: 0x3498db,
+            speed: 0.01,
+            tilt: 23.4,
+            info: "Our home planet is the only known place in the universe confirmed to host life."
+          },
+          {
+            name: "Mars",
+            radius: 0.5,
+            distance: 15,
+            color: 0xe67e22,
+            speed: 0.008,
+            tilt: 25.2,
+            info: "The Red Planet is dusty, cold desert world with a very thin atmosphere."
+          },
+          {
+            name: "Jupiter",
+            radius: 1.4,
+            distance: 20,
+            color: 0xf1c40f,
+            speed: 0.002,
+            tilt: 3.1,
+            info: "More than twice as massive as all other planets combined, Jupiter is a gas giant."
+          },
+          {
+            name: "Saturn",
+            radius: 1.2,
+            distance: 25,
+            color: 0xf39c12,
+            speed: 0.0009,
+            tilt: 26.7,
+            info: "Adorned with a dazzling ring system, Saturn is unique among the planets."
+          },
+          {
+            name: "Uranus",
+            radius: 0.8,
+            distance: 30,
+            color: 0x1abc9c,
+            speed: 0.0004,
+            tilt: 97.8,
+            info: "Uranus rotates at a nearly 90-degree angle from the plane of its orbit."
+          },
+          {
+            name: "Neptune",
+            radius: 0.8,
+            distance: 35,
+            color: 0x3498db,
+            speed: 0.0001,
+            tilt: 28.3,
+            info: "Neptune is dark, cold and whipped by supersonic winds of frozen methane."
+          }
+        ];
+        
+      // Create planets
+        loadingStatus.textContent = "Creating planets...";
+        const planetMeshes = [];
+        const orbitLines = [];
+        
+        planets.forEach((planet, index) => {
+          // Planet mesh
+          const geometry = new THREE.SphereGeometry(planet.radius, 32, 32);
+          const material = new THREE.MeshPhongMaterial({ 
+            color: planet.color,
+            shininess: 10
+          });
+          const planetMesh = new THREE.Mesh(geometry, material);
+          
+          // Position planet
+          planetMesh.position.x = planet.distance;
+          planetMesh.userData = { planetInfo: planet };
         
         // Add to scene
-        scene.add(planetMesh);
-        planetMeshes.push(planetMesh);
+          scene.add(planetMesh);
+          planetMeshes.push(planetMesh);
+          
+          // Orbit line
+          const orbitGeometry = new THREE.BufferGeometry();
+          const orbitMaterial = new THREE.LineBasicMaterial({ 
+            color: 0xffffff, 
+            transparent: true,
+            opacity: 0.3
+          });
         
-        // Orbit line
-        const orbitGeometry = new THREE.BufferGeometry();
-        const orbitMaterial = new THREE.LineBasicMaterial({ 
-          color: 0xffffff, 
-          transparent: true,
-          opacity: 0.3
+          const points = [];
+          const segments = 64;
+          for (let i = 0; i <= segments; i++) {
+            const theta = (i / segments) * Math.PI * 2;
+            points.push(new THREE.Vector3(
+              planet.distance * Math.cos(theta),
+              0,
+              planet.distance * Math.sin(theta)
+            );
+          }
+          
+          orbitGeometry.setFromPoints(points);
+          const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial);
+          scene.add(orbitLine);
+          orbitLines.push(orbitLine);
         });
-        
-        const points = [];
-        const segments = 64;
-        for (let i = 0; i <= segments; i++) {
-          const theta = (i / segments) * Math.PI * 2;
-          points.push(new THREE.Vector3(
-            planet.distance * Math.cos(theta),
-            0,
-            planet.distance * Math.sin(theta)
-          );
-        }
-        
-        orbitGeometry.setFromPoints(points);
-        const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial);
-        scene.add(orbitLine);
-        orbitLines.push(orbitLine);
-      });
       
       // Stars background
-      const starGeometry = new THREE.BufferGeometry();
-      const starMaterial = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: 0.1,
-        transparent: true
-      });
+        loadingStatus.textContent = "Creating starfield...";
+        const starGeometry = new THREE.BufferGeometry();
+        const starMaterial = new THREE.PointsMaterial({
+          color: 0xffffff,
+          size: 0.1,
+          transparent: true
+        });
+        
+        const starVertices = [];
+        for (let i = 0; i < 1000; i++) {
+          const x = (Math.random() - 0.5) * 2000;
+          const y = (Math.random() - 0.5) * 2000;
+          const z = (Math.random() - 0.5) * 2000;
+          starVertices.push(x, y, z);
+        }
       
-      const starVertices = [];
-      for (let i = 0; i < 1000; i++) {
-        const x = (Math.random() - 0.5) * 2000;
-        const y = (Math.random() - 0.5) * 2000;
-        const z = (Math.random() - 0.5) * 2000;
-        starVertices.push(x, y, z);
-      }
-      
-      starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-      const stars = new THREE.Points(starGeometry, starMaterial);
-      scene.add(stars);
-      
-      // Camera position
-      camera.position.z = 50;
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+        
+        // Camera position
+        camera.position.z = 50;
       
       // Animation variables
       let speedFactor = 1;
@@ -666,14 +685,20 @@
         renderer.setSize(container.clientWidth, container.clientHeight);
       });
       
-      // Hide loading screen when everything is loaded
-      setTimeout(() => {
-        loadingScreen.style.opacity = '0';
+        // Hide loading screen when everything is ready
+        loadingStatus.textContent = "Ready!";
         setTimeout(() => {
-          loadingScreen.style.display = 'none';
-          animate();
+          loadingScreen.style.opacity = '0';
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            animate(); // Start the animation loop
+          }, 500);
         }, 500);
-      }, 2000);
+        
+      } catch (error) {
+        loadingStatus.textContent = `Error: ${error.message}`;
+        console.error("Solar System Error:", error);
+      }
     });
   </script>
 </body>
