@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Achal Gupta</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="videos/favicon.png">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: white;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .code-font {
+      font-family: 'Fira Code', monospace;
+    }
+
+    .centered-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .glow-button {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease-in-out;
+      font-weight: 600;
+    }
+
+    .glow-button:hover, .glow-button:focus {
+      box-shadow: 0 0 12px white;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: white;
+      color: white;
+    }
+
+    .typed-text::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <!-- Centered Content -->
+  <div class="centered-content">
+    <h1 class="text-5xl sm:text-6xl font-bold mb-4">
+      <span id="typed-name" class="code-font"></span>
+    </h1>
+    <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-8 text-gray-300" data-aos="fade-up" data-aos-delay="150">
+      Mechatronics Engineer. Photographer. Dreamer. This portfolio is a window into what drives me.
+    </p>
+    <div class="flex flex-wrap justify-center gap-3" data-aos="fade-up" data-aos-delay="300">
+      <a href="projects.html" class="glow-button px-4 py-2 rounded-xl m-2">Projects</a>
+      <a href="photos.html" class="glow-button px-4 py-2 rounded-xl m-2">Photography</a>
+      <a href="articles.html" class="glow-button px-4 py-2 rounded-xl m-2">Mind Space</a>
+      <a href="about.html" class="glow-button px-4 py-2 rounded-xl m-2">About</a>
+      <a href="connect.html" class="glow-button px-4 py-2 rounded-xl m-2">Connect</a>
+    </div>
+  </div>
+
+  <script>
+    AOS.init();
+
+    // Typing animation
+    const text = "Achal Gupta";
+    let i = 0;
+    const speed = 120;
+    const target = document.getElementById("typed-name");
+    const typeWriter = () => {
+      if (i < text.length) {
+        target.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        target.classList.add("typed-text");
+      }
+    };
+    document.addEventListener("DOMContentLoaded", typeWriter);
+
+    // Enhanced Interactive Particle Background
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    const particleCount = window.innerWidth < 768 ? 100 : 200;
+    const mouse = { x: null, y: null, radius: 150 };
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 40) + 10;
+        this.color = `hsl(${Math.random() * 60 + 180}, 100%, ${Math.random() * 30 + 60}%)`;
+        this.velocityX = Math.random() * 2 - 1;
+        this.velocityY = Math.random() * 2 - 1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      update() {
+        this.x += this.velocityX * 0.2;
+        this.y += this.velocityY * 0.2;
+        
+        if (this.x < 0 || this.x > canvas.width) {
+          this.velocityX *= -1;
+        }
+        if (this.y < 0 || this.y > canvas.height) {
+          this.velocityY *= -1;
+        }
+
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < mouse.radius) {
+          let forceDirectionX = dx / distance;
+          let forceDirectionY = dy / distance;
+          let maxDistance = mouse.radius;
+          let force = (maxDistance - distance) / maxDistance;
+          let directionX = forceDirectionX * force * this.density * 0.1;
+          let directionY = forceDirectionY * force * this.density * 0.1;
+          
+          this.x -= directionX;
+          this.y -= directionY;
+          this.velocityX = forceDirectionX * force * 2;
+          this.velocityY = forceDirectionY * force * 2;
+        } else {
+          if (this.x !== this.baseX) {
+            let dx = this.baseX - this.x;
+            this.x += dx / 15;
+          }
+          if (this.y !== this.baseY) {
+            let dy = this.baseY - this.y;
+            this.y += dy / 15;
+          }
+          this.velocityX *= 0.95;
+          this.velocityY *= 0.95;
+        }
+      }
+    }
+
+    function init() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, 'rgba(10, 20, 40, 0.8)');
+      gradient.addColorStop(1, 'rgba(5, 10, 20, 0.8)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].draw();
+        particles[i].update();
+      }
+      connect();
+      requestAnimationFrame(animate);
+    }
+
+    function connect() {
+      let opacityValue = 1;
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          let dx = particles[a].x - particles[b].x;
+          let dy = particles[a].y - particles[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 120) {
+            opacityValue = 1 - (distance / 120);
+            ctx.strokeStyle = `hsla(${Math.random() * 60 + 180}, 100%, 70%, ${opacityValue * 0.7})`;
+            ctx.lineWidth = opacityValue * 1.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function handleOrientation(event) {
+      if (!event.beta || !event.gamma) return;
+      
+      const maxTilt = 30;
+      const beta = Math.max(-maxTilt, Math.min(maxTilt, event.beta)) / maxTilt;
+      const gamma = Math.max(-maxTilt, Math.min(maxTilt, event.gamma)) / maxTilt;
+      
+      mouse.x = canvas.width * 0.5 + gamma * canvas.width * 0.5;
+      mouse.y = canvas.height * 0.5 + beta * canvas.height * 0.5;
+    }
+
+    window.addEventListener('mousemove', (event) => {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+
+    window.addEventListener('deviceorientation', handleOrientation);
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+    window.addEventListener('mouseout', () => {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    });
+
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      Particle.prototype.size = Math.random() * 4 + 2;
+    }
+
+    init();
+    animate();
+  </script>
+</body>
+</html>
