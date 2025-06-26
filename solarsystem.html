@@ -16,7 +16,20 @@
     *::-webkit-scrollbar {
       display: none;
     }
-    
+        /* Navbar Styles */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      padding: 1rem 0;
+    }
+    .glass-nav {
+      backdrop-filter: blur(16px);
+      background: rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
     body {
       background-color: #000;
       color: #fff;
@@ -134,29 +147,47 @@
   <div id="particles-js"></div>
 
   <!-- Navbar -->
-  <nav id="navbar" class="glass-nav">
-    <div class="container mx-auto px-4 flex justify-between items-center">
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="projects.html" class="nav-link">Projects</a>
-        <a href="photos.html" class="nav-link">Photography</a>
-        <a href="articles.html" class="nav-link">Mind Space</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="connect.html" class="nav-link">Connect</a>
+  <nav class="fixed top-0 left-0 w-full z-50 glass-nav">
+    <div class="container mx-auto px-4 flex justify-between items-center py-4">
+      <div class="nav-links hidden md:flex gap-6">
+        <a href="index.html" class="nav-link text-white hover:text-blue-300 transition">Home</a>
+        <a href="projects.html" class="nav-link text-blue-300 font-medium">Projects</a>
+        <a href="photos.html" class="nav-link text-white hover:text-blue-300 transition">Photography</a>
+        <a href="about.html" class="nav-link text-white hover:text-blue-300 transition">About</a>
       </div>
-      <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
-        <span></span><span></span><span></span>
-      </div>
+      <button id="mobile-menu-button" class="md:hidden text-white">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
     </div>
-    <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="photos.html">Photography</a>
-      <a href="articles.html">Mind Space</a>
-      <a href="about.html">About</a>
-      <a href="connect.html">Connect</a>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-900 w-full absolute top-16 left-0 py-4 px-4">
+      <a href="index.html" class="block py-2 text-white hover:text-blue-300">Home</a>
+      <a href="projects.html" class="block py-2 text-blue-300 font-medium">Projects</a>
+      <a href="photos.html" class="block py-2 text-white hover:text-blue-300">Photography</a>
+      <a href="about.html" class="block py-2 text-white hover:text-blue-300">About</a>
     </div>
   </nav>
+
+  <style>
+  .glass-nav {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Mobile menu toggle */
+  #mobile-menu {
+    transition: all 0.3s ease;
+  }
+  </style>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+  </script>
 
   <!-- Loading Screen -->
   <div class="loading-screen" id="loadingScreen">
@@ -223,370 +254,384 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
   <script>
-    // Initialize AOS animations
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out',
-      once: true
-    });
-    
-    // Initialize particle.js background
-    document.addEventListener('DOMContentLoaded', function() {
-      if (document.getElementById('particles-js')) {
-        particlesJS('particles-js', {
-          "particles": {
-            "number": {
-              "value": 100,
-              "density": {
-                "enable": true,
-                "value_area": 800
-              }
-            },
-            "color": {
-              "value": "#ffffff"
-            },
-            "shape": {
-              "type": "circle",
-              "stroke": {
-                "width": 0,
-                "color": "#000000"
-              },
-              "polygon": {
-                "nb_sides": 5
-              }
-            },
-            "opacity": {
-              "value": 0.5,
-              "random": true,
-              "anim": {
-                "enable": true,
-                "speed": 1,
-                "opacity_min": 0.3,
-                "sync": false
-              }
-            },
-            "size": {
-              "value": 4,
-              "random": true,
-              "anim": {
-                "enable": true,
-                "speed": 2,
-                "size_min": 0.3,
-                "sync": false
-              }
-            },
-            "line_linked": {
+  // Initialize AOS animations
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true
+  });
+  
+  // Initialize particle.js background
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('particles-js')) {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 100,
+            "density": {
               "enable": true,
-              "distance": 150,
-              "color": "#ffffff",
-              "opacity": 0.4,
-              "width": 1
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#ffffff"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
             },
-            "move": {
+            "polygon": {
+              "nb_sides": 5
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 1,
+              "opacity_min": 0.3,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 4,
+            "random": true,
+            "anim": {
               "enable": true,
               "speed": 2,
-              "direction": "none",
-              "random": true,
-              "straight": false,
-              "out_mode": "out",
-              "bounce": false,
-              "attract": {
-                "enable": true,
-                "rotateX": 600,
-                "rotateY": 1200
-              }
+              "size_min": 0.3,
+              "sync": false
             }
           },
-          "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-              "onhover": {
-                "enable": true,
-                "mode": "grab"
-              },
-              "onclick": {
-                "enable": true,
-                "mode": "push"
-              },
-              "resize": true
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 2,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": true,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
             },
-            "modes": {
-              "grab": {
-                "distance": 140,
-                "line_linked": {
-                  "opacity": 0.5
-                }
-              },
-              "bubble": {
-                "distance": 400,
-                "size": 40,
-                "duration": 2,
-                "opacity": 8,
-                "speed": 3
-              },
-              "repulse": {
-                "distance": 200,
-                "duration": 0.4
-              },
-              "push": {
-                "particles_nb": 4
-              },
-              "remove": {
-                "particles_nb": 2
-              }
-            }
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
           },
-          "retina_detect": true
-        });
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 0.5
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      });
+    }
+    
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
+      
+      if (mobileNav.classList.contains('open')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
       }
-      
-      // Mobile menu toggle
-      const burger = document.getElementById('burger');
-      const mobileNav = document.getElementById('mobileNav');
-      
-      burger.addEventListener('click', () => {
-        burger.classList.toggle('open');
-        mobileNav.classList.toggle('open');
-        mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
-        
-        if (mobileNav.classList.contains('open')) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
-        }
-      });
-      
-      document.addEventListener('click', (e) => {
-        if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
-          burger.classList.remove('open');
-          mobileNav.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-          burger.classList.remove('open');
-          mobileNav.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      // Navbar scroll effect
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
     });
     
-    // Solar System Simulation
-    document.addEventListener('DOMContentLoaded', () => {
-      const loadingScreen = document.getElementById('loadingScreen');
-      const loadingStatus = document.getElementById('loadingStatus');
-      
-      // First check if Three.js loaded properly
-      if (!window.THREE) {
-        loadingStatus.textContent = "Error: Three.js failed to load. Please check your internet connection.";
-        return;
+    document.addEventListener('click', (e) => {
+      if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
       }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  });
+  
+  // Solar System Simulation
+  document.addEventListener('DOMContentLoaded', () => {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingStatus = document.getElementById('loadingStatus');
+    
+    // First check if Three.js loaded properly
+    if (!window.THREE) {
+      loadingStatus.textContent = "Error: Three.js failed to load. Please check your internet connection.";
+      return;
+    }
 
-      loadingStatus.textContent = "Initializing 3D environment...";
+    loadingStatus.textContent = "Initializing 3D environment...";
+    
+    try {
+      // Scene setup  
+      const container = document.getElementById('solar-system-container');
       
-      try {
-        // Scene setup  
-        const container = document.getElementById('solar-system-container');
-        
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        
-        loadingStatus.textContent = "Setting up renderer...";
-        
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        container.appendChild(renderer.domElement);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      
+      loadingStatus.textContent = "Setting up renderer...";
+      
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+    
       // Camera controls
-        loadingStatus.textContent = "Setting up controls...";
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.minDistance = 5;
-        controls.maxDistance = 100;
-      
+      loadingStatus.textContent = "Setting up controls...";
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.minDistance = 5;
+      controls.maxDistance = 100;
+    
       // Lighting
-        loadingStatus.textContent = "Setting up lighting...";
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        scene.add(ambientLight);
-        
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(5, 3, 5);
-        scene.add(directionalLight);
-        
-        // Sun
-        loadingStatus.textContent = "Creating sun...";
-        const sunGeometry = new THREE.SphereGeometry(2, 32, 32);
-        const sunMaterial = new THREE.MeshBasicMaterial({
-          color: 0xfdb813,
-          emissive: 0xfdb813,
-          emissiveIntensity: 1
-        });
-        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        scene.add(sun);
+      loadingStatus.textContent = "Setting up lighting...";
+      const ambientLight = new THREE.AmbientLight(0x404040);
+      scene.add(ambientLight);
+      
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(5, 3, 5);
+      scene.add(directionalLight);
+      
+      // Sun
+      loadingStatus.textContent = "Creating sun...";
+      const sunGeometry = new THREE.SphereGeometry(2, 32, 32);
+      const sunMaterial = new THREE.MeshBasicMaterial({
+        color: 0xfdb813,
+        emissive: 0xfdb813,
+        emissiveIntensity: 1
+      });
+      const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+      scene.add(sun);
 
       // Planets data
-        loadingStatus.textContent = "Preparing planets data...";
-        const planets = [
-          {
-            name: "Mercury",
-            radius: 0.4,
-            distance: 5,
-            color: 0xb3b3b3,
-            speed: 0.04,
-            tilt: 0.1,
-            info: "The smallest planet in our solar system and closest to the Sun. Mercury is only slightly larger than Earth's Moon."
-          },
-          {
-            name: "Venus",
-            radius: 0.6,
-            distance: 7,
-            color: 0xe6e6e6,
-            speed: 0.015,
-            tilt: 177.4,
-            info: "Similar in size to Earth, Venus has a toxic atmosphere of carbon dioxide with clouds of sulfuric acid."
-          },
-          {
-            name: "Earth",
-            radius: 0.6,
-            distance: 10,
-            color: 0x3498db,
-            speed: 0.01,
-            tilt: 23.4,
-            info: "Our home planet is the only known place in the universe confirmed to host life."
-          },
-          {
-            name: "Mars",
-            radius: 0.5,
-            distance: 15,
-            color: 0xe67e22,
-            speed: 0.008,
-            tilt: 25.2,
-            info: "The Red Planet is dusty, cold desert world with a very thin atmosphere."
-          },
-          {
-            name: "Jupiter",
-            radius: 1.4,
-            distance: 20,
-            color: 0xf1c40f,
-            speed: 0.002,
-            tilt: 3.1,
-            info: "More than twice as massive as all other planets combined, Jupiter is a gas giant."
-          },
-          {
-            name: "Saturn",
-            radius: 1.2,
-            distance: 25,
-            color: 0xf39c12,
-            speed: 0.0009,
-            tilt: 26.7,
-            info: "Adorned with a dazzling ring system, Saturn is unique among the planets."
-          },
-          {
-            name: "Uranus",
-            radius: 0.8,
-            distance: 30,
-            color: 0x1abc9c,
-            speed: 0.0004,
-            tilt: 97.8,
-            info: "Uranus rotates at a nearly 90-degree angle from the plane of its orbit."
-          },
-          {
-            name: "Neptune",
-            radius: 0.8,
-            distance: 35,
-            color: 0x3498db,
-            speed: 0.0001,
-            tilt: 28.3,
-            info: "Neptune is dark, cold and whipped by supersonic winds of frozen methane."
-          }
-        ];
-        
-      // Create planets
-        loadingStatus.textContent = "Creating planets...";
-        const planetMeshes = [];
-        const orbitLines = [];
-        
-        planets.forEach((planet, index) => {
-          // Planet mesh
-          const geometry = new THREE.SphereGeometry(planet.radius, 32, 32);
-          const material = new THREE.MeshPhongMaterial({ 
-            color: planet.color,
-            shininess: 10
-          });
-          const planetMesh = new THREE.Mesh(geometry, material);
-          
-          // Position planet
-          planetMesh.position.x = planet.distance;
-          planetMesh.userData = { planetInfo: planet };
-        
-        // Add to scene
-          scene.add(planetMesh);
-          planetMeshes.push(planetMesh);
-          
-          // Orbit line
-          const orbitGeometry = new THREE.BufferGeometry();
-          const orbitMaterial = new THREE.LineBasicMaterial({ 
-            color: 0xffffff, 
-            transparent: true,
-            opacity: 0.3
-          });
-        
-          const points = [];
-          const segments = 64;
-          for (let i = 0; i <= segments; i++) {
-            const theta = (i / segments) * Math.PI * 2;
-            points.push(new THREE.Vector3(
-              planet.distance * Math.cos(theta),
-              0,
-              planet.distance * Math.sin(theta)
-            ));
-          }
-          
-          orbitGeometry.setFromPoints(points);
-          const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial);
-          scene.add(orbitLine);
-          orbitLines.push(orbitLine);
-        });
-      
-      // Stars background
-        loadingStatus.textContent = "Creating starfield...";
-        const starGeometry = new THREE.BufferGeometry();
-        const starMaterial = new THREE.PointsMaterial({
-          color: 0xffffff,
-          size: 0.1,
-          transparent: true
-        });
-        
-        const starVertices = [];
-        for (let i = 0; i < 1000; i++) {
-          const x = (Math.random() - 0.5) * 2000;
-          const y = (Math.random() - 0.5) * 2000;
-          const z = (Math.random() - 0.5) * 2000;
-          starVertices.push(x, y, z);
+      loadingStatus.textContent = "Preparing planets data...";
+      const planets = [
+        {
+          name: "Mercury",
+          radius: 0.4,
+          distance: 5,
+          color: 0xb3b3b3,
+          speed: 0.04,
+          tilt: 0.1,
+          info: "The smallest planet in our solar system and closest to the Sun. Mercury is only slightly larger than Earth's Moon."
+        },
+        {
+          name: "Venus",
+          radius: 0.6,
+          distance: 7,
+          color: 0xcf7e22,
+          speed: 0.015,
+          tilt: 177.4,
+          info: "Similar in size to Earth, Venus has a toxic atmosphere of carbon dioxide with clouds of sulfuric acid."
+        },
+        {
+          name: "Earth",
+          radius: 0.6,
+          distance: 10,
+          color: 0x3498db,
+          speed: 0.01,
+          tilt: 23.4,
+          info: "Our home planet is the only known place in the universe confirmed to host life."
+        },
+        {
+          name: "Mars",
+          radius: 0.5,
+          distance: 15,
+          color: 0xff67e22,
+          speed: 0.008,
+          tilt: 25.2,
+          info: "The Red Planet is dusty, cold desert world with a very thin atmosphere."
+        },
+        {
+          name: "Jupiter",
+          radius: 1.4,
+          distance: 20,
+          color: 0xf1c40f,
+          speed: 0.002,
+          tilt: 3.1,
+          info: "More than twice as massive as all other planets combined, Jupiter is a gas giant."
+        },
+        {
+          name: "Saturn",
+          radius: 1.2,
+          distance: 25,
+          color: 0xf39c12,
+          speed: 0.0009,
+          tilt: 26.7,
+          info: "Adorned with a dazzling ring system, Saturn is unique among the planets."
+        },
+        {
+          name: "Uranus",
+          radius: 0.8,
+          distance: 30,
+          color: 0x1abc9c,
+          speed: 0.0004,
+          tilt: 97.8,
+          info: "Uranus rotates at a nearly 90-degree angle from the plane of its orbit."
+        },
+        {
+          name: "Neptune",
+          radius: 0.8,
+          distance: 35,
+          color: 0x3498db,
+          speed: 0.0001,
+          tilt: 28.3,
+          info: "Neptune is dark, cold and whipped by supersonic winds of frozen methane."
         }
+      ];
+
+      // Create planets
+      loadingStatus.textContent = "Creating planets...";
+      const planetMeshes = [];
+      const orbitLines = [];
       
-        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-        const stars = new THREE.Points(starGeometry, starMaterial);
-        scene.add(stars);
+      planets.forEach((planet, index) => {
+        // Planet mesh
+        const geometry = new THREE.SphereGeometry(planet.radius, 32, 32);
+        const material = new THREE.MeshPhongMaterial({ 
+          color: planet.color,
+          shininess: 10
+        });
+        const planetMesh = new THREE.Mesh(geometry, material);
         
-        // Camera position
-        camera.position.z = 50;
+        // Position planet
+        planetMesh.position.x = planet.distance;
+        planetMesh.userData = { planetInfo: planet };
       
+        // Add to scene
+        scene.add(planetMesh);
+        planetMeshes.push(planetMesh);
+        
+        // Orbit line
+        const orbitGeometry = new THREE.BufferGeometry();
+        const orbitMaterial = new THREE.LineBasicMaterial({ 
+          color: 0xffffff, 
+          transparent: true,
+          opacity: 0.3
+        });
+        
+        const points = [];
+        const segments = 64;
+        for (let i = 0; i <= segments; i++) {
+          const theta = (i / segments) * Math.PI * 2;
+          points.push(new THREE.Vector3(
+            planet.distance * Math.cos(theta),
+            0,
+            planet.distance * Math.sin(theta)
+          ));
+        }
+        
+        orbitGeometry.setFromPoints(points);
+        const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial);
+        scene.add(orbitLine);
+        orbitLines.push(orbitLine);
+      });
+
+      // Create Saturn's rings (after planetMeshes is populated)
+      const saturn = planetMeshes[5]; // Saturn is index 5 in planets array
+      const saturnRingGeometry = new THREE.RingGeometry(1.5, 3, 32);
+      const saturnRingMaterial = new THREE.MeshBasicMaterial({
+        color: 0xE5D9B6,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.8
+      });
+      const saturnRing = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
+      saturnRing.rotation.x = Math.PI / 2; // Rotate to be horizontal
+      saturn.add(saturnRing);
+    
+      // Stars background
+      loadingStatus.textContent = "Creating starfield...";
+      const starGeometry = new THREE.BufferGeometry();
+      const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.1,
+        transparent: true
+      });
+      
+      const starVertices = [];
+      for (let i = 0; i < 1000; i++) {
+        const x = (Math.random() - 0.5) * 2000;
+        const y = (Math.random() - 0.5) * 2000;
+        const z = (Math.random() - 0.5) * 2000;
+        starVertices.push(x, y, z);
+      }
+    
+      starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+      const stars = new THREE.Points(starGeometry, starMaterial);
+      scene.add(stars);
+      
+      // Camera position
+      camera.position.z = 50;
+    
       // Animation variables
       let speedFactor = 1;
       let showOrbits = true;
@@ -603,20 +648,21 @@
       
       // Event listeners
       container.addEventListener('click', (event) => {
-        // Calculate mouse position in normalized device coordinates
-        mouse.x = (event.clientX / container.clientWidth) * 2 - 1;
-        mouse.y = -(event.clientY / container.clientHeight) * 2 + 1;
-        
-        // Update the raycaster
+        // Get click coordinates
+        const rect = container.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        // Update raycaster
         raycaster.setFromCamera(mouse, camera);
         
-        // Calculate objects intersecting the picking ray
+        // Check intersections
         const intersects = raycaster.intersectObjects(planetMeshes);
         
         if (intersects.length > 0) {
-          const planetData = intersects[0].object.userData.planetInfo;
-          planetName.textContent = planetData.name;
-          planetDescription.textContent = planetData.info;
+          const planet = intersects[0].object.userData.planetInfo;
+          planetName.textContent = planet.name;
+          planetDescription.textContent = planet.info;
           planetInfo.style.display = 'block';
         }
       });
@@ -663,17 +709,19 @@
       function animate() {
         requestAnimationFrame(animate);
         
-        // Rotate planets around the sun
+        // Update planet positions
         planetMeshes.forEach((planet, index) => {
           const planetData = planets[index];
-          planet.rotation.y += 0.01;
-          planet.position.x = planetData.distance * Math.cos(Date.now() * 0.0001 * planetData.speed * speedFactor);
-          planet.position.z = planetData.distance * Math.sin(Date.now() * 0.0001 * planetData.speed * speedFactor);
+          const time = Date.now() * 0.001 * speedFactor;
+          planet.position.x = planetData.distance * Math.cos(time * planetData.speed);
+          planet.position.z = planetData.distance * Math.sin(time * planetData.speed);
+          
+          // Rotate Saturn's rings
+          if (index === 5) {
+            planet.children[0].rotation.z += 0.002;
+          }
         });
-        
-        // Rotate sun
-        sun.rotation.y += 0.001;
-        
+
         controls.update();
         renderer.render(scene, camera);
       }
@@ -685,21 +733,21 @@
         renderer.setSize(container.clientWidth, container.clientHeight);
       });
       
-        // Hide loading screen when everything is ready
-        loadingStatus.textContent = "Ready!";
+      // Hide loading screen when everything is ready
+      loadingStatus.textContent = "Ready!";
+      setTimeout(() => {
+        loadingScreen.style.opacity = '0';
         setTimeout(() => {
-          loadingScreen.style.opacity = '0';
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-            animate(); // Start the animation loop
-          }, 500);
+          loadingScreen.style.display = 'none';
+          animate(); // Start the animation loop
         }, 500);
-        
-      } catch (error) {
-        loadingStatus.textContent = `Error: ${error.message}`;
-        console.error("Solar System Error:", error);
-      }
-    });
-  </script>
+      }, 500);
+      
+    } catch (error) {
+      loadingStatus.textContent = `Error: ${error.message}`;
+      console.error("Solar System Error:", error);
+    }
+  });
+</script>
 </body>
 </html>
