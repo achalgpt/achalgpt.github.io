@@ -3,12 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cars4Mars Rover | UCT Space Society</title>
+  <title>Cars4Mars Rover</title>
+  <meta name="description" content="Join UCT Space Society's Cars4Mars mission - a student-built Mars rover competing in the African Rover Challenge. Explore partnership opportunities with Africa's next generation of space engineers.">
+  <meta name="keywords" content="Mars rover, African Rover Challenge, UCT Space Society, STEM partnership, space technology, student engineering">
+  <meta property="og:title" content="Cars4Mars - Earth-Built, Mars-Bound Rover Project">
+  <meta property="og:description" content="Partner with UCT Space Society's ambitious Mars rover project competing in the African Rover Challenge.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://achalgpt.github.io/cars4mars">
+  <meta property="og:image" content="https://uctspacesociety.org/images/cars4mars-social.jpg">
+  
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  
   <style>
     * {
       scrollbar-width: none;
@@ -21,7 +37,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #1a0000; /* Dark Mars-like background */
+      background-color: #1a0000;
       color: white;
       height: 100%;
       overflow-x: hidden;
@@ -34,11 +50,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1; /* Behind all content */
+      z-index: -1;
     }
-
-        /* Mars surface effect at bottom */
-
 
     /* Dust particles animation */
     @keyframes float {
@@ -233,40 +246,40 @@
     }
     
     .hero-container {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 4rem 1rem;
-}
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
 
-.hero-content {
-  position: relative;
-  z-index: 1;
-  padding: 0 1rem;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 1rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-@media (min-width: 768px) {
-  .hero-container {
-    padding: 0;
-    height: 100vh;
-  }
-  
-  .hero-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    text-align: left;
-  }
-}
+    @media (min-width: 768px) {
+      .hero-container {
+        padding: 0;
+        height: 100vh;
+      }
+      
+      .hero-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
     
     .glow-button {
       display: inline-block;
@@ -388,19 +401,6 @@
       margin-bottom: 0.5rem;
     }
     
-    .secret-link {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      opacity: 0.3;
-      transition: opacity 0.3s;
-    }
-    
-    .secret-link:hover {
-      opacity: 1;
-    }
-
     /* Mars-specific styles */
     .mars-text {
       color: #ff6b35;
@@ -462,9 +462,10 @@
       transform: translateY(-5px);
       border-left: 3px solid #ff6b35;
     }
-      .timeline-container {
-    position: relative;
-    padding: 0 1rem;
+    
+    .timeline-container {
+      position: relative;
+      padding: 0 1rem;
     }
   
     .timeline-line {
@@ -475,6 +476,7 @@
       height: 100%;
       background: linear-gradient(to bottom, #ff6b35, transparent);
     }
+    
     .timeline-item-container {
       display: flex;
       width: 100%;
@@ -497,6 +499,7 @@
     .timeline-item-container:nth-child(even) .timeline-dot {
       left: -2rem;
     }
+    
     .timeline-item {
       width: calc(50% - 2rem);
       position: relative;
@@ -522,24 +525,26 @@
       background: #ff6b35;
       border: 3px solid #1a0000;
     }
+    
     @media (max-width: 768px) {
-    .timeline-line {
-      left: 1rem;
-      transform: none;
-    }
-    
-    .timeline-item-container {
-      justify-content: flex-end !important;
-    }
-    
-    .timeline-item {
-      width: calc(100% - 3rem);
-      margin-left: 2rem;
-    }
-    
-    .timeline-dot {
-      left: -2rem !important;
-      right: auto !important;
+      .timeline-line {
+        left: 1rem;
+        transform: none;
+      }
+      
+      .timeline-item-container {
+        justify-content: flex-end !important;
+      }
+      
+      .timeline-item {
+        width: calc(100% - 3rem);
+        margin-left: 2rem;
+      }
+      
+      .timeline-dot {
+        left: -2rem !important;
+        right: auto !important;
+      }
     }
     
     .team-card {
@@ -588,75 +593,72 @@
       opacity: 1;
     }
     
-.sticky-countdown {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  background: rgba(26, 0, 0, 0.9);
-  border: 1px solid #ff6b35;
-  border-radius: 50px;
-  padding: 0.5rem 1.5rem;
-  display: inline-flex; /* Changed from flex to inline-flex */
-  align-items: center;
-  gap: 0.75rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  white-space: nowrap;
-  width: auto; /* Explicitly set to auto */
-  max-width: 90%; /* Prevent it from getting too wide */
-}
+    .sticky-countdown {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(26, 0, 0, 0.9);
+      border: 1px solid #ff6b35;
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+      width: auto;
+      max-width: 90%;
+    }
 
-/* Keep all other .sticky-countdown child styles the same as before */
+    .sticky-countdown .countdown-value {
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(255, 107, 53, 0.5);
+      border-radius: 12px;
+    }
 
-.sticky-countdown .countdown-value {
-  width: 40px;
-  height: 40px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255, 107, 53, 0.2);
-  border: 1px solid rgba(255, 107, 53, 0.5);
-  border-radius: 12px;
-}
+    .sticky-countdown .mars-icon {
+      font-size: 1.3rem;
+      color: #ff6b35;
+      flex-shrink: 0;
+    }
 
-.sticky-countdown .mars-icon {
-  font-size: 1.3rem;
-  color: #ff6b35;
-  flex-shrink: 0;
-}
+    .sticky-countdown span {
+      color: white;
+      font-weight: 500;
+    }
 
-.sticky-countdown span {
-  color: white;
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .sticky-countdown {
-    padding: 0.5rem 1rem;
-    gap: 0.5rem;
-  }
-  
-  .sticky-countdown .countdown-value {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-  }
-  
-  .sticky-countdown span:not(:first-child):not(:last-child) {
-    display: none;
-  }
-  
-  .sticky-countdown .mars-icon {
-    font-size: 1.1rem;
-  }
-}
-
+    @media (max-width: 768px) {
+      .sticky-countdown {
+        padding: 0.5rem 1rem;
+        gap: 0.5rem;
+      }
+      
+      .sticky-countdown .countdown-value {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+      
+      .sticky-countdown span:not(:first-child):not(:last-child) {
+        display: none;
+      }
+      
+      .sticky-countdown .mars-icon {
+        font-size: 1.1rem;
+      }
+    }
     
     @media (max-width: 768px) {
       .hero-container {
@@ -680,41 +682,553 @@
         width: calc(50% - 1rem);
       }
     }
+    
     .partner-logo {
-  transition: all 0.3s ease; 
-  opacity: 0.9;
-  padding: 1rem;
-  border-radius: 12px;
-}
+      transition: all 0.3s ease; 
+      opacity: 0.9;
+      padding: 1rem;
+      border-radius: 12px;
+    }
 
-.partner-logo:hover {
-  transform: translateY(-5px);
-  opacity: 1;
-  background: rgba(255, 107, 53, 0.1);
-}
+    .partner-logo:hover {
+      transform: translateY(-5px);
+      opacity: 1;
+      background: rgba(255, 107, 53, 0.1);
+    }
 
-/* Mars Surface Effect */
+    /* Partnership Tiers */
+    .tier-card {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tier-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(26,0,0,0.8) 100%);
+      z-index: -1;
+    }
+    
+    .tier-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255,107,53,0.2);
+    }
+    
+    .tier-title {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tier-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #ff6b35;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .tier-card:hover .tier-title::after {
+      transform: scaleX(1);
+    }
+    
+    .tier-benefits li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .tier-benefits li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #ff6b35;
+    }
+    
+    /* Testimonials */
+    .testimonial-card {
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255,107,53,0.15);
+    }
+    
+    .testimonial-quote::before {
+      content: '"';
+      font-size: 3rem;
+      color: rgba(255,107,53,0.3);
+      position: absolute;
+      top: -1rem;
+      left: -0.5rem;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(26,0,0,0.9) 0%, rgba(10,0,0,0.95) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('mars-texture.jpg') center/cover no-repeat;
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    /* Form Styles */
+    .form-input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      background: rgba(255,255,255,0.1);
+      border-color: #ff6b35;
+      box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
+    }
+    
+    .form-label {
+      color: rgba(255,255,255,0.8);
+    }
+    
+    /* Stats */
+    .stat-item {
+      position: relative;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #ff6b35, #ff9e53);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Model Viewer Adjustments */
+    model-viewer#rover-model, model-viewer#interactive-rover {
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Partnership Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background: linear-gradient(145deg, rgba(26,0,0,0.95) 0%, rgba(10,0,0,0.98) 100%);
+      border: 1px solid rgba(255,107,53,0.3);
+      border-radius: 20px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,107,53,0.2);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .close-modal:hover {
+      background: rgba(255,107,53,0.4);
+    }
+    
+    /* Loading Animation */
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255,107,53,0.3);
+      border-radius: 50%;
+      border-top-color: #ff6b35;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* New Mars Surface Effect */
+    .mars-surface {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(to top, rgba(94,38,14,0.8), transparent);
+      z-index: -1;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 640px) {
+      .hero-title {
+        font-size: 2.5rem !important;
+      }
+      
+      .section-heading {
+        font-size: 2rem !important;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+    /* Cosmic Team Section Styles */
+    .glass-leader {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(26, 0, 0, 0.7);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
 
+    .leader-orb {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      perspective: 1000px;
+    }
 
-/* Dust particles */
-@keyframes float {
-  0% { transform: translateY(0) rotate(0deg); }
-  100% { transform: translateY(-100vh) rotate(360deg); }
-}
+    .commander-orb {
+      --orb-color: rgba(255, 107, 53, 0.8);
+    }
 
-.dust-particle {
-  position: fixed;
-  background: rgba(255, 107, 53, 0.6);
-  border-radius: 50%;
-  animation: float linear infinite;
-  z-index: -1;
-}
+    .deputy-orb {
+      --orb-color: rgba(255, 107, 53, 0.6);
+    }
 
-    model-viewer#rover-model {
-    margin: 0;
-    padding: 0;
-  }  
+    .leader-orb-core {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.5s ease;
+      transform-style: preserve-3d;
+      z-index: 2;
+      overflow: hidden;
+    }
 
+    .leader-orb:hover .leader-orb-core {
+      transform: scale(1.05) rotateY(10deg);
+      box-shadow: 0 0 50px rgba(255, 107, 53, 0.3);
+      background-color: rgba(26, 0, 0, 0.8);
+    }
+
+    .leader-orb-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 107, 53, 0.1);
+      border: 2px solid var(--orb-color);
+      transition: all 0.5s ease;
+    }
+
+    .leader-orb:hover .leader-orb-icon {
+      transform: scale(1.1);
+      background: rgba(255, 107, 53, 0.2);
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+    }
+
+    .leader-orb-ring {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      border: 2px dashed var(--orb-color);
+      opacity: 0.5;
+      animation: rotate-ring 60s linear infinite;
+      z-index: 1;
+    }
+
+    .leader-orb-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: white;
+    }
+
+    .leader-orb-title {
+      font-size: 1rem;
+      color: var(--orb-color);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .leader-orb-divider {
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--orb-color), transparent);
+      margin: 0.75rem auto;
+    }
+
+    .leader-orb-quote {
+      font-style: italic;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .leader-orb-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, var(--orb-color) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: -1;
+    }
+
+    .leader-orb:hover .leader-orb-glow {
+      opacity: 0.1;
+    }
+
+    .leader-orb-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .leader-orb-particles .particle {
+      position: absolute;
+      background: var(--orb-color);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .leader-orb:hover .particle {
+      opacity: 0.6;
+      animation: float-particle 4s infinite;
+    }
+
+    @keyframes rotate-ring {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes float-particle {
+      0% { transform: translate(0, 0); opacity: 0; }
+      20% { opacity: 0.6; }
+      100% { transform: translate(random(60) - 30px, random(60) - 30px); opacity: 0; }
+    }
+
+    /* Cosmic Animations */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.2; transform: scale(1.1); }
+    }
+
+    @keyframes float-1 {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-10px) translateX(-5px); }
+    }
+
+    @keyframes float-2 {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(10px) translateX(5px); }
+    }
+
+    @keyframes float-3 {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-15px) translateX(0); }
+    }
+
+    .animate-float-1 {
+      animation: float-1 8s ease-in-out infinite;
+    }
+
+    .animate-float-2 {
+      animation: float-2 7s ease-in-out infinite;
+    }
+
+    .animate-float-3 {
+      animation: float-3 9s ease-in-out infinite;
+    }
+
+    /* Cosmic Card Styles */
+    .cosmic-card {
+      background: linear-gradient(145deg, rgba(26,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+      border: 1px solid rgba(255,107,53,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .cosmic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(255,107,53,0.1);
+      border-color: rgba(255,107,53,0.4);
+    }
+
+    .cosmic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,107,53,0.8), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cosmic-card:hover::before {
+      opacity: 1;
+    }
+
+    .cosmic-card-header {
+      background: linear-gradient(90deg, rgba(26,0,0,0.9) 0%, rgba(0,0,0,0.9) 100%);
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255,107,53,0.2);
+    }
+
+    .cosmic-pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff6b35;
+      margin-right: 8px;
+      box-shadow: 0 0 10px #ff6b35;
+      animation: pulse-slow 2s infinite;
+    }
+
+    .cosmic-team-list {
+      padding: 1.5rem;
+      background: rgba(10,0,0,0.5);
+    }
+
+    .cosmic-team-member {
+      position: relative;
+      padding: 0.75rem 0 0.75rem 1.75rem;
+      border-bottom: 1px solid rgba(255,107,53,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .cosmic-team-member:last-child {
+      border-bottom: none;
+    }
+
+    .cosmic-team-member::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,107,53,0.7);
+      transition: all 0.3s ease;
+    }
+
+    .cosmic-team-member:hover {
+      padding-left: 2rem;
+      color: white;
+    }
+
+    .cosmic-team-member:hover::before {
+      background: #ff6b35;
+      box-shadow: 0 0 8px #ff6b35;
+      transform: translateY(-50%) scale(1.3);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .leader-orb {
+        width: 240px;
+        height: 240px;
+      }
+      
+      .leader-orb-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+      }
+      
+      .leader-orb-name {
+        font-size: 1.3rem;
+      }
+      
+      .leader-orb-title {
+        font-size: 0.9rem;
+      }
+      
+      .leader-orb-quote {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -722,86 +1236,103 @@
   <canvas id="canvas"></canvas>
   <div class="mars-surface"></div>
 
-
-  <!-- Navbar -->
+    <!-- Navbar -->
   <nav id="navbar" class="glass-nav">
     <div class="container mx-auto px-4 flex justify-between items-center">
       <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="projects.html" class="nav-link">Projects</a>
-        <a href="photos.html" class="nav-link">Photography</a>
-        <a href="articles.html" class="nav-link">Mind Space</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="connect.html" class="nav-link">Connect</a>
+        <a href="index.html" class="nav-link">Portfolio Home</a>
+        <a href="#home" class="nav-link active">Cars4Mars Home</a>
+        <a href="#about" class="nav-link">The Project</a>
+        <a href="#team" class="nav-link">Our Team</a>
+        <a href="#partnership" class="nav-link">Partnership</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
       <div class="burger" id="burger" aria-label="Toggle menu" role="button" tabindex="0">
         <span></span><span></span><span></span>
       </div>
     </div>
     <div class="mobile-nav" id="mobileNav" role="menu" aria-hidden="true">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="photos.html">Photography</a>
-      <a href="articles.html">Mind Space</a>
-      <a href="about.html">About</a>
-      <a href="connect.html">Connect</a>
+      <a href="index.html">Portfolio Home</a>
+      <a href="#home" class="active">Cars4Mars Home</a>
+      <a href="#about">The Project</a>
+      <a href="#team">Our Team</a>
+      <a href="#partnership">Partnership</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
-
-    <!-- Hero Section -->
   <!-- Hero Section -->
-<section class="hero-container">
-  <div class="hero-content">
-    <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-      <h1 class="hero-title fade-in mars-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight mb-6">
-        Cars4Mars <span class="text-white">Earth-Built, Mars-Bound</span>
-      </h1>
-      <p class="text-xl opacity-90 mb-8 max-w-2xl" id="typewriter"></p>
-      
-      <div class="countdown-container glass p-4 rounded-xl">
-        <div class="countdown-item">
-          <div class="countdown-value" id="days">00</div>
-          <div class="countdown-label">Days</div>
+  <section id="home" class="hero-container">
+    <div class="hero-content">
+      <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+        <h1 class="hero-title fade-in mars-text text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+          Cars4Mars <span class="text-white">Earth-Built, Mars-Bound</span>
+        </h1>
+        <p class="text-xl opacity-90 mb-8 max-w-2xl">UCT Space Society's ambitious Mars rover project competing in the 2025 African Rover Challenge. Partner with Africa's next generation of space engineers.</p>
+        
+        <div class="countdown-container glass p-4 rounded-xl">
+          <div class="countdown-item">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label">Seconds</div>
+          </div>
         </div>
-        <div class="countdown-item">
-          <div class="countdown-value" id="hours">00</div>
-          <div class="countdown-label">Hours</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-value" id="minutes">00</div>
-          <div class="countdown-label">Minutes</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-value" id="seconds">00</div>
-          <div class="countdown-label">Seconds</div>
+        
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <a href="#partnership" class="glow-button mars-bg mars-border hover:bg-[#ff6b35] hover:text-white transition-colors duration-300">Partner With Us</a>
+          <a href="#about" class="glow-button">Explore the Rover</a>
         </div>
       </div>
       
-      <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-        <a href="#about" class="glow-button mars-bg mars-border">Explore the Rover</a>
-        <a href="project-strategy-report.pdf" class="glow-button" download>Download Project Strategy Report</a>
+      <div class="md:w-1/2" data-aos="fade-left">
+        <model-viewer 
+          src="Rover.glb" 
+          alt="Cars4Mars Rover" 
+          auto-rotate 
+          camera-controls 
+          shadow-intensity="1" 
+          exposure="0.9" 
+          style="width: 100%; height: 500px;"
+          class="rounded-xl"
+          id="rover-model"
+          camera-orbit="0deg 75deg 105%">
+        </model-viewer>
+        <div class="text-center mt-2 text-sm opacity-70">Interactive 3D Model - Drag to rotate, scroll to zoom</div>
       </div>
     </div>
-    
-    <div class="md:w-1/2" data-aos="fade-left">
-      <model-viewer 
-        src="Rover.glb" 
-        alt="Cars4Mars Rover" 
-        auto-rotate 
-        camera-controls 
-        shadow-intensity="1" 
-        exposure="0.9" 
-        style="width: 100%; height: 500px;"
-        class="rounded-xl"
-        id="rover-model"
-        camera-orbit="0deg 75deg 105%">
-      </model-viewer>
-      <div class="text-center mt-2 text-sm opacity-70">Interactive 3D Model - Drag to rotate, scroll to zoom</div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="max-w-6xl mx-auto py-12 bg-gradient-to-r from-[#1a0000] to-[#2a0000]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-number" id="team-count">0</div>
+        <div class="text-gray-300 uppercase text-sm tracking-wider">Students</div>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-number" id="hours-count">0</div>
+        <div class="text-gray-300 uppercase text-sm tracking-wider">Driven Wheels</div>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-number" id="components-count">0</div>
+        <div class="text-gray-300 uppercase text-sm tracking-wider">Components</div>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+        <div class="stat-number" id="universities-count">0</div>
+        <div class="text-gray-300 uppercase text-sm tracking-wider">UCT Academic Departments</div>
+      </div>
     </div>
-  </div>
-</section>
-
-
+  </section>
 
   <!-- About Section -->
   <section id="about" class="max-w-6xl mx-auto py-20" data-aos="fade-up">
@@ -809,41 +1340,47 @@
     
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div>
-        <p class="text-lg mb-6">Cars4Mars is our student-led entry into the 2025 African Rover Challenge—a cutting-edge robotics competition where university teams from across the continent engineer semi-autonomous planetary rovers designed to operate on Martian terrain.</p>
-        <p class="text-lg mb-6">Our mission? To design, build, and test a rugged planetary rover from scratch, under tight resource and time constraints. The rover must tackle a series of real-world tasks—terrain traversal, object manipulation, autonomous navigation—all on dusty, Mars-like terrain. Think NASA, but DIY, and on a student budget.</p>
+        <p class="text-lg mb-6">Cars4Mars is our student-led entry into the 2025 African Rover Challenge—a premier robotics competition where university teams from across the continent engineer semi-autonomous planetary rovers designed to operate on Martian terrain.</p>
+        <p class="text-lg mb-6">Our mission is to design, build, and test a rugged planetary rover from scratch, under tight resource and time constraints. The rover must tackle a series of real-world tasks—terrain traversal, object manipulation, autonomous navigation—all on dusty, Mars-like terrain. Think NASA, but DIY, and on a student budget.</p>
         
         <div class="grid grid-cols-2 gap-4">
           <div class="spec-card glass p-4">
             <h3 class="font-bold mb-2 mars-text">Suspension</h3>
             <p class="text-xl font-bold">Rocker-Bogie</p>
+            <p class="text-sm opacity-80 mt-1">Inspired by the Perseverance rover</p>
           </div>
           <div class="spec-card glass p-4">
             <h3 class="font-bold mb-2 mars-text">Drive System</h3>
             <p class="text-xl font-bold">4WD Independent</p>
+            <p class="text-sm opacity-80 mt-1">Powered and Steered</p>
           </div>
           <div class="spec-card glass p-4">
-            <h3 class="font-bold mb-2 mars-text">Weight</h3>
-            <p class="text-xl font-bold">30 kilograms</p>
+            <h3 class="font-bold mb-2 mars-text">Total Mass</h3>
+            <p class="text-xl font-bold">25 kilograms</p>
+            <p class="text-sm opacity-80 mt-1">Light as a feather</p>
           </div>
           <div class="spec-card glass p-4">
             <h3 class="font-bold mb-2 mars-text">Battery Runtime</h3>
-            <p class="text-xl font-bold">2 hours</p>
+            <p class="text-xl font-bold">~2 hours</p>
+            <p class="text-sm opacity-80 mt-1">24Ah Capacity</p>
           </div>
         </div>
       </div>
       
       <div class="glass rounded-xl overflow-hidden">
-        <img src="rover.jpg">
+        <img src="rover.jpg" alt="Cars4Mars Rover Prototype" class="w-full h-auto">
       </div>
     </div>
     
     <div class="mt-12 flex flex-wrap justify-center gap-2">
       <span class="tech-tag mars-bg">Robotics</span>
-      <span class="tech-tag mars-bg">CAD</span>
+      <span class="tech-tag mars-bg">CAD Design</span>
       <span class="tech-tag mars-bg">Python</span>
       <span class="tech-tag mars-bg">Sensor Systems</span>
       <span class="tech-tag mars-bg">Rover Control</span>
       <span class="tech-tag mars-bg">Student Innovation</span>
+      <span class="tech-tag mars-bg">3D Printing</span>
+      <span class="tech-tag mars-bg">Machine Learning</span>
     </div>
   </section>
 
@@ -863,86 +1400,74 @@
         exposure="0.9"
         auto-rotate-delay="0"
         camera-orbit="0deg 75deg 105%">
-        <button class="model-control" slot="ar-button">
-          View in AR
+        <button class="model-control glow-button mars-bg absolute bottom-4 left-1/2 transform -translate-x-1/2" slot="ar-button">
+          <i class="fas fa-mobile-alt mr-2"></i> View in AR
         </button>
       </model-viewer>
       <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-        <button onclick="setRoverView('front')" class="glow-button mars-bg"><i class="fas fa-arrow-up mr-2"></i>Front View</button>
-        <button onclick="setRoverView('side')" class="glow-button mars-bg"><i class="fas fa-arrow-right mr-2"></i>Side View</button>
-        <button onclick="setRoverView('top')" class="glow-button mars-bg"><i class="fas fa-arrow-down mr-2"></i>Top View</button>
-        <button onclick="setRoverView('bottom')" class="glow-button mars-bg"><i class="fas fa-arrow-up mr-2 rotate-180"></i>Bottom View</button>
+        <button onclick="setRoverView('front')" class="glow-button mars-bg hover:bg-[#ff6b35]"><i class="fas fa-arrow-up mr-2"></i>Front View</button>
+        <button onclick="setRoverView('side')" class="glow-button mars-bg hover:bg-[#ff6b35]"><i class="fas fa-arrow-right mr-2"></i>Side View</button>
+        <button onclick="setRoverView('top')" class="glow-button mars-bg hover:bg-[#ff6b35]"><i class="fas fa-arrow-down mr-2"></i>Top View</button>
+        <button onclick="setRoverView('bottom')" class="glow-button mars-bg hover:bg-[#ff6b35]"><i class="fas fa-arrow-up mr-2 rotate-180"></i>Bottom View</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Competition Section -->
+  <section class="max-w-6xl mx-auto py-20 bg-gradient-to-b from-[#1a0000] to-[#0a0000]">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="order-2 md:order-1" data-aos="fade-right">
+        <h2 class="section-heading text-left">About the Competition</h2>
+        <p class="text-lg mb-6">The African Rover Challenge is the continent's premier robotics competition, modeled after the University Rover Challenge held in the Mars Desert Research Station in Utah, USA.</p>
+        <p class="text-lg mb-6">Teams are tasked with designing and building the next generation of Mars rovers that will assist astronauts in exploring the red planet. The competition tests rovers in four mission-critical tasks:</p>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start">
+            <span class="mars-text mr-2 mt-1">✓</span>
+            <span>Autonomous Traversal - Navigating difficult terrain without human intervention</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mars-text mr-2 mt-1">✓</span>
+            <span>Data Transmission - Send data and receive commands without a direct line of sight</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mars-text mr-2 mt-1">✓</span>
+            <span>Payload Delivery - Transporting a 1kg payload across terrain</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mars-text mr-2 mt-1">✓</span>
+            <span>Object Identification - Differentiating between objects using ML</span>
+          </li>
+        </ul>
+        <a href="https://cars4mars.co.za/" target="_blank" class="glow-button inline-block">Learn More About ARC</a>
+      </div>
+      <div class="order-1 md:order-2" data-aos="fade-left">
+        <div class="glass rounded-xl overflow-hidden">
+          <img src="site.jpg" alt="African Rover Challenge Competition Site" class="w-full h-auto">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">2025 Competition Details</h3>
+            <p class="mb-4">Johannesburg, South Africa | September 20-25, 2025</p>
+            <div class="flex items-center text-sm">
+              <div class="mr-4">
+                <div class="font-bold mars-text">30+</div>
+                <div>Teams</div>
+              </div>
+              <div class="mr-4">
+                <div class="font-bold mars-text">15</div>
+                <div>Countries</div>
+              </div>
+              <div>
+                <div class="font-bold mars-text">$25k</div>
+                <div>Prize Pool</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
 
-    <!-- Timeline Section -->
-  <section class="max-w-4xl mx-auto py-20">
-    <h2 class="section-heading">Project Timeline</h2>
-    
-    <div class="timeline-container">
-      <div class="timeline-line"></div>
-      
-      <div class="timeline-item-container" data-aos="fade-right">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="glass p-6 rounded-xl">
-            <h3 class="text-xl font-bold mars-text">Project Strategy Report Submitted</h3>
-            <p class="text-gray-300 mt-2">Initial concept and technical approach approved by competition organizers.</p>
-            <div class="mt-4 text-green-400">✅ 30 May 2025</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="timeline-item-container" data-aos="fade-left">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="glass p-6 rounded-xl">
-            <h3 class="text-xl font-bold mars-text">Final Design Report & Demo Video Due</h3>
-            <p class="text-gray-300 mt-2">Detailed engineering documentation and rover demonstration.</p>
-            <div class="mt-4 text-yellow-300">🟡 2 Aug 2025</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="timeline-item-container" data-aos="fade-right">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="glass p-6 rounded-xl">
-            <h3 class="text-xl font-bold mars-text">Launch Stage Final</h3>
-            <p class="text-gray-300 mt-2">Live presentation of rover and project management methodology</p>
-            <div class="mt-4 text-blue-400">🔵 23 Aug 2025</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="timeline-item-container" data-aos="fade-left">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="glass p-6 rounded-xl">
-            <h3 class="text-xl font-bold mars-text">Mars Stage</h3>
-            <p class="text-gray-300 mt-2">Travel to Johannesburg to compete with other teams</p>
-            <div class="mt-4 text-blue-400">🔵 20 Sep 2025</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="mt-12">
-      <h3 class="text-xl font-bold mb-4 text-center">Project Progress</h3>
-      <div class="glass p-4 rounded-xl">
-        <div class="w-full bg-gray-800 rounded-full h-4">
-          <div class="bg-gradient-to-r from-yellow-400 to-red-500 h-4 rounded-full" style="width: 42%"></div>
-        </div>
-        <p class="text-center mt-2">42% Complete - Currently in Design Phase</p>
-      </div>
-    </div>
-  </section>
-
-
-<!-- Cosmic Team Section -->
-<section class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 overflow-hidden" data-aos="fade-up">
+<section id="team" class="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 overflow-hidden" data-aos="fade-up">
   <!-- Cosmic Background Elements -->
   <div class="absolute inset-0 z-0">
     <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-[rgba(255,107,53,0.1)] filter blur-3xl animate-float-1"></div>
@@ -966,7 +1491,7 @@
       <div class="leader-orb commander-orb">
         <div class="leader-orb-core glass-leader">
           <div class="leader-orb-icon">
-            <i class="fas fa-rocket text-4xl mars-text"></i>
+            <i class="fas fa-microchip text-4xl mars-text"></i>
           </div>
           <div class="leader-orb-info">
             <h3 class="leader-orb-name">Achal Gupta</h3>
@@ -991,7 +1516,7 @@
       <div class="leader-orb deputy-orb">
         <div class="leader-orb-core glass-leader">
           <div class="leader-orb-icon">
-            <i class="fas fa-microchip text-4xl mars-text"></i>
+            <i class="fas fa-rocket text-4xl mars-text"></i>
           </div>
           <div class="leader-orb-info">
             <h3 class="leader-orb-name">Irshaad Omar</h3>
@@ -1046,7 +1571,6 @@
           <li class="cosmic-team-member">Siyabonga Ground</li>
           <li class="cosmic-team-member">Mulweli Sithomola</li>
           <li class="cosmic-team-member">Razaan Lagardien</li>
-          <li class="cosmic-team-member">Idah Sumbi</li>
           <li class="cosmic-team-member">Shradha Inder</li>
         </ul>
       </div>
@@ -1082,7 +1606,6 @@
           <li class="cosmic-team-member">Muso Motaung</li>
           <li class="cosmic-team-member">Phoenix Tennant</li>
           <li class="cosmic-team-member">Israel Mathivha</li>
-          <li class="cosmic-team-member">Idah Sumbi</li>
         </ul>
       </div>
       
@@ -1120,351 +1643,528 @@
     </div>
   </div>
 </section>
+  <!-- Partnership Section -->
 
-<style>
-  /* Glassmorphism Leader Orb Styles */
-  .glass-leader {
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(26, 0, 0, 0.7);
-    border: 1px solid rgba(255, 107, 53, 0.3);
-  }
-  
-  .leader-orb {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    perspective: 1000px;
-  }
-  
-  .commander-orb {
-    --orb-color: rgba(255, 107, 53, 0.8);
-  }
-  
-  .deputy-orb {
-    --orb-color: rgba(255, 107, 53, 0.6);
-  }
-  
-  .leader-orb-core {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.5s ease;
-    transform-style: preserve-3d;
-    z-index: 2;
-    overflow: hidden;
-  }
-  
-  .leader-orb:hover .leader-orb-core {
-    transform: scale(1.05) rotateY(10deg);
-    box-shadow: 0 0 50px rgba(255, 107, 53, 0.3);
-    background-color: rgba(26, 0, 0, 0.8);
-  }
-  
-  .leader-orb-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    background: rgba(255, 107, 53, 0.1);
-    border: 2px solid var(--orb-color);
-    transition: all 0.5s ease;
-  }
-  
-  .leader-orb:hover .leader-orb-icon {
-    transform: scale(1.1);
-    background: rgba(255, 107, 53, 0.2);
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-  }
-  
-  .leader-orb-ring {
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border-radius: 50%;
-    border: 2px dashed var(--orb-color);
-    opacity: 0.5;
-    animation: rotate-ring 60s linear infinite;
-    z-index: 1;
-  }
-  
-  .leader-orb-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    color: white;
-  }
-  
-  .leader-orb-title {
-    font-size: 1rem;
-    color: var(--orb-color);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-  
-  .leader-orb-divider {
-    width: 50px;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--orb-color), transparent);
-    margin: 0.75rem auto;
-  }
-  
-  .leader-orb-quote {
-    font-style: italic;
-    font-size: 0.85rem;
-    opacity: 0.9;
-  }
-  
-  .leader-orb-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, var(--orb-color) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: -1;
-  }
-  
-  .leader-orb:hover .leader-orb-glow {
-    opacity: 0.1;
-  }
-  
-  .leader-orb-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-  }
-  
-  .leader-orb-particles .particle {
-    position: absolute;
-    background: var(--orb-color);
-    border-radius: 50%;
-    opacity: 0;
-  }
-  
-  .leader-orb:hover .particle {
-    opacity: 0.6;
-    animation: float-particle 4s infinite;
-  }
-  
-  @keyframes rotate-ring {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  
-  @keyframes float-particle {
-    0% { transform: translate(0, 0); opacity: 0; }
-    20% { opacity: 0.6; }
-    100% { transform: translate(random(60) - 30px, random(60) - 30px); opacity: 0; }
-  }
-
-  /* Cosmic Animations */
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 0.2; transform: scale(1.1); }
-  }
-  @keyframes float-1 {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-10px) translateX(-5px); }
-  }
-  @keyframes float-2 {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(10px) translateX(5px); }
-  }
-  @keyframes float-3 {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-15px) translateX(0); }
-  }
-  @keyframes float-4 {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(5px) translateX(-5px); }
-  }
-  .animate-pulse-slow {
-    animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  .animate-float-1 {
-    animation: float-1 8s ease-in-out infinite;
-  }
-  .animate-float-2 {
-    animation: float-2 7s ease-in-out infinite;
-  }
-  .animate-float-3 {
-    animation: float-3 9s ease-in-out infinite;
-  }
-  .animate-float-4 {
-    animation: float-4 6s ease-in-out infinite;
-  }
-  
-  /* Cosmic Card Styles */
-  .cosmic-card {
-    background: linear-gradient(145deg, rgba(26,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
-    border: 1px solid rgba(255,107,53,0.2);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.5s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    position: relative;
-  }
-  .cosmic-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(255,107,53,0.1);
-    border-color: rgba(255,107,53,0.4);
-  }
-  .cosmic-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(255,107,53,0.8), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .cosmic-card:hover::before {
-    opacity: 1;
-  }
-  .cosmic-card-header {
-    background: linear-gradient(90deg, rgba(26,0,0,0.9) 0%, rgba(0,0,0,0.9) 100%);
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(255,107,53,0.2);
-  }
-  .cosmic-pulse-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ff6b35;
-    margin-right: 8px;
-    box-shadow: 0 0 10px #ff6b35;
-    animation: pulse-slow 2s infinite;
-  }
-  .cosmic-team-list {
-    padding: 1.5rem;
-    background: rgba(10,0,0,0.5);
-  }
-  .cosmic-team-member {
-    position: relative;
-    padding: 0.75rem 0 0.75rem 1.75rem;
-    border-bottom: 1px solid rgba(255,107,53,0.05);
-    transition: all 0.3s ease;
-  }
-  .cosmic-team-member:last-child {
-    border-bottom: none;
-  }
-  .cosmic-team-member::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255,107,53,0.7);
-    transition: all 0.3s ease;
-  }
-  .cosmic-team-member:hover {
-    padding-left: 2rem;
-    color: white;
-  }
-  .cosmic-team-member:hover::before {
-    background: #ff6b35;
-    box-shadow: 0 0 8px #ff6b35;
-    transform: translateY(-50%) scale(1.3);
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .leader-orb {
-      width: 240px;
-      height: 240px;
-    }
+  <section id="partnership" class="max-w-6xl mx-auto py-20 bg-gradient-to-b from-[#0a0000] to-[#1a0000]">
+    <h2 class="section-heading">Why Partner With Us?</h2>
     
-    .leader-orb-icon {
-      width: 70px;
-      height: 70px;
-      font-size: 1.8rem;
-    }
-    
-    .leader-orb-name {
-      font-size: 1.3rem;
-    }
-    
-    .leader-orb-title {
-      font-size: 0.9rem;
-    }
-    
-    .leader-orb-quote {
-      font-size: 0.8rem;
-    }
-  }
-</style>
-
-  
-
-
-  <!-- Mission Section -->
-  <section class="max-w-4xl mx-auto py-20 text-center" data-aos="fade-up">
-    <blockquote class="text-2xl md:text-3xl italic mb-8">
-      "The future isn’t found in the stars; it’s forged by hands willing to build what others only dream of."
-    </blockquote>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="max-w-4xl mx-auto py-20 text-center" data-aos="fade-up">
-    <h2 class="section-heading">Contact & Follow</h2>
-    
-    <div class="glass p-8 rounded-xl">
-      <div class="flex flex-wrap justify-center gap-4 mb-8">
-        <a href="connect.html" class="glow-button">Get In Touch</a>
-        <a href="https://www.instagram.com/uctspacesociety/" class="glow-button"><i class="fab fa-instagram mr-2"></i> Instagram</a>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="glass rounded-xl p-8" data-aos="fade-right">
+        <div class="flex items-start mb-6">
+          <div class="mars-text text-2xl mr-4">✓</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Talent Pipeline</h3>
+            <p>Gain early access to Africa's brightest engineering students. Our team members consistently secure positions at top tech companies and research institutions.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start mb-6">
+          <div class="mars-text text-2xl mr-4">✓</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Brand Alignment</h3>
+            <p>Associate your brand with cutting-edge innovation, STEM education, and Africa's growing space sector. Perfect for companies in tech, engineering, and education.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="mars-text text-2xl mr-4">✓</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Media Exposure</h3>
+            <p>The African Rover Challenge attracts significant media attention across the continent. Last year's event was covered by BBC Africa, TechCabal, and more.</p>
+          </div>
+        </div>
       </div>
       
-      <div class="flex justify-center gap-6">
-        <img src="videos/uct.jpg" alt="UCT Logo" class="h-12 opacity-80">
-        <img src="videos/spacesoc.jpg" alt="UCT Space Society" class="h-12 opacity-80">
+      <div class="glass rounded-xl p-8" data-aos="fade-left">
+        <div class="flex items-start mb-6">
+          <div class="mars-text text-2xl mr-4">✓</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">On-Campus Presence</h3>
+            <p>Be the name students remember. Be the logo that adorns our rover. Put your brand out there.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start mb-6">
+          <div class="mars-text text-2xl mr-4">✓</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Education That Leaves a Legacy</h3>
+            <p>By supporting our team, you directly contribute to accessible, inclusive STEM education in Africa. Be part of a story that inspires.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="mars-text text-2xl mr-4">✓</div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Tax Benefits</h3>
+            <p>Sponsorships may qualify as tax-deductible donations to education under South African law. We provide all necessary documentation.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Current Partners Section -->
+  <section class="max-w-6xl mx-auto py-20">
+    <h2 class="section-heading">Our Valued Partners</h2>
+    
+    <div class="glass rounded-xl p-8">
+        <div class="partner-logo flex justify-center">
+          <img src="spacesoc.jpg" alt="UCT Space Society" class="h-16 opacity-80 hover:opacity-100 transition-opacity">
+        </div>
+      <div class="text-center mt-12">
+        <p class="mb-6">Interested in joining our partner network?</p>
+        <a href="#contact" class="glow-button mars-bg hover:bg-[#ff6b35] inline-block">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cosmic Team Section -->
+
+
+  <!-- Testimonials Section -->
+  <section class="max-w-6xl mx-auto py-20">
+    <h2 class="section-heading">What People Say</h2>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="testimonial-card glass rounded-xl p-8" data-aos="fade-right">
+        <div class="flex items-center mb-6">
+          <img src="professor.jpg" alt="Professor" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-[#ff6b35]">
+          <div>
+            <h3 class="font-bold">Prof. Sarah Johnson</h3>
+            <p class="text-sm opacity-80">Director, UCT Engineering</p>
+          </div>
+        </div>
+        <div class="relative">
+          <p class="testimonial-quote italic pl-6">The Cars4Mars team represents the best of UCT's engineering talent. Their innovative approach to rover design has already caught the attention of industry leaders and academic researchers alike.</p>
+        </div>
+      </div>
+      
+      <div class="testimonial-card glass rounded-xl p-8" data-aos="fade-left">
+        <div class="flex items-center mb-6">
+          <img src="alumni.jpg" alt="Alumni" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-[#ff6b35]">
+          <div>
+            <h3 class="font-bold">David Mbeki</h3>
+            <p class="text-sm opacity-80">ARC Judge & Space Systems Engineer</p>
+          </div>
+        </div>
+        <div class="relative">
+          <p class="testimonial-quote italic pl-6">What impresses me most about the UCT team is their systems thinking approach. They're not just building a rover, they're developing transferable technologies with real-world applications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="cta-section max-w-6xl mx-auto py-20 rounded-xl overflow-hidden my-12">
+    <div class="container mx-auto px-4">
+      <h2 class="section-heading">Ready To Partner With Us?</h2>
+      <p class="text-center max-w-2xl mx-auto text-lg mb-12">Join our mission to push the boundaries of African space technology and gain valuable exposure for your organization.</p>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <div data-aos="fade-right">
+          <form id="contactForm" class="glass rounded-xl p-8">
+            <div class="mb-6">
+              <label for="name" class="form-label block mb-2">Your Name</label>
+              <input type="text" id="name" class="form-input w-full px-4 py-3 rounded-lg" required>
+            </div>
+            
+            <div class="mb-6">
+              <label for="email" class="form-label block mb-2">Email Address</label>
+              <input type="email" id="email" class="form-input w-full px-4 py-3 rounded-lg" required>
+            </div>
+            
+            <div class="mb-6">
+              <label for="organization" class="form-label block mb-2">Organization</label>
+              <input type="text" id="organization" class="form-input w-full px-4 py-3 rounded-lg" required>
+            </div>
+            
+            <div class="mb-6">
+              <label for="message" class="form-label block mb-2">Message</label>
+              <textarea id="message" rows="4" class="form-input w-full px-4 py-3 rounded-lg"></textarea>
+            </div>
+            
+            <button type="submit" class="glow-button mars-bg hover:bg-[#ff6b35] w-full py-4 text-lg">
+              <span id="submitText">Send Partnership Inquiry</span>
+              <span id="loadingSpinner" class="hidden ml-2 spinner-border animate-spin"></span>
+            </button>
+          </form>
+        </div>
+        
+        <div class="flex flex-col justify-center" data-aos="fade-left">
+          <div class="glass rounded-xl p-8 mb-8">
+            <h3 class="text-xl font-bold mb-4 mars-text">Contact Information</h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <i class="fas fa-envelope mr-4 mt-1 mars-text"></i>
+                <div>
+                  <div class="font-bold">Email</div>
+                  <a href="mailto:cars4mars@uctspacesociety.org" class="hover:underline">cars4mars@uctspacesociety.org</a>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <i class="fas fa-phone mr-4 mt-1 mars-text"></i>
+                <div>
+                  <div class="font-bold">Phone</div>
+                  <a href="tel:+27216501234" class="hover:underline">+27 21 650 1234</a>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <i class="fas fa-map-marker-alt mr-4 mt-1 mars-text"></i>
+                <div>
+                  <div class="font-bold">Address</div>
+                  <div>UCT Space Society<br>University of Cape Town<br>Private Bag X3<br>Rondebosch 7701<br>South Africa</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="glass rounded-xl p-8">
+            <h3 class="text-xl font-bold mb-4 mars-text">Follow Our Journey</h3>
+            <div class="flex space-x-4">
+              <a href="https://www.instagram.com/uctspacesociety/" target="_blank" class="glow-button mars-bg hover:bg-[#ff6b35] flex-1 text-center py-3">
+                <i class="fab fa-instagram mr-2"></i> Instagram
+              </a>
+              <a href="https://www.linkedin.com/company/uct-space-society/" target="_blank" class="glow-button mars-bg hover:bg-[#ff6b35] flex-1 text-center py-3">
+                <i class="fab fa-linkedin mr-2"></i> LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0a0000] py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4 mars-text">About UCT Space Society</h3>
+          <p class="mb-4">The official space exploration and astronomy society of the University of Cape Town, fostering Africa's next generation of space scientists and engineers.</p>
+          <img src="space-soc-logo.png" alt="UCT Space Society" class="h-12 opacity-80">
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-4 mars-text">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="cars4mars.html" class="hover:underline">Back to Top</a></li>
+            <li><a href="https://cars4mars.co.za/" target="_blank" class="hover:underline">African Rover Challenge</a></li>
+            <li><a href="https://www.uct.ac.za" target="_blank" class="hover:underline">University of Cape Town</a></li>
+          </ul>
+        </div>
+        
+
+      </div>
+      
+      <div class="border-t border-[#ff6b35]/20 pt-8 text-center text-sm opacity-80">
+        <p>&copy; 2025 UCT Space Society - Cars4Mars Project. All rights reserved.</p>
+        <p class="mt-2">Designed and built by the Cars4Mars team with ♥ in Cape Town.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Countdown -->
+  <div class="sticky-countdown">
+    <i class="fas fa-rocket mars-icon"></i>
+    <span>Launch in:</span>
+    <div class="countdown-value" id="sticky-days">00</div>
+    <span>d</span>
+    <div class="countdown-value" id="sticky-hours">00</div>
+    <span>h</span>
+    <div class="countdown-value" id="sticky-minutes">00</div>
+    <span>m</span>
+    <div class="countdown-value" id="sticky-seconds">00</div>
+    <span>s</span>
+  </div>
+
+  <!-- Partnership Modal -->
+  <div class="modal-overlay" id="partnershipModal">
+    <div class="modal-content relative">
+      <button class="close-modal" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <div class="p-8">
+        <h2 class="text-3xl font-bold mb-6 mars-text text-center" id="modalTitle">Partnership Inquiry</h2>
+        
+        <form id="modalForm" class="max-w-md mx-auto">
+          <input type="hidden" id="partnershipType">
+          
+          <div class="mb-6">
+            <label for="modalName" class="form-label block mb-2">Your Name</label>
+            <input type="text" id="modalName" class="form-input w-full px-4 py-3 rounded-lg" required>
+          </div>
+          
+          <div class="mb-6">
+            <label for="modalEmail" class="form-label block mb-2">Email Address</label>
+            <input type="email" id="modalEmail" class="form-input w-full px-4 py-3 rounded-lg" required>
+          </div>
+          
+          <div class="mb-6">
+            <label for="modalOrg" class="form-label block mb-2">Organization</label>
+            <input type="text" id="modalOrg" class="form-input w-full px-4 py-3 rounded-lg" required>
+          </div>
+          
+          <div class="mb-6">
+            <label for="modalMessage" class="form-label block mb-2">Tell us about your interest</label>
+            <textarea id="modalMessage" rows="4" class="form-input w-full px-4 py-3 rounded-lg" required></textarea>
+          </div>
+          
+          <button type="submit" class="glow-button mars-bg hover:bg-[#ff6b35] w-full py-4 text-lg">
+            <span id="modalSubmitText">Submit Inquiry</span>
+            <span id="modalLoadingSpinner" class="loading-spinner hidden"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Replace the existing particle.js script with this Mars-themed particle system:
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
+      
+      if (mobileNav.classList.contains('open')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Countdown timer
+    const countdownDate = new Date("Aug 2, 2025 00:00:00").getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').innerHTML = days;
+      document.getElementById('hours').innerHTML = hours;
+      document.getElementById('minutes').innerHTML = minutes;
+      document.getElementById('seconds').innerHTML = seconds;
+      
+      // Update sticky countdown
+      document.getElementById('sticky-days').innerHTML = days;
+      document.getElementById('sticky-hours').innerHTML = hours;
+      document.getElementById('sticky-minutes').innerHTML = minutes;
+      document.getElementById('sticky-seconds').innerHTML = seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
+    // Animated stats counter
+    function animateStats() {
+      const teamCount = document.getElementById('team-count');
+      const hoursCount = document.getElementById('hours-count');
+      const componentsCount = document.getElementById('components-count');
+      const universitiesCount = document.getElementById('universities-count');
+      
+      animateValue(teamCount, 0, 17, 2000);
+      animateValue(hoursCount, 0, 4, 2000);
+      animateValue(componentsCount, 0, 126, 2000);
+      animateValue(universitiesCount, 0, 10, 2000);
+    }
+    
+    function animateValue(element, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        element.innerHTML = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+    
+    // Run stats animation when stats section is in view
+    const statsSection = document.querySelector('.bg-gradient-to-r');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateStats();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(statsSection);
+
+    // Interactive rover controls
+    function setRoverView(view) {
+      const rover = document.getElementById('interactive-rover');
+      if (!rover) return;
+      
+      let orbit = '0deg 75deg 105%';
+      
+      switch(view) {
+        case 'front':
+          orbit = '0deg 75deg 105%';
+          break;
+        case 'side':
+          orbit = '90deg 75deg 105%';
+          break;
+        case 'top':
+          orbit = '0deg 0deg 150%';
+          break;
+        case 'bottom':
+          orbit = '0deg 180deg 150%';
+          break;
+      }
+      
+      rover.cameraOrbit = orbit;
+    }
+
+    // Partnership modal
+    function openModal(type) {
+      const modal = document.getElementById('partnershipModal');
+      const title = document.getElementById('modalTitle');
+      const typeInput = document.getElementById('partnershipType');
+      
+      switch(type) {
+        case 'supporter':
+          title.textContent = 'Mission Supporter Inquiry';
+          typeInput.value = 'supporter';
+          break;
+        case 'tech':
+          title.textContent = 'Technology Partner Inquiry';
+          typeInput.value = 'tech';
+          break;
+        case 'title':
+          title.textContent = 'Title Sponsor Inquiry';
+          typeInput.value = 'title';
+          break;
+        case 'custom':
+          title.textContent = 'Custom Partnership Inquiry';
+          typeInput.value = 'custom';
+          break;
+        default:
+          title.textContent = 'Partnership Inquiry';
+          typeInput.value = 'general';
+      }
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('partnershipModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Close modal when clicking outside
+    const modalOverlay = document.getElementById('partnershipModal');
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeModal();
+      }
+    });
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
+    
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    const modalForm = document.getElementById('modalForm');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitForm(contactForm, 'submitText', 'loadingSpinner');
+    });
+    
+    modalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitForm(modalForm, 'modalSubmitText', 'modalLoadingSpinner');
+      closeModal();
+    });
+    
+    function submitForm(form, textId, spinnerId) {
+      const submitText = document.getElementById(textId);
+      const spinner = document.getElementById(spinnerId);
+      
+      submitText.classList.add('hidden');
+      spinner.classList.remove('hidden');
+      
+      // Simulate form submission (replace with actual AJAX call)
+      setTimeout(() => {
+        spinner.classList.add('hidden');
+        submitText.classList.remove('hidden');
+        
+        // Show success message
+        alert('This feature has not been implemented yet. Please contact us via email.f');
+        form.reset();
+      }, 1500);
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Particle background
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     
-    // Set display size to match CSS size but with higher resolution
     const setCanvasSize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      // Set actual size in memory (scaled to account for extra pixel density)
       const scale = window.devicePixelRatio || 1;
       canvas.width = width * scale;
       canvas.height = height * scale;
       
-      // Normalize coordinate system to use CSS pixels
       ctx.scale(scale, scale);
       
       return { width, height };
@@ -1484,7 +2184,6 @@
         this.baseX = this.x;
         this.baseY = this.y;
         this.density = (Math.random() * 40) + 10;
-        // Mars-themed colors (red/orange spectrum)
         this.color = `hsla(${Math.random() * 30 + 10}, 100%, ${Math.random() * 30 + 50}%, 0.8)`;
         this.velocityX = Math.random() * 2 - 1;
         this.velocityY = Math.random() * 2 - 1;
@@ -1505,7 +2204,6 @@
         this.x += this.velocityX * 0.2;
         this.y += this.velocityY * 0.2;
         
-        // Bounce off edges
         if (this.x < 0 || this.x > width) {
           this.velocityX *= -1;
         }
@@ -1513,7 +2211,6 @@
           this.velocityY *= -1;
         }
 
-        // Mouse interaction
         if (mouse.x && mouse.y) {
           let dx = mouse.x - this.x;
           let dy = mouse.y - this.y;
@@ -1534,7 +2231,6 @@
           }
         }
 
-        // Return to base position
         if (this.x !== this.baseX) {
           let dx = this.baseX - this.x;
           this.x += dx / 15;
@@ -1544,7 +2240,6 @@
           this.y += dy / 15;
         }
         
-        // Apply friction
         this.velocityX *= 0.95;
         this.velocityY *= 0.95;
       }
@@ -1556,21 +2251,17 @@
         particles.push(new Particle());
       }
       
-      // Create dust particles
       createDustParticles();
     }
 
     function createDustParticles() {
-      // Remove any existing dust particles
       document.querySelectorAll('.dust-particle').forEach(el => el.remove());
       
-      // Create new dust particles
       const dustCount = isMobile ? 15 : 30;
       for (let i = 0; i < dustCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'dust-particle';
         
-        // Random properties
         const size = Math.random() * 5 + 2;
         const duration = Math.random() * 30 + 30;
         const delay = Math.random() * 10;
@@ -1590,14 +2281,12 @@
     function animate() {
       ctx.clearRect(0, 0, width, height);
       
-      // Mars-like gradient background
       const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, 'rgba(26, 0, 0, 0.9)'); // Deep red
-      gradient.addColorStop(1, 'rgba(10, 0, 0, 0.9)'); // Darker red
+      gradient.addColorStop(0, 'rgba(26, 0, 0, 0.9)');
+      gradient.addColorStop(1, 'rgba(10, 0, 0, 0.9)');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
       
-      // Draw and update particles
       for (let i = 0; i < particles.length; i++) {
         particles[i].draw();
         particles[i].update();
@@ -1639,39 +2328,6 @@
       mouse.y = height * 0.5 + beta * height * 0.5;
     }
 
-    // Initialize AOS animations
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out',
-      once: true
-    });
-
-    // Mobile menu toggle
-    const burger = document.getElementById('burger');
-    const mobileNav = document.getElementById('mobileNav');
-    
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-      mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
-      
-      if (mobileNav.classList.contains('open')) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
-    });
-    
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
     // Initialize the particle system
     init();
     animate();
@@ -1695,93 +2351,32 @@
       mouse.x = undefined;
       mouse.y = undefined;
     });
-
-    // Countdown timer
-    const countdownDate = new Date("Aug 2, 2025 00:00:00").getTime();
     
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-      
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      document.getElementById('days').innerHTML = days;
-      document.getElementById('hours').innerHTML = hours;
-      document.getElementById('minutes').innerHTML = minutes;
-      document.getElementById('seconds').innerHTML = seconds;
-      
-      // Update sticky countdown if it exists
-      if (document.getElementById('sticky-days')) {
-        document.getElementById('sticky-days').innerHTML = days;
-        document.getElementById('sticky-hours').innerHTML = hours;
-        document.getElementById('sticky-minutes').innerHTML = minutes;
-        document.getElementById('sticky-seconds').innerHTML = seconds;
-      }
-    }
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    
-    // Rover scroll animation
-    let lastScrollPosition = 0;
-    const roverModel = document.getElementById('rover-model');
-
-    window.addEventListener('scroll', () => {
-      const scrollPosition = window.scrollY;
-      const rotation = scrollPosition * 0.2;
-      
-      if (roverModel) {
-        roverModel.cameraOrbit = `${rotation}deg 75deg 105%`;
-      }
-      lastScrollPosition = scrollPosition;
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (mobileNav.classList.contains('open')) {
+            burger.classList.remove('open');
+            mobileNav.classList.remove('open');
+            mobileNav.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          }
+        }
+      });
     });
-
-    // Interactive rover controls
-    function setRoverView(view) {
-      const rover = document.getElementById('interactive-rover');
-      if (!rover) return;
-      
-      let orbit = '0deg 75deg 105%';
-      
-      switch(view) {
-        case 'front':
-          orbit = '0deg 75deg 105%';
-          break;
-        case 'side':
-          orbit = '90deg 75deg 105%';
-          break;
-        case 'top':
-          orbit = '0deg 0deg 150%';
-          break;
-        case 'bottom':
-          orbit = '0deg 180deg 150%';
-          break;
-      }
-      
-      rover.cameraOrbit = orbit;
-    }
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
-        burger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        mobileNav.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-    });
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-        burger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        mobileNav.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-    });
-</script>
+  </script>
 </body>
 </html>
