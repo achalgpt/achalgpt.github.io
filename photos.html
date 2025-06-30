@@ -28,7 +28,7 @@
       min-height: 100vh;
     }
     
-    /* Enhanced Particle Background */
+    /* Background with subtle glow */
     #canvas {
       position: fixed;
       top: 0;
@@ -36,7 +36,7 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: #000000;
+      background: linear-gradient(to bottom, #000000 0%, #1a0d00 100%);
     }
     
     /* Glass effects */
@@ -584,7 +584,7 @@
   </style>
 </head>
 <body>
-  <!-- Interactive Particle Background -->
+  <!-- Background with floating dust particles -->
   <canvas id="canvas"></canvas>
 
   <!-- Navbar -->
@@ -779,7 +779,7 @@
       once: true
     });
     
-    // Enhanced High-Resolution Particle Background
+    // Background with Floating Dust Particles and Subtle Glow
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     
@@ -800,129 +800,123 @@
     };
     
     let { width, height } = setCanvasSize();
-    let particles = [];
+    let mouse = { x: null, y: null };
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    const particleCount = isMobile ? 150 : 250;
-    const mouse = { x: null, y: null, radius: 150 };
-
-    class Particle {
+    
+    // Golden color palette
+    const colors = [
+      'rgba(255, 215, 0, 0.6)',    // Gold
+      'rgba(255, 165, 0, 0.5)',    // Orange
+      'rgba(255, 140, 0, 0.4)',    // Dark orange
+      'rgba(255, 215, 0, 0.3)',    // Gold (lighter)
+      'rgba(255, 255, 255, 0.2)'   // White (for highlights)
+    ];
+    
+    // Create floating dust particles
+    class DustParticle {
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.size = isMobile ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.5;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.density = (Math.random() * 40) + 10;
-        this.color = `hsl(${Math.random() * 60 + 180}, 100%, ${Math.random() * 30 + 70}%)`;
-        this.velocityX = Math.random() * 2 - 1;
-        this.velocityY = Math.random() * 2 - 1;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.opacity = Math.random() * 0.6 + 0.1;
+        this.drift = Math.random() * 0.02 - 0.01;
       }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.shadowBlur = isMobile ? 8 : 12;
-        ctx.shadowColor = this.color;
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
+      
       update() {
-        this.x += this.velocityX * 0.2;
-        this.y += this.velocityY * 0.2;
+        this.x += this.speedX;
+        this.y += this.speedY;
         
-        // Bounce off edges
-        if (this.x < 0 || this.x > width) {
-          this.velocityX *= -1;
-        }
-        if (this.y < 0 || this.y > height) {
-          this.velocityY *= -1;
-        }
-
-        // Mouse interaction
+        // Add gentle drifting motion
+        this.x += Math.sin(Date.now() * 0.001 + this.y * 0.01) * 0.3;
+        this.y += this.drift;
+        
+        // Wrap around screen edges
+        if (this.x > width + this.size) this.x = -this.size;
+        if (this.x < -this.size) this.x = width + this.size;
+        if (this.y > height + this.size) this.y = -this.size;
+        if (this.y < -this.size) this.y = height + this.size;
+        
+        // React to mouse movement
         if (mouse.x && mouse.y) {
-          let dx = mouse.x - this.x;
-          let dy = mouse.y - this.y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < mouse.radius) {
-            let forceDirectionX = dx / distance;
-            let forceDirectionY = dy / distance;
-            let maxDistance = mouse.radius;
-            let force = (maxDistance - distance) / maxDistance;
-            let directionX = forceDirectionX * force * this.density * 0.1;
-            let directionY = forceDirectionY * force * this.density * 0.1;
-            
-            this.x -= directionX;
-            this.y -= directionY;
-            this.velocityX = forceDirectionX * force * 2;
-            this.velocityY = forceDirectionY * force * 2;
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+            this.x -= dx * 0.02 * force;
+            this.y -= dy * 0.02 * force;
           }
         }
-
-        // Return to base position
-        if (this.x !== this.baseX) {
-          let dx = this.baseX - this.x;
-          this.x += dx / 15;
-        }
-        if (this.y !== this.baseY) {
-          let dy = this.baseY - this.y;
-          this.y += dy / 15;
-        }
-        
-        // Apply friction
-        this.velocityX *= 0.95;
-        this.velocityY *= 0.95;
+      }
+      
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
     }
-
+    
+    // Create dust particles
+    const dustParticles = [];
+    const dustCount = isMobile ? 60 : 120;
+    
     function init() {
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+      // Create dust particles
+      for (let i = 0; i < dustCount; i++) {
+        dustParticles.push(new DustParticle());
       }
     }
-
+    
     function animate() {
       ctx.clearRect(0, 0, width, height);
       
-      // Pure black background for AMOLED
-      ctx.fillStyle = '#000000';
+      // Draw gradient background
+      const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
+      bgGradient.addColorStop(0, '#1a0d00');
+      bgGradient.addColorStop(1, '#000000');
+      ctx.fillStyle = bgGradient;
       ctx.fillRect(0, 0, width, height);
       
-      // Draw and update particles
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].draw();
-        particles[i].update();
-      }
+      // Draw subtle glow in the corner
+      const glowX = width * 0.8;
+      const glowY = height * 0.2;
+      const glowRadius = Math.min(width, height) * 0.2;
       
-      connect();
+      const glowGradient = ctx.createRadialGradient(
+        glowX, glowY, 0,
+        glowX, glowY, glowRadius
+      );
+      glowGradient.addColorStop(0, 'rgba(255, 215, 0, 0.3)');
+      glowGradient.addColorStop(1, 'rgba(255, 140, 0, 0)');
+      
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = glowGradient;
+      ctx.beginPath();
+      ctx.arc(glowX, glowY, glowRadius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      
+      // Draw dust particles
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      for (let dust of dustParticles) {
+        dust.update();
+        dust.draw();
+      }
+      ctx.restore();
+      
       requestAnimationFrame(animate);
     }
-
-    function connect() {
-      let opacityValue = 1;
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a; b < particles.length; b++) {
-          let dx = particles[a].x - particles[b].x;
-          let dy = particles[a].y - particles[b].y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < (isMobile ? 80 : 120)) {
-            opacityValue = 1 - (distance / (isMobile ? 80 : 120));
-            ctx.strokeStyle = `hsla(${Math.random() * 60 + 180}, 100%, 80%, ${opacityValue * 0.5})`;
-            ctx.lineWidth = opacityValue * (isMobile ? 0.8 : 1.2);
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
+    
     function handleOrientation(event) {
       if (!event.beta || !event.gamma) return;
       
@@ -933,26 +927,26 @@
       mouse.x = width * 0.5 + gamma * width * 0.5;
       mouse.y = height * 0.5 + beta * height * 0.5;
     }
-
+    
     window.addEventListener('mousemove', (event) => {
       mouse.x = event.x;
       mouse.y = event.y;
     });
-
+    
     window.addEventListener('deviceorientation', handleOrientation);
-
+    
     window.addEventListener('resize', () => {
       const newSize = setCanvasSize();
       width = newSize.width;
       height = newSize.height;
       init();
     });
-
+    
     window.addEventListener('mouseout', () => {
       mouse.x = undefined;
       mouse.y = undefined;
     });
-
+    
     // Mobile menu toggle
     const burger = document.getElementById('burger');
     const mobileNav = document.getElementById('mobileNav');
@@ -996,7 +990,7 @@
         navbar.classList.remove('scrolled');
       }
     });
-
+    
     init();
     animate();
   </script>
