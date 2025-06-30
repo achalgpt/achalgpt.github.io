@@ -8,8 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="icon" type="image/png" href="videos/about.png">
+  <link rel="icon" type="image/png" href="videos/about.png">
   <style>
+    :root {
+      --primary: #2be28a;
+      --primary-dark: #00a854;
+      --bg-dark: #000;
+    }
+    
     * {
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -19,7 +25,7 @@
     }
     
     body {
-      background-color: #000;
+      background-color: var(--bg-dark);
       color: #fff;
       font-family: 'Roboto', sans-serif;
       margin: 0;
@@ -28,7 +34,17 @@
       min-height: 100vh;
     }
     
-    /* Particle background */
+    #cosmic-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -2;
+      pointer-events: none;
+      background: radial-gradient(ellipse at bottom, #051a10 0%, #000000 100%);
+    }
+    
     #particles-js {
       position: fixed;
       width: 100%;
@@ -37,26 +53,23 @@
       left: 0;
       z-index: -1;
       pointer-events: none;
-      background: rgba(0, 0, 0, 0.3);
     }
     
-    /* Glass effects */
     .glass {
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(10, 30, 20, 0.3);
+      border: 1px solid rgba(43, 226, 138, 0.2);
       border-radius: 20px;
     }
     
     .glass-nav {
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.15);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(5, 20, 15, 0.8);
+      border-bottom: 1px solid rgba(43, 226, 138, 0.2);
     }
     
-    /* Navbar */
     nav {
       position: fixed;
       top: 0;
@@ -71,7 +84,7 @@
     
     nav.scrolled {
       padding: 0.5rem 0;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 10, 5, 0.95);
     }
     
     .nav-links {
@@ -89,7 +102,7 @@
     }
     
     .nav-link {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.8);
       font-weight: 600;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
@@ -113,7 +126,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #fff;
+      background: var(--primary);
       transition: width 0.3s ease;
     }
     
@@ -129,7 +142,6 @@
       width: 70%;
     }
     
-    /* Mobile menu */
     .burger {
       cursor: pointer;
       width: 28px;
@@ -166,7 +178,7 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: rgba(0, 10, 5, 0.98);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: none;
@@ -205,7 +217,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #fff;
+      background: var(--primary);
       transition: width 0.3s ease;
     }
     
@@ -226,16 +238,16 @@
       position: relative;
       width: 100%;
       height: 100vh;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
+      z-index: 1;
     }
     
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       padding: 0 1rem;
     }
     
@@ -243,10 +255,10 @@
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 700;
       margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       color: rgba(255, 255, 255, 0.9);
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       animation: fadeIn 1s ease forwards;
       padding: 0.5rem 1rem;
       position: relative;
@@ -261,7 +273,7 @@
       transform: translateX(-50%);
       width: 70%;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
       transition: width 0.3s ease;
     }
     
@@ -270,10 +282,10 @@
       display: inline-block;
       padding: 12px 24px;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(43, 226, 138, 0.2);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(43, 226, 138, 0.4);
       color: white;
       font-weight: 600;
       text-decoration: none;
@@ -290,13 +302,13 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(43, 226, 138, 0.3), transparent);
       transition: all 0.5s ease;
       z-index: -1;
     }
     
     .glow-button:hover {
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(43, 226, 138, 0.3);
       transform: translateY(-2px);
     }
     
@@ -326,7 +338,7 @@
       transform: translateX(-50%);
       width: 70%;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
       transition: width 0.3s ease;
     }
     
@@ -352,6 +364,8 @@
     /* Responsive spacing */
     section {
       padding: 4rem 1rem;
+      position: relative;
+      z-index: 1;
     }
     
     @media (min-width: 768px) {
@@ -380,7 +394,7 @@
     
     .skill-level {
       height: 100%;
-      background: rgba(255, 255, 255, 0.8);
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
       border-radius: 5px;
     }
     
@@ -391,7 +405,7 @@
     
     .value-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 168, 84, 0.3);
     }
     
     /* Stats */
@@ -411,16 +425,16 @@
       height: 200px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid rgba(255, 255, 255, 0.3);
+      border: 3px solid rgba(43, 226, 138, 0.3);
       transition: all 0.3s ease;
     }
     
     .profile-img:hover {
       transform: scale(1.05);
-      border-color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(43, 226, 138, 0.8);
     }
 
-    /* New Timeline Styles */
+    /* Timeline Styles */
     .timeline-container {
       position: relative;
       padding-left: 2rem;
@@ -432,7 +446,7 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: rgba(255, 255, 255, 0.2);
+      background: linear-gradient(to bottom, var(--primary-dark), var(--primary));
     }
 
     .timeline-item {
@@ -448,7 +462,7 @@
       width: 1.5rem;
       height: 1.5rem;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.8);
+      background: var(--primary);
       border: 3px solid #000;
       transform: translateX(-50%);
     }
@@ -464,10 +478,76 @@
         padding-left: 3rem;
       }
     }
+
+    /* Shooting star animation */
+    .shooting-star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 2px white;
+      animation: shootingStar 10s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes shootingStar {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      70% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(1000px, -500px);
+        opacity: 0;
+      }
+    }
+
+    /* Hall of Fame Styles */
+    .hall-of-fame-item {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(43, 226, 138, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .hall-of-fame-item:last-child {
+      border-bottom: none;
+    }
+
+    .hall-of-fame-item:hover {
+      background-color: rgba(43, 226, 138, 0.05);
+    }
+
+    .hall-of-fame-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(43, 226, 138, 0.1);
+      border-radius: 50%;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .hall-of-fame-content {
+      flex-grow: 1;
+    }
+
+    .hall-of-fame-date {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
   </style>
 </head>
 <body>
-  <!-- Particle background -->
+  <!-- Cosmic Particle Background -->
+  <div id="cosmic-bg"></div>
   <div id="particles-js"></div>
 
   <!-- Navbar -->
@@ -621,112 +701,6 @@
           </ul>
         </div>
       </div>
-      
-  </section>
-
-  <!-- Skills Section -->
-  <section class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-    <h2 class="section-heading">Skills & Expertise</h2>
-    <div class="glass p-8">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-xl font-bold mb-6 text-center">Technical Expertise</h3>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Systems Design and Mechatronics</span>
-              <span>95%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 95%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Embedded Programming and Integration</span>
-              <span>92%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 92%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Computer Vision and Autonomous Nav</span>
-              <span>88%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 88%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Hardware Software Co-Design</span>
-              <span>85%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 85%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Strategic Technical Leadership</span>
-              <span>85%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 85%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Scientific Communication</span>
-              <span>82%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 82%"></div>
-            </div>
-          </div>
-        </div>
-        
-        <div>
-          <h3 class="text-xl font-bold mb-6 text-center">Human-Centered Strengths</h3>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Leadership and Vision Alignment</span>
-              <span>95%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 95%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Team Mentorship and Empowerment</span>
-              <span>93%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 93%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Public Speaking</span>
-              <span>90%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 90%"></div>
-            </div>
-          </div>
-          <div class="skill-container">
-            <div class="skill-info">
-              <span>Visual Storytelling</span>
-              <span>85%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-level" style="width: 85%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -760,40 +734,64 @@
     </div>
   </section>
 
-  <!-- Achievements Section -->
+  <!-- Hall of Fame Section -->
   <section class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="500">
-    <h2 class="section-heading">Achievements</h2>
-    <div class="glass p-8">
-      <ul class="space-y-4">
-        <li class="flex items-start">
-          <span class="text-white text-2xl mr-3">🧠</span>
-          <div>
-            <h3 class="text-lg font-bold">Top 4 in the World</h3>
-            <p class="text-gray-300">2023 - A-Level Computer Science</p>
-          </div>
-        </li>
-        <li class="flex items-start">
-          <span class="text-white text-2xl mr-3">🌍</span>
-          <div>
-            <h3 class="text-lg font-bold">International Math Olympiad Participant</h3>
-            <p class="text-gray-300">IMO 2021 + IMO 2022</p>
-          </div>
-        </li>
-        <li class="flex items-start">
-          <span class="text-white text-2xl mr-3">🚀</span>
-          <div>
-            <h3 class="text-lg font-bold">Chairperson of UCT Space Society</h3>
-            <p class="text-gray-300">Currently also leading a team that is building a Mars-style rover</p>
-          </div>
-        </li>
-        <li class="flex items-start">
-          <span class="text-white text-2xl mr-3">📷</span>
-          <div>
-            <h3 class="text-lg font-bold">Photographer</h3>
-            <p class="text-gray-300">Running an Instagram account for my best work</p>
-          </div>
-        </li>
-      </ul>
+    <h2 class="section-heading">Hall of Fame</h2>
+    <div class="glass p-6">
+      <div class="hall-of-fame-item">
+        <div class="hall-of-fame-icon">
+          <i class="fas fa-trophy text-xl text-primary"></i>
+        </div>
+        <div class="hall-of-fame-content">
+          <div class="hall-of-fame-date">2023</div>
+          <h3 class="text-lg font-bold">Top 4 in the World - A-Level Computer Science</h3>
+          <p class="text-gray-300">Cambridge International Examination Outstanding Learner Award</p>
+        </div>
+      </div>
+      
+      <div class="hall-of-fame-item">
+        <div class="hall-of-fame-icon">
+          <i class="fas fa-globe-americas text-xl text-primary"></i>
+        </div>
+        <div class="hall-of-fame-content">
+          <div class="hall-of-fame-date">2022</div>
+          <h3 class="text-lg font-bold">International Math Olympiad Participant</h3>
+          <p class="text-gray-300">Represented Botswana at the prestigious international mathematics competition</p>
+        </div>
+      </div>
+      
+      <div class="hall-of-fame-item">
+        <div class="hall-of-fame-icon">
+          <i class="fas fa-medal text-xl text-primary"></i>
+        </div>
+        <div class="hall-of-fame-content">
+          <div class="hall-of-fame-date">2022</div>
+          <h3 class="text-lg font-bold">Top in Country - AS-Level Computer Science</h3>
+          <p class="text-gray-300">Cambridge International Examination Outstanding Learner Award</p>
+        </div>
+      </div>
+      
+      <div class="hall-of-fame-item">
+        <div class="hall-of-fame-icon">
+          <i class="fas fa-medal text-xl text-primary"></i>
+        </div>
+        <div class="hall-of-fame-content">
+          <div class="hall-of-fame-date">2022</div>
+          <h3 class="text-lg font-bold">Top in Country - AS-Level Mathematics</h3>
+          <p class="text-gray-300">Cambridge International Examination Outstanding Learner Award</p>
+        </div>
+      </div>
+      
+      <div class="hall-of-fame-item">
+        <div class="hall-of-fame-icon">
+          <i class="fas fa-globe-americas text-xl text-primary"></i>
+        </div>
+        <div class="hall-of-fame-content">
+          <div class="hall-of-fame-date">2021</div>
+          <h3 class="text-lg font-bold">International Math Olympiad Participant</h3>
+          <p class="text-gray-300">Represented Botswana at the prestigious international mathematics competition</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -814,20 +812,21 @@
       once: true
     });
     
-    // Initialize particle.js background
+    // Cosmic Particle Background
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize particle.js background
       if (document.getElementById('particles-js')) {
         particlesJS('particles-js', {
           "particles": {
             "number": {
-              "value": 100,
+              "value": 80,
               "density": {
                 "enable": true,
                 "value_area": 800
               }
             },
             "color": {
-              "value": "#ffffff"
+              "value": ["#2be28a", "#00a854", "#ffffff"]
             },
             "shape": {
               "type": "circle",
@@ -845,12 +844,12 @@
               "anim": {
                 "enable": true,
                 "speed": 1,
-                "opacity_min": 0.3,
+                "opacity_min": 0.1,
                 "sync": false
               }
             },
             "size": {
-              "value": 4,
+              "value": 3,
               "random": true,
               "anim": {
                 "enable": true,
@@ -862,7 +861,7 @@
             "line_linked": {
               "enable": true,
               "distance": 150,
-              "color": "#ffffff",
+              "color": "#2be28a",
               "opacity": 0.4,
               "width": 1
             },
@@ -923,6 +922,24 @@
           "retina_detect": true
         });
       }
+      
+      // Create shooting stars
+      function createShootingStar() {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(star);
+        
+        // Remove after animation completes
+        setTimeout(() => {
+          star.remove();
+        }, 10000);
+      }
+      
+      // Create shooting stars periodically
+      setInterval(createShootingStar, 3000);
       
       // Mobile menu toggle
       const burger = document.getElementById('burger');
