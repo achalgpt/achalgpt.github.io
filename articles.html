@@ -524,6 +524,7 @@
       outline: 2px solid rgba(255, 255, 255, 0.7);
       outline-offset: 2px;
     }
+    
   </style>
 </head>
 <body>
@@ -802,6 +803,33 @@
       duration: 800,
       easing: 'ease-in-out',
       once: true
+    });
+
+    // Add this section to handle publication clicks
+    document.querySelectorAll('[data-publication]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pubId = link.dataset.publication;
+        
+        // Show the publication view
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('publication-view').style.display = 'block';
+        
+        // Populate publication data
+        const pub = publications[pubId];
+        document.getElementById('publication-title').textContent = pub.title;
+        document.getElementById('publication-subtitle').textContent = pub.subtitle;
+        document.getElementById('publication-date').textContent = pub.date;
+        document.getElementById('publication-read-time').textContent = pub.readTime;
+        document.getElementById('publication-text-content').innerHTML = pub.content;
+        document.getElementById('download-pdf').href = pub.pdfUrl;
+        
+        // Update page title
+        document.title = `${pub.title} | Achal Gupta`;
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+      });
     });
     
     // Cosmic Neural Network Animation
