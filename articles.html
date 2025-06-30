@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mind Space | Achal Gupta</title>
+  <meta name="description" content="Achal Gupta's collection of writings, talks, and intellectual explorations on technology, science, and personal growth.">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="videos/mindspace.png">
+  <link rel="icon" type="image/png" href="videos/mindspace.png">
   <style>
     * {
       scrollbar-width: none;
@@ -18,40 +19,46 @@
     }
     
     body {
-      background-color: #000;
+      background-color: #0a041a;
       color: #fff;
       font-family: 'Roboto', sans-serif;
       margin: 0;
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
+      line-height: 1.6;
     }
     
-    /* Particle background */
-    #particles-js {
+    /* Cosmic Neural Network Background */
+    #network-canvas {
       position: fixed;
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
-      pointer-events: none;
-      background: rgba(0, 0, 0, 0.3);
+      background: radial-gradient(ellipse at center, #0f0522 0%, #050113 100%);
     }
     
-    /* Glass effects */
+    /* Clean Glass Effect */
     .glass {
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(20, 15, 40, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .glass:hover {
+      background-color: rgba(30, 25, 50, 0.8);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
     
     .glass-nav {
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: rgba(15, 10, 30, 0.9);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
@@ -70,7 +77,7 @@
     
     nav.scrolled {
       padding: 0.5rem 0;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(10, 5, 20, 0.98);
     }
     
     .nav-links {
@@ -88,7 +95,7 @@
     }
     
     .nav-link {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 600;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
@@ -101,7 +108,8 @@
     }
     
     .nav-link:hover {
-      color: #fff;
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
     }
     
     .nav-link::after {
@@ -112,7 +120,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #fff;
+      background: #ffffff;
       transition: width 0.3s ease;
     }
     
@@ -121,7 +129,7 @@
     }
     
     .nav-link.active {
-      color: #fff;
+      color: #ffffff;
     }
     
     .nav-link.active::after {
@@ -141,7 +149,7 @@
     
     .burger span {
       height: 3px;
-      background: white;
+      background: #ffffff;
       border-radius: 2px;
       transition: 0.3s;
       transform-origin: left center;
@@ -165,7 +173,7 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: rgba(10, 5, 20, 0.98);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: none;
@@ -184,7 +192,7 @@
     }
     
     .mobile-nav a {
-      color: white;
+      color: #ffffff;
       padding: 1rem 2rem;
       text-decoration: none;
       font-weight: 600;
@@ -204,7 +212,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #fff;
+      background: #ffffff;
       transition: width 0.3s ease;
     }
     
@@ -213,7 +221,7 @@
     }
     
     .mobile-nav a.active {
-      color: #fff;
+      color: #ffffff;
     }
     
     .mobile-nav a.active::after {
@@ -225,27 +233,29 @@
       position: relative;
       width: 100%;
       height: 100vh;
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
+      overflow: hidden;
     }
     
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       padding: 0 1rem;
+      max-width: 900px;
+      margin: 0 auto;
     }
     
     .hero-title {
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+      color: white;
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       animation: fadeIn 1s ease forwards;
       padding: 0.5rem 1rem;
       position: relative;
@@ -264,70 +274,25 @@
       transition: width 0.3s ease;
     }
     
-    /* Publication header */
-    .publication-header {
-      padding: 6rem 1rem 4rem;
-      text-align: center;
+    .hero-subtitle {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      opacity: 0.9;
       max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* Article card styling */
-    .article-card {
-      transition: all 0.3s ease;
-      border-left: 3px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .article-card:hover {
-      transform: translateX(8px);
-      border-left-color: #fff;
-    }
-    
-    /* Category filters */
-    .category-filter {
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background-color: rgba(255, 255, 255, 0.1);
-      transition: all 0.3s;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-    
-    .category-filter.active {
-      background-color: rgba(255, 255, 255, 0.3);
-      border-bottom: 2px solid #fff;
-    }
-    
-    /* Publication logo styling */
-    .publication-logo {
-      width: 24px;
-      height: 24px;
-      filter: grayscale(100%) brightness(1.5);
-      transition: filter 0.3s;
-    }
-    
-    .article-card:hover .publication-logo {
-      filter: grayscale(0%) brightness(1);
-    }
-    
-    /* Read time indicator */
-    .read-time::after {
-      content: "•";
-      margin: 0 8px;
-      opacity: 0.5;
+      margin: 0 auto 3rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
     }
     
     /* CTA button */
     .glow-button {
       display: inline-block;
       padding: 12px 24px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
@@ -351,6 +316,9 @@
     .glow-button:hover {
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
+      border-color: #ffffff;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.25);
     }
     
     .glow-button:hover::before {
@@ -365,7 +333,7 @@
       text-align: center;
       position: relative;
       display: inline-block;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255, 255, 255, 0.9);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       padding: 0.5rem 1rem;
@@ -387,10 +355,102 @@
       width: 90%;
     }
     
-    /* Talks section styling */
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+    
+    /* Responsive spacing */
+    section {
+      padding: 5rem 1rem;
+    }
+    
+    @media (min-width: 768px) {
+      section {
+        padding: 7rem 2rem;
+      }
+    }
+    
+    /* Article card styling */
+    .article-card {
+      transition: all 0.3s ease;
+      border-left: 3px solid rgba(255, 255, 255, 0.3);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .article-card:hover {
+      transform: translateX(8px);
+      border-left-color: #ffffff;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .article-card-content {
+      flex-grow: 1;
+    }
+    
+    /* Category filters */
+    .category-filter {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    
+    .category-filter:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .category-filter.active {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-bottom: 2px solid #ffffff;
+    }
+    
+    /* Publication logo styling */
+    .publication-logo {
+      width: 24px;
+      height: 24px;
+      filter: grayscale(100%) brightness(1.5);
+      transition: filter 0.3s;
+    }
+    
+    .article-card:hover .publication-logo {
+      filter: grayscale(0%) brightness(1);
+    }
+    
+    /* Read time indicator */
+    .read-time::after {
+      content: "•";
+      margin: 0 8px;
+      opacity: 0.5;
+    }
+    
+    /* Talk cards */
     .talk-card {
       transition: all 0.3s ease;
       overflow: hidden;
+      height: 100%;
     }
     
     .talk-card:hover {
@@ -411,9 +471,10 @@
       left: 0;
       width: 100%;
       height: 100%;
+      border: none;
     }
     
-    /* Publication page styling */
+    /* Publication content styling */
     .publication-content {
       max-width: 800px;
       margin: 0 auto;
@@ -428,36 +489,46 @@
       margin-top: 3rem;
     }
     
-    /* Typography */
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
+    /* Back button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
     }
     
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .back-button:hover {
+      color: #ffffff;
+      transform: translateX(-5px);
     }
     
-    .fade-in {
-      animation: fadeIn 1s ease forwards;
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
     }
     
-    /* Responsive spacing */
-    section {
-      padding: 4rem 1rem;
+    /* Focus styles for accessibility */
+    a:focus, button:focus {
+      outline: 2px solid rgba(255, 255, 255, 0.7);
+      outline-offset: 2px;
     }
     
-    @media (min-width: 768px) {
-      section {
-        padding: 6rem 2rem;
-      }
+    /* Loading animation */
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    
+    .loading {
+      animation: pulse 1.5s ease-in-out infinite;
     }
   </style>
 </head>
 <body>
-  <!-- Particle background -->
-  <div id="particles-js"></div>
+  <!-- Cosmic Neural Network Background -->
+  <canvas id="network-canvas"></canvas>
 
   <!-- Navbar -->
   <nav id="navbar" class="glass-nav">
@@ -484,262 +555,468 @@
     </div>
   </nav>
 
-  <!-- Check if we're showing a specific publication -->
-  <div id="publication-view" style="display: none;">
-    <section class="publication-header">
-      <h1 id="publication-title" class="text-4xl md:text-5xl font-bold mb-4"></h1>
-      <p id="publication-subtitle" class="text-xl opacity-80 mb-6"></p>
-      <div class="flex justify-center items-center gap-4">
-        <span id="publication-date" class="text-sm opacity-70"></span>
-        <span class="text-sm opacity-50 read-time" id="publication-read-time"></span>
-      </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title fade-in">Mind Space</h1>
+      <p class="hero-subtitle fade-in" data-aos="fade-up" data-aos-delay="200">
+        Where thoughts crystallize into words and ideas spark conversations. Explore my collection of writings, academic publications, and featured talks on technology, science, and personal growth.
+      </p>
+      <a href="#featured-talks" class="glow-button" data-aos="fade-up" data-aos-delay="400">Explore Content</a>
+    </div>
+  </section>
 
-    <section class="glass my-8 mx-4 md:mx-auto">
-      <div class="publication-content" id="publication-text-content">
-        <!-- Content will be loaded here dynamically -->
-      </div>
-      
-      <div class="publication-actions">
-        <a href="#" id="download-pdf" class="glow-button">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-          </svg>
-          Download PDF
-        </a>
-        <a href="articles.html" class="glow-button">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-          </svg>
-          View All Articles
-        </a>
-      </div>
-    </section>
-  </div>
-
-  <!-- Main content (shown when not viewing a specific publication) -->
-  <div id="main-content">
-    <!-- Hero Section -->
-    <section class="hero-container">
-      <div class="hero-content">
-        <h1 class="hero-title fade-in">Mind Space</h1>
-        <p class="text-xl opacity-90 max-w-2xl mx-auto">A collection of writings, talks, and intellectual explorations</p>
-      </div>
-    </section>
-
-    <!-- Featured Talks Section -->
-    <section class="max-w-6xl mx-auto" data-aos="fade-up">
-      <h2 class="section-heading">Featured Talks</h2>
-      
-      <div class="grid md:grid-cols-2 gap-8 mb-16">
-        <!-- Talk 1 -->
-        <div class="talk-card glass" data-aos="fade-up">
-          <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/EN0FJ-EX6Ng?si=38VejjC6ADz49nOr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="p-6">
-            <h3 class="text-2xl font-bold mb-3">Decoding the Magnetic Heart of the Sun</h3>
-            <p class="text-gray-300 mb-4">An exploration of solar magnetism and its profound effects on our solar system, presented to the secondary school and university students of Gaborone, Botswana.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm opacity-70">January 2025</span>
-              <a href="https://youtu.be/EN0FJ-EX6Ng" target="_blank" class="text-white hover:underline flex items-center gap-1">
-                Watch <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </a>
-            </div>
-          </div>
+  <!-- Featured Talks Section -->
+  <section id="featured-talks" class="max-w-6xl mx-auto px-4" data-aos="fade-up">
+    <h2 class="section-heading">Featured Talks</h2>
+    
+    <div class="grid md:grid-cols-2 gap-8 mb-16">
+      <!-- Talk 1 -->
+      <div class="talk-card glass" data-aos="fade-up">
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/EN0FJ-EX6Ng?si=38VejjC6ADz49nOr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
-        
-        <!-- Talk 2 -->
-        <div class="talk-card glass" data-aos="fade-up" data-aos-delay="100">
-          <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ivtz0hwQ064?si=sAyEtSxKLbVnnEUE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="p-6">
-            <h3 class="text-2xl font-bold mb-3">Connecting the Physics of our Universe</h3>
-            <p class="text-gray-300 mb-4">How string theory is one of our best attempts at a unified theory of everything.</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm opacity-70">October 2023</span>
-              <a href="https://youtu.be/Ivtz0hwQ064" target="_blank" class="text-white hover:underline flex items-center gap-1">
-                Watch <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </a>
-            </div>
+        <div class="p-6 article-card-content">
+          <h3 class="text-2xl font-bold mb-3">Decoding the Magnetic Heart of the Sun</h3>
+          <p class="mb-4">An exploration of solar magnetism and its profound effects on our solar system, presented to the secondary school and university students of Gaborone, Botswana.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm opacity-70">January 2025</span>
+            <a href="https://youtu.be/EN0FJ-EX6Ng" target="_blank" class="glow-button">Watch Talk</a>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Academic Publications Section -->
-    <section class="max-w-6xl mx-auto" data-aos="fade-up">
-      <h2 class="section-heading">Academic Publications</h2>
       
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Publication 1 -->
-        <article class="article-card glass p-6" data-category="publications" data-aos="fade-up">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xs uppercase tracking-wider opacity-70">Academic Paper</span>
-            <span class="text-xs opacity-50 read-time">25 min read</span>
+      <!-- Talk 2 -->
+      <div class="talk-card glass" data-aos="fade-up" data-aos-delay="100">
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ivtz0hwQ064?si=sAyEtSxKLbVnnEUE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="p-6 article-card-content">
+          <h3 class="text-2xl font-bold mb-3">Connecting the Physics of our Universe</h3>
+          <p class="mb-4">How string theory is one of our best attempts at a unified theory of everything.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm opacity-70">October 2023</span>
+            <a href="https://youtu.be/Ivtz0hwQ064" target="_blank" class="glow-button">Watch Talk</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Publications Section -->
+  <section class="max-w-6xl mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+    <h2 class="section-heading">Academic Publications</h2>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Publication 1 -->
+      <article class="article-card glass p-6" data-category="publications" data-aos="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs uppercase tracking-wider opacity-70">Academic Paper</span>
+          <span class="text-xs opacity-50 read-time">25 min read</span>
+        </div>
+        <div class="article-card-content">
           <h3 class="text-2xl font-bold mb-3">Enhancing Radiation Resilience in Integrated Circuits for Deep Space Missions</h3>
-          <p class="text-gray-300 mb-4">A technical examination of radiation hardening techniques for electronic systems exposed to the harsh conditions of deep space exploration.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">May 2024</span>
-            <a href="#" data-publication="radiation-resilience" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
-        
-        <!-- Publication 2 -->
-        <article class="article-card glass p-6" data-category="publications" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xs uppercase tracking-wider opacity-70">Policy Analysis</span>
-            <span class="text-xs opacity-50 read-time">18 min read</span>
-          </div>
-          <h3 class="text-2xl font-bold mb-3">Addressing the Tensions Surrounding the Grand Ethiopian Renaissance Dam</h3>
-          <p class="text-gray-300 mb-4">A geopolitical analysis of the Nile water dispute, examining technical solutions and diplomatic pathways for regional cooperation.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">March 2024</span>
-            <a href="#" data-publication="ethiopian-dam" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Writings Section -->
-    <section class="max-w-6xl mx-auto" data-aos="fade-up">
-      <h2 class="section-heading">Featured Writings</h2>
+          <p class="mb-4">A technical examination of radiation hardening techniques for electronic systems exposed to the harsh conditions of deep space exploration.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">May 2024</span>
+          <a href="#" data-publication="radiation-resilience" class="glow-button">Read Paper</a>
+        </div>
+      </article>
       
-      <!-- Category Filters -->
-      <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button class="category-filter active px-4 py-2 rounded-full" data-category="all">All</button>
-        <button class="category-filter px-4 py-2 rounded-full" data-category="essays">Academic Essays</button>
-        <button class="category-filter px-4 py-2 rounded-full" data-category="linkedin">LinkedIn</button>
-        <button class="category-filter px-4 py-2 rounded-full" data-category="tech">Tech</button>
-        <button class="category-filter px-4 py-2 rounded-full" data-category="personal">Personal</button>
-      </div>
+      <!-- Publication 2 -->
+      <article class="article-card glass p-6" data-category="publications" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs uppercase tracking-wider opacity-70">Policy Analysis</span>
+          <span class="text-xs opacity-50 read-time">18 min read</span>
+        </div>
+        <div class="article-card-content">
+          <h3 class="text-2xl font-bold mb-3">Addressing the Tensions Surrounding the Grand Ethiopian Renaissance Dam</h3>
+          <p class="mb-4">A geopolitical analysis of the Nile water dispute, examining technical solutions and diplomatic pathways for regional cooperation.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">March 2024</span>
+          <a href="#" data-publication="ethiopian-dam" class="glow-button">Read Analysis</a>
+        </div>
+      </article>
+    </div>
+  </section>
 
-      <!-- Articles Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-container">
-        <!-- LinkedIn Article 1 -->
-        <article class="article-card glass p-6" data-category="linkedin" data-aos="fade-up">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="link.png" alt="LinkedIn" class="publication-logo">
-            <span class="text-xs opacity-50 read-time">5 min read</span>
-          </div>
+  <!-- Writings Section -->
+  <section class="max-w-6xl mx-auto px-4" data-aos="fade-up" data-aos-delay="200">
+    <h2 class="section-heading">Featured Writings</h2>
+    
+    <!-- Category Filters -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <button class="category-filter active px-4 py-2 rounded-full" data-category="all">All</button>
+      <button class="category-filter px-4 py-2 rounded-full" data-category="essays">Academic Essays</button>
+      <button class="category-filter px-4 py-2 rounded-full" data-category="linkedin">LinkedIn</button>
+      <button class="category-filter px-4 py-2 rounded-full" data-category="tech">Tech</button>
+      <button class="category-filter px-4 py-2 rounded-full" data-category="personal">Personal</button>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-container">
+      <!-- LinkedIn Article 1 -->
+      <article class="article-card glass p-6" data-category="linkedin" data-aos="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="link.png" alt="LinkedIn" class="publication-logo">
+          <span class="text-xs opacity-50 read-time">5 min read</span>
+        </div>
+        <div class="article-card-content">
           <h3 class="text-2xl font-bold mb-3">Forged in the Cores of Dying Stars: A Reflection on Our Cosmic Origins</h3>
-          <p class="text-gray-300 mb-4">Exploring the profound connection between stellar nucleosynthesis and the atoms that make up our bodies - we are literally made of stardust.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">June 2024</span>
-            <a href="https://www.linkedin.com/pulse/forged-cores-dying-stars-reflection-our-cosmic-origins-achal-gupta-u2mbf" target="_blank" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
+          <p class="mb-4">Exploring the profound connection between stellar nucleosynthesis and the atoms that make up our bodies - we are literally made of stardust.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">June 2024</span>
+          <a href="https://www.linkedin.com/pulse/forged-cores-dying-stars-reflection-our-cosmic-origins-achal-gupta-u2mbf" target="_blank" class="glow-button">Read Article</a>
+        </div>
+      </article>
 
-        <!-- LinkedIn Article 2 -->
-        <article class="article-card glass p-6" data-category="linkedin tech" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="link.png" alt="LinkedIn" class="publication-logo">
-            <span class="text-xs opacity-50 read-time">4 min read</span>
-          </div>
+      <!-- LinkedIn Article 2 -->
+      <article class="article-card glass p-6" data-category="linkedin tech" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="link.png" alt="LinkedIn" class="publication-logo">
+          <span class="text-xs opacity-50 read-time">4 min read</span>
+        </div>
+        <div class="article-card-content">
           <h3 class="text-2xl font-bold mb-3">A Second Past the Launchpad: The Stars Aren't the Limit</h3>
-          <p class="text-gray-300 mb-4">Reflections on the rapid progress in private spaceflight and what it means for the future of space exploration and commercialization.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">April 2024</span>
-            <a href="https://www.linkedin.com/pulse/second-past-launchpad-stars-achal-gupta-k7hsc" target="_blank" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
+          <p class="mb-4">Reflections on the rapid progress in private spaceflight and what it means for the future of space exploration and commercialization.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">April 2024</span>
+          <a href="https://www.linkedin.com/pulse/second-past-launchpad-stars-achal-gupta-k7hsc" target="_blank" class="glow-button">Read Article</a>
+        </div>
+      </article>
 
-        <!-- LinkedIn Article 3 -->
-        <article class="article-card glass p-6" data-category="linkedin" data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="link.png" alt="LinkedIn" class="publication-logo">
-            <span class="text-xs opacity-50 read-time">6 min read</span>
-          </div>
+      <!-- LinkedIn Article 3 -->
+      <article class="article-card glass p-6" data-category="linkedin" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="link.png" alt="LinkedIn" class="publication-logo">
+          <span class="text-xs opacity-50 read-time">6 min read</span>
+        </div>
+        <div class="article-card-content">
           <h3 class="text-2xl font-bold mb-3">From Savannas to Stars: Botswana's Celestial Aspirations</h3>
-          <p class="text-gray-300 mb-4">Examining Botswana's emerging space program and how developing nations can leverage space technology for sustainable development.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">February 2024</span>
-            <a href="https://www.linkedin.com/pulse/from-savannas-stars-botswanas-celestial-aspirations-achal-gupta-cbi6f" target="_blank" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
+          <p class="mb-4">Examining Botswana's emerging space program and how developing nations can leverage space technology for sustainable development.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">February 2024</span>
+          <a href="https://www.linkedin.com/pulse/from-savannas-stars-botswanas-celestial-aspirations-achal-gupta-cbi6f" target="_blank" class="glow-button">Read Article</a>
+        </div>
+      </article>
 
-        <!-- Sample Article Card 1 (Academic Essay) -->
-        <article class="article-card glass p-6" data-category="essays" data-aos="fade-up">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xs uppercase tracking-wider opacity-70">University</span>
-            <span class="text-xs opacity-50 read-time">12 min read</span>
-          </div>
+      <!-- Academic Essay 1 -->
+      <article class="article-card glass p-6" data-category="essays" data-aos="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs uppercase tracking-wider opacity-70">University</span>
+          <span class="text-xs opacity-50 read-time">12 min read</span>
+        </div>
+        <div class="article-card-content">
           <h3 class="text-2xl font-bold mb-3">Quantum Field Theory Applications</h3>
-          <p class="text-gray-300 mb-4">An examination of quantum field theory applications in modern particle physics, submitted for my advanced physics course.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">November 2023</span>
-            <a href="quantum-field-theory.pdf" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
+          <p class="mb-4">An examination of quantum field theory applications in modern particle physics, submitted for my advanced physics course.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">November 2023</span>
+          <a href="quantum-field-theory.pdf" class="glow-button">Read Essay</a>
+        </div>
+      </article>
 
-        <!-- Sample Article Card 2 (LinkedIn) -->
-        <article class="article-card glass p-6" data-category="linkedin tech" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="link.png" alt="LinkedIn" class="publication-logo">
-            <span class="text-xs opacity-50 read-time">4 min read</span>
-          </div>
-          <h3 class="text-2xl font-bold mb-3">Why Every Developer Should Write</h3>
-          <p class="text-gray-300 mb-4">How documenting your coding journey makes you a better engineer and builds your professional network.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">March 2023</span>
-            <a href="https://linkedin.com/posts/..." target="_blank" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
+      <!-- Tech Article -->
+      <article class="article-card glass p-6" data-category="tech" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs uppercase tracking-wider opacity-70">Tech Blog</span>
+          <span class="text-xs opacity-50 read-time">8 min read</span>
+        </div>
+        <div class="article-card-content">
+          <h3 class="text-2xl font-bold mb-3">The Future of Neuromorphic Computing</h3>
+          <p class="mb-4">Exploring how brain-inspired computing architectures could revolutionize AI and edge computing in the coming decade.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">September 2023</span>
+          <a href="neuromorphic-computing.html" class="glow-button">Read Article</a>
+        </div>
+      </article>
 
-        <!-- Sample Article Card 3 (Personal) -->
-        <article class="article-card glass p-6" data-category="personal" data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xs uppercase tracking-wider opacity-70">Personal Journal</span>
-            <span class="text-xs opacity-50 read-time">6 min read</span>
-          </div>
+      <!-- Personal Article -->
+      <article class="article-card glass p-6" data-category="personal" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs uppercase tracking-wider opacity-70">Personal Journal</span>
+          <span class="text-xs opacity-50 read-time">6 min read</span>
+        </div>
+        <div class="article-card-content">
           <h3 class="text-2xl font-bold mb-3">Moving Abroad at 18</h3>
-          <p class="text-gray-300 mb-4">Reflections on leaving home to study in South Africa - the challenges and unexpected joys of cultural adaptation.</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm opacity-70">February 2022</span>
-            <a href="moving-abroad.html" class="text-white hover:underline flex items-center gap-1">
-              Read <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
-          </div>
-        </article>
-      </div>
+          <p class="mb-4">Reflections on leaving home to study in South Africa - the challenges and unexpected joys of cultural adaptation.</p>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm opacity-70">February 2022</span>
+          <a href="moving-abroad.html" class="glow-button">Read Story</a>
+        </div>
+      </article>
+    </div>
 
-      <!-- Load More Button -->
-      <div class="text-center mt-12" data-aos="fade-up">
-        <button id="load-more" class="glow-button px-8 py-3">Explore More</button>
-      </div>
-    </section>
+    <!-- Load More Button -->
+    <div class="text-center mt-12" data-aos="fade-up">
+      <button id="load-more" class="glow-button px-8 py-3">Explore More</button>
+    </div>
+  </section>
 
-    <!-- Featured Quote Section -->
-    <section class="max-w-4xl mx-auto py-20 px-4 text-center" data-aos="fade-up">
-      <div class="glass p-8">
-        <blockquote class="text-2xl md:text-3xl italic mb-6">
-          "The mind is not a vessel to be filled, but a fire to be kindled. Through writing and speaking, we fan the flames of understanding."
-        </blockquote>
-        <p class="opacity-80">— From my journal, 2022</p>
-      </div>
-    </section>
+  <!-- Featured Quote Section -->
+  <section class="max-w-4xl mx-auto px-4 py-20 text-center" data-aos="fade-up">
+    <div class="glass p-8">
+      <blockquote class="text-2xl md:text-3xl italic mb-6">
+        "The mind is not a vessel to be filled, but a fire to be kindled. Through writing and speaking, we fan the flames of understanding."
+      </blockquote>
+      <p class="opacity-80">— From my journal, 2022</p>
+    </div>
+  </section>
+
+  <!-- Publication View (Hidden by default) -->
+  <div id="publication-view" class="max-w-4xl mx-auto px-4 py-20" style="display: none;">
+    <a href="articles.html" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Back to Mind Space
+    </a>
+    
+    <h1 id="publication-title" class="text-4xl font-bold mb-4"></h1>
+    <p id="publication-subtitle" class="text-xl opacity-80 mb-8"></p>
+    
+    <div class="flex items-center gap-4 mb-8">
+      <span id="publication-date" class="text-sm opacity-70"></span>
+      <span id="publication-read-time" class="text-sm opacity-50"></span>
+    </div>
+    
+    <div id="publication-text-content" class="glass p-8 mb-8"></div>
+    
+    <div class="publication-actions">
+      <a id="download-pdf" href="#" class="glow-button" download>
+        Download PDF
+      </a>
+      <a href="#" class="glow-button" onclick="window.print()">
+        Print Article
+      </a>
+    </div>
   </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // Cosmic Neural Network Animation
+    const canvas = document.getElementById('network-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    function setCanvasSize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Set actual size in memory (scaled to account for extra pixel density)
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      
+      // Normalize coordinate system to use CSS pixels
+      ctx.scale(scale, scale);
+      
+      return { width, height };
+    }
+    
+    let { width, height } = setCanvasSize();
+    let mouse = { x: null, y: null };
+    
+    // Neuron Node class
+    class Neuron {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 6 + 2;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = `hsla(${Math.random() * 60 + 250}, 70%, ${Math.random() * 30 + 60}%, ${Math.random() * 0.3 + 0.1})`;
+        this.connections = [];
+        this.pulsePhase = Math.random() * Math.PI * 2;
+      }
+      
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        // Gentle floating motion
+        this.x += Math.sin(Date.now() * 0.001 + this.y * 0.01) * 0.2;
+        this.y += Math.cos(Date.now() * 0.001 + this.x * 0.01) * 0.2;
+        
+        // Pulse animation
+        this.pulsePhase += 0.01;
+        this.currentSize = this.size * (0.9 + Math.sin(this.pulsePhase) * 0.1);
+        
+        // Wrap around screen edges
+        if (this.x > width + this.size) this.x = -this.size;
+        if (this.x < -this.size) this.x = width + this.size;
+        if (this.y > height + this.size) this.y = -this.size;
+        if (this.y < -this.size) this.y = height + this.size;
+        
+        // React to mouse movement
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+            this.x -= dx * 0.02 * force;
+            this.y -= dy * 0.02 * force;
+          }
+        }
+      }
+      
+      draw() {
+        // Draw connections first (behind nodes)
+        this.connections.forEach(neuron => {
+          const dx = neuron.x - this.x;
+          const dy = neuron.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 150) {
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(neuron.x, neuron.y);
+            ctx.strokeStyle = `hsla(250, 70%, 70%, ${1 - distance/150})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        });
+        
+        // Draw the neuron
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        
+        // Glowing core
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.currentSize, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        
+        // Outer glow
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.currentSize * 3
+        );
+        gradient.addColorStop(0, this.color);
+        gradient.addColorStop(1, 'hsla(250, 80%, 80%, 0)');
+        
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        ctx.restore();
+      }
+    }
+    
+    // Create neurons
+    const neurons = [];
+    const neuronCount = 40;
+    
+    function initNetwork() {
+      // Create neurons
+      for (let i = 0; i < neuronCount; i++) {
+        neurons.push(new Neuron());
+      }
+      
+      // Establish initial connections
+      neurons.forEach(neuron => {
+        neuron.connections = neurons.filter(n => {
+          const dx = n.x - neuron.x;
+          const dy = n.y - neuron.y;
+          return Math.sqrt(dx * dx + dy * dy) < 150 && Math.random() > 0.7;
+        });
+      });
+    }
+    
+    function animateNetwork() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // Draw gradient background
+      const bgGradient = ctx.createRadialGradient(
+        width * 0.5, height * 0.3, 0,
+        width * 0.5, height * 0.3, Math.max(width, height)
+      );
+      bgGradient.addColorStop(0, 'rgba(15, 5, 34, 0.8)');
+      bgGradient.addColorStop(1, 'rgba(5, 1, 19, 1)');
+      ctx.fillStyle = bgGradient;
+      ctx.fillRect(0, 0, width, height);
+      
+      // Update and draw neurons
+      neurons.forEach(neuron => {
+        neuron.update();
+        neuron.draw();
+      });
+      
+      // Occasionally form new connections
+      if (Math.random() > 0.98) {
+        neurons.forEach(neuron => {
+          if (Math.random() > 0.7) {
+            const potentialConnections = neurons.filter(n => 
+              !neuron.connections.includes(n) && n !== neuron
+            );
+            if (potentialConnections.length > 0) {
+              neuron.connections.push(
+                potentialConnections[Math.floor(Math.random() * potentialConnections.length)]
+              );
+            }
+          }
+        });
+      }
+      
+      // Occasionally break connections
+      if (Math.random() > 0.98) {
+        neurons.forEach(neuron => {
+          if (neuron.connections.length > 0 && Math.random() > 0.7) {
+            neuron.connections.splice(
+              Math.floor(Math.random() * neuron.connections.length), 1
+            );
+          }
+        });
+      }
+      
+      requestAnimationFrame(animateNetwork);
+    }
+    
+    // Mouse movement handler
+    window.addEventListener('mousemove', (event) => {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+    
+    window.addEventListener('deviceorientation', (event) => {
+      if (!event.beta || !event.gamma) return;
+      
+      const maxTilt = 30;
+      const beta = Math.max(-maxTilt, Math.min(maxTilt, event.beta)) / maxTilt;
+      const gamma = Math.max(-maxTilt, Math.min(maxTilt, event.gamma)) / maxTilt;
+      
+      mouse.x = width * 0.5 + gamma * width * 0.5;
+      mouse.y = height * 0.5 + beta * height * 0.5;
+    });
+    
+    window.addEventListener('resize', () => {
+      const newSize = setCanvasSize();
+      width = newSize.width;
+      height = newSize.height;
+      initNetwork();
+    });
+    
+    window.addEventListener('mouseout', () => {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    });
+    
     // Publication content data
     const publications = {
       "radiation-resilience": {
@@ -839,134 +1116,106 @@
       }
     };
 
-    // Initialize AOS animations
-    AOS.init({
-      duration: 800,
-      easing: 'ease-in-out',
-      once: true
+    // Check URL for publication parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const publicationId = urlParams.get('publication');
+    
+    if (publicationId && publications[publicationId]) {
+      // Show the publication view
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('publication-view').style.display = 'block';
+      
+      // Populate publication data
+      const pub = publications[publicationId];
+      document.getElementById('publication-title').textContent = pub.title;
+      document.getElementById('publication-subtitle').textContent = pub.subtitle;
+      document.getElementById('publication-date').textContent = pub.date;
+      document.getElementById('publication-read-time').textContent = pub.readTime;
+      document.getElementById('publication-text-content').innerHTML = pub.content;
+      document.getElementById('download-pdf').href = pub.pdfUrl;
+      
+      // Update page title
+      document.title = `${pub.title} | Achal Gupta`;
+    }
+    
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
+      
+      // Toggle body scroll when menu is open
+      if (mobileNav.classList.contains('open')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     });
     
-    // Initialize particle.js background
-    document.addEventListener('DOMContentLoaded', function() {
-      if (document.getElementById('particles-js')) {
-        particlesJS('particles-js', {
-          "particles": {
-            "number": {
-              "value": 100,
-              "density": {
-                "enable": true,
-                "value_area": 800
-              }
-            },
-            "color": {
-              "value": "#ffffff"
-            },
-            "shape": {
-              "type": "circle",
-              "stroke": {
-                "width": 0,
-                "color": "#000000"
-              },
-              "polygon": {
-                "nb_sides": 5
-              }
-            },
-            "opacity": {
-              "value": 0.5,
-              "random": true,
-              "anim": {
-                "enable": true,
-                "speed": 1,
-                "opacity_min": 0.3,
-                "sync": false
-              }
-            },
-            "size": {
-              "value": 4,
-              "random": true,
-              "anim": {
-                "enable": true,
-                "speed": 2,
-                "size_min": 0.3,
-                "sync": false
-              }
-            },
-            "line_linked": {
-              "enable": true,
-              "distance": 150,
-              "color": "#ffffff",
-              "opacity": 0.4,
-              "width": 1
-            },
-            "move": {
-              "enable": true,
-              "speed": 2,
-              "direction": "none",
-              "random": true,
-              "straight": false,
-              "out_mode": "out",
-              "bounce": false,
-              "attract": {
-                "enable": true,
-                "rotateX": 600,
-                "rotateY": 1200
-              }
-            }
-          },
-          "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-              "onhover": {
-                "enable": true,
-                "mode": "grab"
-              },
-              "onclick": {
-                "enable": true,
-                "mode": "push"
-              },
-              "resize": true
-            },
-            "modes": {
-              "grab": {
-                "distance": 140,
-                "line_linked": {
-                  "opacity": 0.5
-                }
-              },
-              "bubble": {
-                "distance": 400,
-                "size": 40,
-                "duration": 2,
-                "opacity": 8,
-                "speed": 3
-              },
-              "repulse": {
-                "distance": 200,
-                "duration": 0.4
-              },
-              "push": {
-                "particles_nb": 4
-              },
-              "remove": {
-                "particles_nb": 2
-              }
-            }
-          },
-          "retina_detect": true
-        });
+    // Close mobile menu when clicking outside or pressing escape
+    document.addEventListener('click', (e) => {
+      if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
       }
-      
-      // Check URL for publication parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const publicationId = urlParams.get('publication');
-      
-      if (publicationId && publications[publicationId]) {
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Category filter functionality
+    document.querySelectorAll('.category-filter').forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active state
+        document.querySelectorAll('.category-filter').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Filter articles
+        const category = button.dataset.category;
+        document.querySelectorAll('.article-card').forEach(card => {
+          if (category === 'all' || card.dataset.category.includes(category)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Publication click handler
+    document.querySelectorAll('[data-publication]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pubId = link.dataset.publication;
+        window.history.pushState({}, '', `?publication=${pubId}`);
+        
         // Show the publication view
         document.getElementById('main-content').style.display = 'none';
         document.getElementById('publication-view').style.display = 'block';
         
         // Populate publication data
-        const pub = publications[publicationId];
+        const pub = publications[pubId];
         document.getElementById('publication-title').textContent = pub.title;
         document.getElementById('publication-subtitle').textContent = pub.subtitle;
         document.getElementById('publication-date').textContent = pub.date;
@@ -976,107 +1225,28 @@
         
         // Update page title
         document.title = `${pub.title} | Achal Gupta`;
-      }
-      
-      // Mobile menu toggle
-      const burger = document.getElementById('burger');
-      const mobileNav = document.getElementById('mobileNav');
-      
-      burger.addEventListener('click', () => {
-        burger.classList.toggle('open');
-        mobileNav.classList.toggle('open');
-        mobileNav.setAttribute('aria-hidden', !mobileNav.classList.contains('open'));
         
-        // Toggle body scroll when menu is open
-        if (mobileNav.classList.contains('open')) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
-        }
-      });
-      
-      // Close mobile menu when clicking outside or pressing escape
-      document.addEventListener('click', (e) => {
-        if (!burger.contains(e.target) && !mobileNav.contains(e.target) && mobileNav.classList.contains('open')) {
-          burger.classList.remove('open');
-          mobileNav.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-          burger.classList.remove('open');
-          mobileNav.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      // Navbar scroll effect
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
-      
-      // Category filter functionality
-      document.querySelectorAll('.category-filter').forEach(button => {
-        button.addEventListener('click', () => {
-          // Update active state
-          document.querySelectorAll('.category-filter').forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
-          
-          // Filter articles
-          const category = button.dataset.category;
-          document.querySelectorAll('.article-card').forEach(card => {
-            if (category === 'all' || card.dataset.category.includes(category)) {
-              card.style.display = 'block';
-            } else {
-              card.style.display = 'none';
-            }
-          });
-        });
-      });
-
-      // Publication click handler
-      document.querySelectorAll('[data-publication]').forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const pubId = link.dataset.publication;
-          window.history.pushState({}, '', `?publication=${pubId}`);
-          
-          // Show the publication view
-          document.getElementById('main-content').style.display = 'none';
-          document.getElementById('publication-view').style.display = 'block';
-          
-          // Populate publication data
-          const pub = publications[pubId];
-          document.getElementById('publication-title').textContent = pub.title;
-          document.getElementById('publication-subtitle').textContent = pub.subtitle;
-          document.getElementById('publication-date').textContent = pub.date;
-          document.getElementById('publication-read-time').textContent = pub.readTime;
-          document.getElementById('publication-text-content').innerHTML = pub.content;
-          document.getElementById('download-pdf').href = pub.pdfUrl;
-          
-          // Update page title
-          document.title = `${pub.title} | Achal Gupta`;
-          
-          // Scroll to top
-          window.scrollTo(0, 0);
-        });
-      });
-
-      // Load more functionality (simplified example)
-      document.getElementById('load-more')?.addEventListener('click', () => {
-        // In a real implementation, you would fetch more articles here
-        alert('Loading more content...');
+        // Scroll to top
+        window.scrollTo(0, 0);
       });
     });
+
+    // Load more functionality
+    document.getElementById('load-more')?.addEventListener('click', () => {
+      const button = document.getElementById('load-more');
+      button.textContent = 'Loading...';
+      button.classList.add('loading');
+      
+      setTimeout(() => {
+        button.textContent = 'No more content to load';
+        button.classList.remove('loading');
+        button.disabled = true;
+      }, 1500);
+    });
+
+    // Initialize cosmic neural network
+    initNetwork();
+    animateNetwork();
   </script>
 </body>
 </html>
