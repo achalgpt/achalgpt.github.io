@@ -28,6 +28,17 @@
       min-height: 100vh;
     }
     
+    /* Enhanced Particle Background */
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #000000;
+    }
+    
     /* Glass effects */
     .glass {
       backdrop-filter: blur(16px) saturate(180%);
@@ -209,44 +220,24 @@
       width: 50%;
     }
     
-    /* Fullscreen video sections */
-    .video-hero {
+    /* Hero section */
+    .hero-container {
       position: relative;
       width: 100%;
       height: 100vh;
-      overflow: hidden;
-    }
-    
-    .video-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-    }
-    
-    .video-background.active {
-      opacity: 1;
-    }
-    
-    .video-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 0 1rem;
-      color: white;
+      overflow: hidden;
     }
     
-    /* Hero section */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1rem;
+    }
+    
     .hero-title {
       font-size: clamp(2rem, 8vw, 4.5rem);
       font-weight: 700;
@@ -484,6 +475,22 @@
       }
     }
     
+    /* Particle text effect */
+    .particle-text {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .particle-text span {
+      position: relative;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    
+    .particle-text:hover span {
+      transform: translateY(-5px);
+    }
+    
     /* Video showcase */
     .video-showcase {
       width: 100%;
@@ -513,6 +520,9 @@
   </style>
 </head>
 <body>
+  <!-- Interactive Particle Background -->
+  <canvas id="canvas"></canvas>
+
   <!-- Navbar -->
   <nav id="navbar" class="glass-nav">
     <div class="container mx-auto px-4 flex justify-between items-center">
@@ -538,13 +548,9 @@
     </div>
   </nav>
 
-  <!-- Hero Section with Video Background -->
-  <section class="video-hero" id="main-hero">
-    <video class="video-background" id="hero-video" autoplay muted loop playsinline>
-      <source src="videos/hero-video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <div class="video-content">
+  <!-- Hero Section -->
+  <section class="hero-container">
+    <div class="hero-content">
       <h1 class="hero-title fade-in">The World Through My Lens</h1>
       <p class="hero-subtitle fade-in" data-aos="fade-up" data-aos-delay="200">
         Capturing moments that speak louder than words
@@ -552,14 +558,17 @@
     </div>
   </section>
 
-  <!-- Vision Section - Fullscreen Video with Overlay -->
-  <section class="video-hero" id="vision-section">
-    <video class="video-background" id="vision-video" autoplay muted loop playsinline>
-      <source src="videos/hero-video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <div class="video-content max-w-4xl mx-auto px-4">
-      <div class="glass p-8" data-aos="fade-up">
+  <!-- Vision Section - Side by Side Layout -->
+  <section class="max-w-6xl mx-auto px-4" data-aos="fade-up">
+    <div class="side-by-side gap-8">
+      <div class="video-showcase glass" data-aos="fade-right">
+        <video autoplay muted loop playsinline class="w-full h-auto rounded-xl">
+          <source src="videos/hero-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+      <div class="glass p-8" data-aos="fade-left">
         <h2 class="text-3xl font-bold mb-6">The Eye Behind the Lens</h2>
         <p class="text-gray-300 text-lg leading-relaxed">
           Photography, for me, is a quiet pause in a world that rarely stands still - a chance to truly <strong>see</strong>. It's about catching those fleeting, delicate moments where light, shadow, and time gently align and whisper something only stillness can hear.
@@ -573,14 +582,10 @@
     </div>
   </section>
 
-  <!-- Philosophy Section - Fullscreen Video with Overlay -->
-  <section class="video-hero" id="philosophy-section">
-    <video class="video-background" id="philosophy-video" autoplay muted loop playsinline>
-      <source src="videos/projvi.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <div class="video-content max-w-4xl mx-auto px-4">
-      <div class="glass p-8" data-aos="fade-up">
+  <!-- Philosophy Section - Reversed Side by Side -->
+  <section class="max-w-6xl mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+    <div class="side-by-side reverse gap-8">
+      <div class="glass p-8" data-aos="fade-right">
         <h3 class="text-2xl font-bold mb-4">Beyond the Frame</h3>
         <p class="text-gray-300 mb-6">
           This isn't about polished perfection, rather it is about presence - the kind that makes you slow down and notice what's beautiful, what's almost gone.
@@ -593,11 +598,18 @@
           When you look through these photos, you're not just seeing what was in front of the lens, you're stepping into the space between the frame and the feeling. A fragment of stillness. A trace of wonder.
         </p>
       </div>
+      
+      <div class="glass p-6 flex items-center justify-center" data-aos="fade-left">
+                <video autoplay muted loop playsinline class="w-full h-auto rounded-xl">
+          <source src="videos/projvi.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
   </section>
 
   <!-- Carousel Section -->
-  <section class="max-w-7xl mx-auto py-16" data-aos="fade-up" data-aos-delay="200">
+  <section class="max-w-7xl mx-auto" data-aos="fade-up" data-aos-delay="200">
     <h2 class="section-heading">Featured Work</h2>
     <div class="carousel-container">
       <div class="carousel" id="photoCarousel">
@@ -635,8 +647,8 @@
     </div>
   </section>
 
-  <!-- Devices Section -->
-  <section class="max-w-6xl mx-auto px-4 py-16" data-aos="fade-up" data-aos-delay="300">
+  <!-- Devices Section - Side by Side Layout -->
+  <section class="max-w-6xl mx-auto px-4" data-aos="fade-up" data-aos-delay="300">
     <h2 class="section-heading">My Tools</h2>
     <div class="side-by-side gap-8">
       <div class="device-card glass p-8" data-aos="fade-right">
@@ -693,29 +705,180 @@
       once: true
     });
     
-    // Video background scroll effects
-    const videoSections = [
-      { element: document.getElementById('main-hero'), video: document.getElementById('hero-video') },
-      { element: document.getElementById('vision-section'), video: document.getElementById('vision-video') },
-      { element: document.getElementById('philosophy-section'), video: document.getElementById('philosophy-video') }
-    ];
+    // Enhanced High-Resolution Particle Background
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
     
-    function handleScroll() {
-      videoSections.forEach(section => {
-        const rect = section.element.getBoundingClientRect();
-        const isVisible = (rect.top <= window.innerHeight * 0.8) && (rect.bottom >= window.innerHeight * 0.2);
+    // Set display size to match CSS size but with higher resolution
+    const setCanvasSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Set actual size in memory (scaled to account for extra pixel density)
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      
+      // Normalize coordinate system to use CSS pixels
+      ctx.scale(scale, scale);
+      
+      return { width, height };
+    };
+    
+    let { width, height } = setCanvasSize();
+    let particles = [];
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const particleCount = isMobile ? 150 : 250;
+    const mouse = { x: null, y: null, radius: 150 };
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = isMobile ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.5;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 40) + 10;
+        this.color = `hsl(${Math.random() * 60 + 180}, 100%, ${Math.random() * 30 + 70}%)`;
+        this.velocityX = Math.random() * 2 - 1;
+        this.velocityY = Math.random() * 2 - 1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.shadowBlur = isMobile ? 8 : 12;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      update() {
+        this.x += this.velocityX * 0.2;
+        this.y += this.velocityY * 0.2;
         
-        if (isVisible) {
-          section.video.classList.add('active');
-        } else {
-          section.video.classList.remove('active');
+        // Bounce off edges
+        if (this.x < 0 || this.x > width) {
+          this.velocityX *= -1;
         }
-      });
+        if (this.y < 0 || this.y > height) {
+          this.velocityY *= -1;
+        }
+
+        // Mouse interaction
+        if (mouse.x && mouse.y) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < mouse.radius) {
+            let forceDirectionX = dx / distance;
+            let forceDirectionY = dy / distance;
+            let maxDistance = mouse.radius;
+            let force = (maxDistance - distance) / maxDistance;
+            let directionX = forceDirectionX * force * this.density * 0.1;
+            let directionY = forceDirectionY * force * this.density * 0.1;
+            
+            this.x -= directionX;
+            this.y -= directionY;
+            this.velocityX = forceDirectionX * force * 2;
+            this.velocityY = forceDirectionY * force * 2;
+          }
+        }
+
+        // Return to base position
+        if (this.x !== this.baseX) {
+          let dx = this.baseX - this.x;
+          this.x += dx / 15;
+        }
+        if (this.y !== this.baseY) {
+          let dy = this.baseY - this.y;
+          this.y += dy / 15;
+        }
+        
+        // Apply friction
+        this.velocityX *= 0.95;
+        this.velocityY *= 0.95;
+      }
     }
-    
-    // Activate first video immediately
-    videoSections[0].video.classList.add('active');
-    
+
+    function init() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // Pure black background for AMOLED
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, width, height);
+      
+      // Draw and update particles
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].draw();
+        particles[i].update();
+      }
+      
+      connect();
+      requestAnimationFrame(animate);
+    }
+
+    function connect() {
+      let opacityValue = 1;
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          let dx = particles[a].x - particles[b].x;
+          let dy = particles[a].y - particles[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < (isMobile ? 80 : 120)) {
+            opacityValue = 1 - (distance / (isMobile ? 80 : 120));
+            ctx.strokeStyle = `hsla(${Math.random() * 60 + 180}, 100%, 80%, ${opacityValue * 0.5})`;
+            ctx.lineWidth = opacityValue * (isMobile ? 0.8 : 1.2);
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function handleOrientation(event) {
+      if (!event.beta || !event.gamma) return;
+      
+      const maxTilt = 30;
+      const beta = Math.max(-maxTilt, Math.min(maxTilt, event.beta)) / maxTilt;
+      const gamma = Math.max(-maxTilt, Math.min(maxTilt, event.gamma)) / maxTilt;
+      
+      mouse.x = width * 0.5 + gamma * width * 0.5;
+      mouse.y = height * 0.5 + beta * height * 0.5;
+    }
+
+    window.addEventListener('mousemove', (event) => {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+
+    window.addEventListener('deviceorientation', handleOrientation);
+
+    window.addEventListener('resize', () => {
+      const newSize = setCanvasSize();
+      width = newSize.width;
+      height = newSize.height;
+      init();
+    });
+
+    window.addEventListener('mouseout', () => {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    });
+
     // Mobile menu toggle
     const burger = document.getElementById('burger');
     const mobileNav = document.getElementById('mobileNav');
@@ -758,12 +921,10 @@
       } else {
         navbar.classList.remove('scrolled');
       }
-      
-      handleScroll();
     });
 
-    // Initial check
-    handleScroll();
+    init();
+    animate();
   </script>
   <script async src="//www.instagram.com/embed.js"></script>
   
