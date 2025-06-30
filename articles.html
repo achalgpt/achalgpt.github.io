@@ -29,7 +29,19 @@
       line-height: 1.6;
     }
     
-    /* Cosmic Neural Network Background */
+    /* Background with gradient and neural network */
+    #network-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -2;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, #1a0d40 0%, #0a041a 100%);
+      overflow: hidden;
+    }
+    
     #network-canvas {
       position: fixed;
       top: 0;
@@ -37,7 +49,6 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: radial-gradient(ellipse at center, #0f0522 0%, #050113 100%);
     }
     
     /* Clean Glass Effect */
@@ -95,7 +106,7 @@
     }
     
     .nav-link {
-      color: rgba(255, 255, 255, 0.9);
+      color: #fff;
       font-weight: 600;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
@@ -108,8 +119,7 @@
     }
     
     .nav-link:hover {
-      color: #ffffff;
-      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
     }
     
     .nav-link::after {
@@ -120,7 +130,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #ffffff;
+      background: #fff;
       transition: width 0.3s ease;
     }
     
@@ -129,7 +139,7 @@
     }
     
     .nav-link.active {
-      color: #ffffff;
+      color: #fff;
     }
     
     .nav-link.active::after {
@@ -251,7 +261,7 @@
     .hero-title {
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: white;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -278,7 +288,7 @@
       font-size: clamp(1rem, 3vw, 1.5rem);
       opacity: 0.9;
       max-width: 800px;
-      margin: 0 auto 3rem;
+      margin: 0 auto 2rem;
       color: rgba(255, 255, 255, 0.9);
       line-height: 1.6;
     }
@@ -379,12 +389,12 @@
     
     /* Responsive spacing */
     section {
-      padding: 5rem 1rem;
+      padding: 4rem 1rem;
     }
     
     @media (min-width: 768px) {
       section {
-        padding: 7rem 2rem;
+        padding: 6rem 2rem;
       }
     }
     
@@ -514,20 +524,11 @@
       outline: 2px solid rgba(255, 255, 255, 0.7);
       outline-offset: 2px;
     }
-    
-    /* Loading animation */
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-    
-    .loading {
-      animation: pulse 1.5s ease-in-out infinite;
-    }
   </style>
 </head>
 <body>
-  <!-- Cosmic Neural Network Background -->
+  <!-- Background with gradient and neural network -->
+  <div id="network-bg"></div>
   <canvas id="network-canvas"></canvas>
 
   <!-- Navbar -->
@@ -753,11 +754,6 @@
         </div>
       </article>
     </div>
-
-    <!-- Load More Button -->
-    <div class="text-center mt-12" data-aos="fade-up">
-      <button id="load-more" class="glow-button px-8 py-3">Explore More</button>
-    </div>
   </section>
 
   <!-- Featured Quote Section -->
@@ -941,16 +937,6 @@
     
     function animateNetwork() {
       ctx.clearRect(0, 0, width, height);
-      
-      // Draw gradient background
-      const bgGradient = ctx.createRadialGradient(
-        width * 0.5, height * 0.3, 0,
-        width * 0.5, height * 0.3, Math.max(width, height)
-      );
-      bgGradient.addColorStop(0, 'rgba(15, 5, 34, 0.8)');
-      bgGradient.addColorStop(1, 'rgba(5, 1, 19, 1)');
-      ctx.fillStyle = bgGradient;
-      ctx.fillRect(0, 0, width, height);
       
       // Update and draw neurons
       neurons.forEach(neuron => {
@@ -1229,19 +1215,6 @@
         // Scroll to top
         window.scrollTo(0, 0);
       });
-    });
-
-    // Load more functionality
-    document.getElementById('load-more')?.addEventListener('click', () => {
-      const button = document.getElementById('load-more');
-      button.textContent = 'Loading...';
-      button.classList.add('loading');
-      
-      setTimeout(() => {
-        button.textContent = 'No more content to load';
-        button.classList.remove('loading');
-        button.disabled = true;
-      }, 1500);
     });
 
     // Initialize cosmic neural network
