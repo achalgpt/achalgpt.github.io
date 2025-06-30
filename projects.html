@@ -5,11 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Achal Gupta</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="icon" type="image/png" href="videos/project.png">
+  <link rel="icon" type="image/png" href="videos/project.png">
   <style>
+    :root {
+      --primary: #4af;
+      --primary-dark: #38d;
+      --bg-dark: #0a0a12;
+    }
+    
     * {
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -19,7 +25,7 @@
     }
     
     body {
-      background-color: #0a0a12;
+      background-color: var(--bg-dark);
       color: #fff;
       font-family: 'Roboto', sans-serif;
       margin: 0;
@@ -28,7 +34,7 @@
       min-height: 100vh;
     }
     
-    #particle-canvas {
+    #electron-bg {
       position: fixed;
       width: 100%;
       height: 100%;
@@ -36,25 +42,28 @@
       left: 0;
       z-index: -1;
       pointer-events: none;
+      background: radial-gradient(ellipse at center, #0a0a20 0%, #000000 100%);
+      overflow: hidden;
     }
     
-    .particle {
+    .electron {
       position: absolute;
       width: 4px;
       height: 4px;
-      background: #4af;
+      background: var(--primary);
       border-radius: 50%;
-      box-shadow: 0 0 10px #4af;
+      box-shadow: 0 0 12px var(--primary);
       z-index: 1;
-      opacity: 0.8;
+      transform: translate(-50%, -50%);
     }
     
     .glass {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      background-color: rgba(20, 20, 40, 0.2);
+      border: 1px solid rgba(100, 150, 255, 0.2);
       border-radius: 12px;
+      color: #fff;
     }
     
     .glass-nav {
@@ -96,7 +105,7 @@
     }
     
     .nav-link {
-      color: rgba(200, 220, 255, 0.8);
+      color: #fff; /* Changed to white */
       font-weight: 600;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
@@ -109,7 +118,7 @@
     }
     
     .nav-link:hover {
-      color: #4af;
+      color: #fff; /* Kept white on hover */
     }
     
     .nav-link::after {
@@ -120,7 +129,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #4af;
+      background: #fff; /* Changed to white */
       transition: width 0.3s ease;
     }
     
@@ -129,7 +138,7 @@
     }
     
     .nav-link.active {
-      color: #4af;
+      color: #fff; /* Changed to white */
     }
     
     .nav-link.active::after {
@@ -148,7 +157,7 @@
     
     .burger span {
       height: 3px;
-      background: #4af;
+      background: #fff; /* Changed to white */
       border-radius: 2px;
       transition: 0.3s;
       transform-origin: left center;
@@ -191,7 +200,7 @@
     }
     
     .mobile-nav a {
-      color: #4af;
+      color: #fff; /* Changed to white */
       padding: 1rem 2rem;
       text-decoration: none;
       font-weight: 600;
@@ -211,7 +220,7 @@
       transform: translateX(-50%);
       width: 0;
       height: 2px;
-      background: #4af;
+      background: #fff; /* Changed to white */
       transition: width 0.3s ease;
     }
     
@@ -220,7 +229,7 @@
     }
     
     .mobile-nav a.active {
-      color: #4af;
+      color: #fff; /* Changed to white */
     }
     
     .mobile-nav a.active::after {
@@ -266,7 +275,7 @@
       transform: translateX(-50%);
       width: 70%;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      background: linear-gradient(90deg, transparent, rgba(100, 180, 255, 0.7), transparent);
       transition: width 0.3s ease;
     }
     
@@ -278,7 +287,7 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(100, 180, 255, 0.3);
-      color: #acf;
+      color: #fff;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
@@ -302,7 +311,7 @@
     .glow-button:hover {
       box-shadow: 0 0 15px rgba(100, 180, 255, 0.3);
       transform: translateY(-2px);
-      border-color: #4af;
+      border-color: var(--primary);
       color: #fff;
     }
     
@@ -317,7 +326,7 @@
       text-align: center;
       position: relative;
       display: inline-block;
-      color: rgba(100, 180, 255, 0.9);
+      color: #fff;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       padding: 0.5rem 1rem;
@@ -341,6 +350,7 @@
     
     h1, h2, h3 {
       font-family: 'Montserrat', sans-serif;
+      color: #fff;
     }
     
     @keyframes fadeIn {
@@ -371,7 +381,7 @@
     .project-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 10px 30px rgba(68, 136, 255, 0.2);
-      border-color: #4af;
+      border-color: var(--primary);
     }
     
     .project-image {
@@ -394,6 +404,7 @@
       margin-bottom: 0.5rem;
       border: 1px solid rgba(100, 150, 255, 0.2);
       font-family: 'Fira Code', monospace;
+      color: #fff;
     }
     
     .secret-link {
@@ -411,8 +422,8 @@
   </style>
 </head>
 <body>
-  <!-- Particle Background -->
-  <div id="particle-canvas"></div>
+  <!-- Electron Background -->
+  <div id="electron-bg"></div>
 
   <!-- Navbar -->
   <nav id="navbar" class="glass-nav">
@@ -512,8 +523,6 @@
           </div>
         </div>
       </div>
-      
-      
     </div>
   </section>
 
@@ -539,120 +548,130 @@
       once: true
     });
 
-    // Particle Animation System
-    const canvas = document.getElementById('particle-canvas');
-    const particles = [];
-    const particleCount = 150;
-    const mouse = { x: null, y: null, radius: 100 };
-    let flowDirection = { x: 1, y: 1 }; // Default top-left to bottom-right
-    
-    // Set initial flow direction
-    function setFlowDirection() {
-      if (window.DeviceOrientationEvent) {
-        // Use device orientation if available
-        window.addEventListener('deviceorientation', (e) => {
-          if (e.beta && e.gamma) {
-            // Map device tilt to flow direction
-            flowDirection = {
-              x: Math.max(-1, Math.min(1, e.gamma / 45)),
-              y: Math.max(-1, Math.min(1, e.beta / 45))
-            };
-          }
-        });
-      } else {
-        // Default direction (top-left to bottom-right)
-        flowDirection = { x: 0.5, y: 0.5 };
-      }
-    }
-    
-    // Particle class
-    class Particle {
+    // Optimized Electron Animation
+    class ElectronField {
       constructor() {
-        this.size = Math.random() * 3 + 2;
-        this.x = Math.random() * window.innerWidth;
-        this.y = Math.random() * window.innerHeight;
-        this.speedX = (Math.random() * 2 - 1) + flowDirection.x * 2;
-        this.speedY = (Math.random() * 2 - 1) + flowDirection.y * 2;
-        this.color = `hsla(${Math.random() * 60 + 180}, 100%, ${Math.random() * 30 + 70}%, 0.8)`;
+        this.container = document.getElementById('electron-bg');
+        this.electrons = [];
+        this.electronCount = 40;
+        this.mouse = { x: null, y: null, radius: 150 };
         
-        this.element = document.createElement('div');
-        this.element.className = 'particle';
-        this.element.style.width = `${this.size}px`;
-        this.element.style.height = `${this.size}px`;
-        this.element.style.backgroundColor = this.color;
-        this.element.style.boxShadow = `0 0 ${this.size * 2}px ${this.color}`;
-        canvas.appendChild(this.element);
+        this.init();
+        this.animate();
+        
+        window.addEventListener('resize', this.debounce(() => this.handleResize(), 200));
+        window.addEventListener('mousemove', (e) => {
+          this.mouse.x = e.clientX;
+          this.mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+          this.mouse.x = null;
+          this.mouse.y = null;
+        });
       }
       
-      update() {
-        // Apply flow direction
-        this.speedX = this.speedX * 0.95 + flowDirection.x * 0.05;
-        this.speedY = this.speedY * 0.95 + flowDirection.y * 0.05;
-        
-        // Mouse interaction
-        if (mouse.x && mouse.y) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      debounce(func, wait) {
+        let timeout;
+        return function() {
+          const context = this, args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+      }
+      
+      init() {
+        // Create electrons with random positions and velocities
+        for (let i = 0; i < this.electronCount; i++) {
+          const electron = document.createElement('div');
+          electron.className = 'electron';
           
-          if (distance < mouse.radius) {
-            const force = (mouse.radius - distance) / mouse.radius;
-            this.speedX -= dx * force * 0.1;
-            this.speedY -= dy * force * 0.1;
-          }
+          // Random position within viewport
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          
+          // Random velocity (fast movement)
+          const vx = (Math.random() - 0.5) * 8;
+          const vy = (Math.random() - 0.5) * 8;
+          
+          // Random size variation
+          const size = 2 + Math.random() * 3;
+          electron.style.width = `${size}px`;
+          electron.style.height = `${size}px`;
+          
+          // Random opacity variation
+          const opacity = 0.6 + Math.random() * 0.4;
+          electron.style.opacity = opacity;
+          
+          this.container.appendChild(electron);
+          this.electrons.push({ element: electron, x, y, vx, vy });
         }
+      }
+      
+      handleResize() {
+        // Reset positions to keep electrons within bounds
+        this.electrons.forEach(e => {
+          e.x = Math.min(e.x, window.innerWidth);
+          e.y = Math.min(e.y, window.innerHeight);
+        });
+      }
+      
+      updateElectrons() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
         
-        // Update position
-        this.x += this.speedX;
-        this.y += this.speedY;
-        
-        // Wrap around edges
-        if (this.x > window.innerWidth + this.size) this.x = -this.size;
-        if (this.x < -this.size) this.x = window.innerWidth + this.size;
-        if (this.y > window.innerHeight + this.size) this.y = -this.size;
-        if (this.y < -this.size) this.y = window.innerHeight + this.size;
-        
-        // Update DOM element
-        this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        this.electrons.forEach(e => {
+          // Update position
+          e.x += e.vx;
+          e.y += e.vy;
+          
+          // Bounce off edges with slight velocity randomization
+          if (e.x < 0 || e.x > width) {
+            e.vx = -e.vx * (0.9 + Math.random() * 0.2);
+            e.x = Math.max(0, Math.min(e.x, width));
+          }
+          if (e.y < 0 || e.y > height) {
+            e.vy = -e.vy * (0.9 + Math.random() * 0.2);
+            e.y = Math.max(0, Math.min(e.y, height));
+          }
+          
+          // Mouse interaction (repel)
+          if (this.mouse.x && this.mouse.y) {
+            const dx = this.mouse.x - e.x;
+            const dy = this.mouse.y - e.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < this.mouse.radius) {
+              const force = (this.mouse.radius - distance) / this.mouse.radius;
+              e.vx -= dx * force * 0.1;
+              e.vy -= dy * force * 0.1;
+            }
+          }
+          
+          // Apply some randomness to movement
+          e.vx += (Math.random() - 0.5) * 0.2;
+          e.vy += (Math.random() - 0.5) * 0.2;
+          
+          // Limit maximum speed
+          const speed = Math.sqrt(e.vx * e.vx + e.vy * e.vy);
+          const maxSpeed = 10;
+          if (speed > maxSpeed) {
+            e.vx = (e.vx / speed) * maxSpeed;
+            e.vy = (e.vy / speed) * maxSpeed;
+          }
+          
+          // Update DOM position
+          e.element.style.transform = `translate(${e.x}px, ${e.y}px)`;
+        });
+      }
+      
+      animate() {
+        this.updateElectrons();
+        requestAnimationFrame(() => this.animate());
       }
     }
-    
-    // Initialize particles
-    function initParticles() {
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    }
-    
-    // Animation loop
-    function animate() {
-      particles.forEach(particle => particle.update());
-      requestAnimationFrame(animate);
-    }
-    
-    // Mouse movement handler
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-    
-    window.addEventListener('mouseout', () => {
-      mouse.x = null;
-      mouse.y = null;
-    });
-    
-    // Handle resize
-    window.addEventListener('resize', () => {
-      particles.forEach(p => {
-        if (p.x > window.innerWidth) p.x = window.innerWidth;
-        if (p.y > window.innerHeight) p.y = window.innerHeight;
-      });
-    });
-    
-    // Initialize
-    setFlowDirection();
-    initParticles();
-    animate();
+
+    // Initialize electron field
+    new ElectronField();
 
     // Mobile menu toggle
     const burger = document.getElementById('burger');
