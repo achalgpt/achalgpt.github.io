@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Typing Speed Test | Achal Gupta</title>
+  <title>Typing Speed Test | Achal's Workshop</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    :root {
+      --workshop-primary: #FF6B35;
+      --workshop-secondary: #004E89;
+      --workshop-accent: #00A5E0;
+      --workshop-bg: #0A0A0F;
+    }
+    
     * {
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -17,7 +24,7 @@
     }
     
     body {
-      background-color: #000;
+      background-color: var(--workshop-bg);
       color: #fff;
       font-family: 'Fira Code', monospace;
       margin: 0;
@@ -26,7 +33,7 @@
       min-height: 100vh;
     }
     
-    #particles-js {
+    #workshop-canvas {
       position: fixed;
       width: 100%;
       height: 100%;
@@ -34,15 +41,36 @@
       left: 0;
       z-index: -1;
       pointer-events: none;
-      background: rgba(0, 0, 0, 0.3);
     }
     
-    .glass {
+    .workshop-glass {
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(20, 20, 30, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
+    }
+    
+    .workshop-title {
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(90deg, 
+        var(--workshop-primary), 
+        var(--workshop-accent), 
+        var(--workshop-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 300% auto;
+      animation: gradientFlow 8s ease infinite;
+    }
+    
+    @keyframes gradientFlow {
+      0% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+      100% { background-position: 0% center; }
     }
     
     .typing-cursor {
@@ -57,7 +85,7 @@
       transform: translateY(-50%);
       width: 2px;
       height: 1.2em;
-      background: #0f0;
+      background: var(--workshop-accent);
       animation: blink 1s step-end infinite;
     }
     
@@ -67,20 +95,27 @@
     }
     
     .correct {
-      color: #0f0;
+      color: #00ff88;
     }
     
     .incorrect {
-      color: #f00;
+      color: var(--workshop-primary);
       text-decoration: underline;
     }
     
     .current {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 165, 224, 0.2);
+      border-radius: 2px;
     }
     
     .stats-glow {
-      box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+      box-shadow: 0 0 15px rgba(0, 165, 224, 0.3);
+    }
+    
+    .progress-ring {
+      position: relative;
+      width: 60px;
+      height: 60px;
     }
     
     .progress-ring__circle {
@@ -90,28 +125,49 @@
     }
     
     .quote-text {
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--workshop-primary), var(--workshop-accent));
+      transition: all 0.3s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 165, 224, 0.4);
+    }
+    
+    .btn-secondary {
+      background: rgba(0, 78, 137, 0.3);
+      border: 1px solid var(--workshop-secondary);
+      transition: all 0.3s;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(0, 78, 137, 0.5);
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
-  <!-- Particle background -->
-  <div id="particles-js"></div>
+  <!-- Interactive Background Canvas -->
+  <canvas id="workshop-canvas"></canvas>
 
   <!-- Main Container -->
   <div class="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-screen">
     <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
-        Typing Speed Test
+      <h1 class="workshop-title mb-4">
+        TYPING WORKSHOP
       </h1>
       <p class="text-lg opacity-80 max-w-2xl mx-auto">
-        Test your typing speed with programming quotes. Type the text below as quickly and accurately as possible.
+        Test your coding speed with programming wisdom. Type the text below as quickly and accurately as possible.
       </p>
     </div>
     
     <!-- Stats Panel -->
-    <div class="glass p-6 mb-8 w-full max-w-3xl grid grid-cols-3 gap-4 text-center">
+    <div class="workshop-glass p-6 mb-8 w-full max-w-3xl grid grid-cols-4 gap-4 text-center stats-glow">
       <div class="stat-item">
         <div class="text-3xl font-mono font-bold" id="wpm">0</div>
         <div class="text-sm opacity-70">WPM</div>
@@ -124,10 +180,14 @@
         <div class="text-3xl font-mono font-bold" id="time">60</div>
         <div class="text-sm opacity-70">Seconds</div>
       </div>
+      <div class="stat-item">
+        <div class="text-3xl font-mono font-bold" id="errors">0</div>
+        <div class="text-sm opacity-70">Errors</div>
+      </div>
     </div>
     
     <!-- Typing Area -->
-    <div class="glass p-8 w-full max-w-4xl mb-8">
+    <div class="workshop-glass p-8 w-full max-w-4xl mb-8">
       <div id="quoteDisplay" class="quote-text text-xl md:text-2xl leading-relaxed mb-8 opacity-90">
         Loading quote...
       </div>
@@ -149,17 +209,20 @@
     
     <!-- Controls -->
     <div class="flex gap-4 mb-12">
-      <button id="newQuoteBtn" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all">
+      <button id="newQuoteBtn" class="btn-primary px-6 py-3 rounded-full font-semibold">
         <i class="fas fa-sync-alt mr-2"></i> New Quote
       </button>
-      <button id="restartBtn" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full font-semibold transition-all">
+      <button id="restartBtn" class="btn-secondary px-6 py-3 rounded-full font-semibold">
         <i class="fas fa-redo mr-2"></i> Restart
+      </button>
+      <button id="settingsBtn" class="btn-secondary px-6 py-3 rounded-full font-semibold">
+        <i class="fas fa-cog mr-2"></i> Settings
       </button>
     </div>
     
     <!-- Results Modal -->
     <div id="resultsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
-      <div class="glass p-8 max-w-md w-full rounded-xl relative">
+      <div class="workshop-glass p-8 max-w-md w-full rounded-xl relative">
         <h2 class="text-3xl font-bold mb-6 text-center">Test Complete!</h2>
         
         <div class="space-y-4 mb-8">
@@ -182,54 +245,164 @@
         </div>
         
         <div class="flex justify-center gap-4">
-          <button id="tryAgainBtn" class="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition-all">
+          <button id="tryAgainBtn" class="btn-primary px-6 py-2 rounded-full font-semibold">
             Try Again
           </button>
-          <button id="closeModalBtn" class="px-6 py-2 bg-gray-600 hover:bg-gray-700 rounded-full font-semibold transition-all">
+          <button id="closeModalBtn" class="btn-secondary px-6 py-2 rounded-full font-semibold">
             Close
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+      <div class="workshop-glass p-8 max-w-md w-full rounded-xl relative">
+        <h2 class="text-3xl font-bold mb-6 text-center">Workshop Settings</h2>
+        
+        <div class="space-y-4 mb-8">
+          <div class="flex flex-col">
+            <label for="timeLimit" class="mb-2 opacity-80">Time Limit (seconds):</label>
+            <input type="number" id="timeLimit" min="30" max="180" value="60" class="bg-transparent border-b border-gray-600 focus:outline-none focus:border-green-500 p-2">
+          </div>
+          <div class="flex flex-col">
+            <label for="quoteType" class="mb-2 opacity-80">Quote Type:</label>
+            <select id="quoteType" class="bg-transparent border-b border-gray-600 focus:outline-none focus:border-green-500 p-2">
+              <option value="programming">Programming Quotes</option>
+              <option value="code">Code Snippets</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          <div class="flex items-center">
+            <input type="checkbox" id="soundEffects" class="mr-2">
+            <label for="soundEffects" class="opacity-80">Enable Sound Effects</label>
+          </div>
+        </div>
+        
+        <div class="flex justify-center gap-4">
+          <button id="saveSettingsBtn" class="btn-primary px-6 py-2 rounded-full font-semibold">
+            Save
+          </button>
+          <button id="cancelSettingsBtn" class="btn-secondary px-6 py-2 rounded-full font-semibold">
+            Cancel
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Initialize particle.js background
     document.addEventListener('DOMContentLoaded', function() {
-      if (document.getElementById('particles-js')) {
-        particlesJS('particles-js', {
-          "particles": {
-            "number": { "value": 60 },
-            "color": { "value": "#ffffff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.3, "random": true },
-            "size": { "value": 3, "random": true },
-            "line_linked": {
-              "enable": true,
-              "distance": 150,
-              "color": "#ffffff",
-              "opacity": 0.2,
-              "width": 1
-            },
-            "move": {
-              "enable": true,
-              "speed": 1.5,
-              "direction": "none",
-              "random": true
-            }
-          },
-          "interactivity": {
-            "events": {
-              "onhover": { "enable": true, "mode": "grab" },
-              "onclick": { "enable": true, "mode": "push" }
-            }
-          }
-        });
+      // Interactive Background
+      const canvas = document.getElementById('workshop-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const mouse = { x: null, y: null, radius: 120 };
+      
+      function resizeCanvas() {
+        const scale = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * scale;
+        canvas.height = window.innerHeight * scale;
+        ctx.scale(scale, scale);
+        initParticles(Math.min(Math.floor((window.innerWidth * window.innerHeight) / 5000), 80));
       }
       
-      // Typing test logic
-      const quotes = [
+      class Particle {
+        constructor() {
+          this.size = Math.random() * 3 + 1;
+          this.x = Math.random() * window.innerWidth;
+          this.y = Math.random() * window.innerHeight;
+          this.baseX = this.x;
+          this.baseY = this.y;
+          this.density = (Math.random() * 30) + 10;
+          const colors = ['#FF6B35', '#004E89', '#00A5E0'];
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.velocityX = Math.random() * 2 - 1;
+          this.velocityY = Math.random() * 2 - 1;
+        }
+        
+        update() {
+          if (mouse.x && mouse.y) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < mouse.radius) {
+              const forceDirectionX = dx / distance;
+              const forceDirectionY = dy / distance;
+              const maxDistance = mouse.radius;
+              const force = (maxDistance - distance) / maxDistance;
+              const directionX = forceDirectionX * force * this.density * 0.1;
+              const directionY = forceDirectionY * force * this.density * 0.1;
+              
+              this.velocityX -= directionX;
+              this.velocityY -= directionY;
+            }
+          }
+          
+          this.x += this.velocityX;
+          this.y += this.velocityY;
+          
+          if (this.x < 0 || this.x > window.innerWidth) this.velocityX *= -0.8;
+          if (this.y < 0 || this.y > window.innerHeight) this.velocityY *= -0.8;
+          
+          this.velocityX *= 0.95;
+          this.velocityY *= 0.95;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.shadowBlur = this.size * 2;
+          ctx.shadowColor = this.color;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+      
+      function initParticles(count) {
+        particles = [];
+        for (let i = 0; i < count; i++) {
+          particles.push(new Particle());
+        }
+      }
+      
+      function animate() {
+        ctx.fillStyle = 'rgba(10, 10, 20, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+        
+        drawConnections();
+        requestAnimationFrame(animate);
+      }
+      
+      function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 150) {
+              const opacity = 1 - (distance / 150);
+              ctx.strokeStyle = `rgba(0, 165, 224, ${opacity * 0.2})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+      
+      // Typing Test Logic
+      const programmingQuotes = [
         "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler",
         "First, solve the problem. Then, write the code. - John Johnson",
         "The most disastrous thing that you can ever learn is your first programming language. - Alan Kay",
@@ -242,6 +415,19 @@
         "There are two ways to write error-free programs; only the third one works. - Alan J. Perlis"
       ];
       
+      const codeSnippets = [
+        "function fibonacci(n) { return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2); }",
+        "const debounce = (fn, delay) => { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => fn(...args), delay); }; };",
+        "class Component extends React.Component { render() { return <div>Hello World</div>; } }",
+        "const [state, setState] = useState(initialState); useEffect(() => { document.title = `You clicked ${count} times`; }, [count]);",
+        "def quicksort(arr): return arr if len(arr) <= 1 else quicksort([x for x in arr[1:] if x < arr[0]]) + [arr[0]] + quicksort([x for x in arr[1:] if x >= arr[0]])",
+        "const map = new Map(); map.set('key', 'value'); for (const [key, value] of map) { console.log(key, value); }",
+        "async function fetchData() { try { const response = await fetch(url); const data = await response.json(); return data; } catch (error) { console.error(error); } }",
+        "const memoize = (fn) => { const cache = {}; return (...args) => { const key = JSON.stringify(args); return cache[key] || (cache[key] = fn(...args)); }; };",
+        "const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x); const double = (x) => x * 2; const square = (x) => x * x; const doubleThenSquare = pipe(double, square);",
+        "const binarySearch = (arr, target) => { let left = 0, right = arr.length - 1; while (left <= right) { const mid = Math.floor((left + right) / 2); if (arr[mid] === target) return mid; arr[mid] < target ? left = mid + 1 : right = mid - 1; } return -1; };"
+      ];
+      
       let currentQuote = '';
       let timer = null;
       let timeLeft = 60;
@@ -249,14 +435,19 @@
       let errors = 0;
       let correctChars = 0;
       let totalTyped = 0;
+      let testStartTime = null;
+      let testEndTime = null;
       
+      // DOM Elements
       const quoteDisplay = document.getElementById('quoteDisplay');
       const typingInput = document.getElementById('typingInput');
       const wpmDisplay = document.getElementById('wpm');
       const accuracyDisplay = document.getElementById('accuracy');
       const timeDisplay = document.getElementById('time');
+      const errorsDisplay = document.getElementById('errors');
       const newQuoteBtn = document.getElementById('newQuoteBtn');
       const restartBtn = document.getElementById('restartBtn');
+      const settingsBtn = document.getElementById('settingsBtn');
       const resultsModal = document.getElementById('resultsModal');
       const finalWpm = document.getElementById('finalWpm');
       const finalAccuracy = document.getElementById('finalAccuracy');
@@ -264,11 +455,60 @@
       const finalErrors = document.getElementById('finalErrors');
       const tryAgainBtn = document.getElementById('tryAgainBtn');
       const closeModalBtn = document.getElementById('closeModalBtn');
+      const settingsModal = document.getElementById('settingsModal');
+      const timeLimitInput = document.getElementById('timeLimit');
+      const quoteTypeSelect = document.getElementById('quoteType');
+      const soundEffectsCheckbox = document.getElementById('soundEffects');
+      const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+      const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
+      
+      // Settings
+      let settings = {
+        timeLimit: 60,
+        quoteType: 'programming',
+        soundEffects: false
+      };
+      
+      // Load settings from localStorage
+      function loadSettings() {
+        const savedSettings = localStorage.getItem('typingTestSettings');
+        if (savedSettings) {
+          settings = JSON.parse(savedSettings);
+          timeLimitInput.value = settings.timeLimit;
+          quoteTypeSelect.value = settings.quoteType;
+          soundEffectsCheckbox.checked = settings.soundEffects;
+          timeLeft = settings.timeLimit;
+          timeDisplay.textContent = timeLeft;
+        }
+      }
+      
+      // Save settings to localStorage
+      function saveSettings() {
+        settings.timeLimit = parseInt(timeLimitInput.value);
+        settings.quoteType = quoteTypeSelect.value;
+        settings.soundEffects = soundEffectsCheckbox.checked;
+        localStorage.setItem('typingTestSettings', JSON.stringify(settings));
+        timeLeft = settings.timeLimit;
+        timeDisplay.textContent = timeLeft;
+        settingsModal.classList.add('hidden');
+      }
       
       // Load a new random quote
       function loadNewQuote() {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        currentQuote = quotes[randomIndex];
+        let quoteArray;
+        switch(settings.quoteType) {
+          case 'code':
+            quoteArray = codeSnippets;
+            break;
+          case 'mixed':
+            quoteArray = [...programmingQuotes, ...codeSnippets];
+            break;
+          default:
+            quoteArray = programmingQuotes;
+        }
+        
+        const randomIndex = Math.floor(Math.random() * quoteArray.length);
+        currentQuote = quoteArray[randomIndex];
         quoteDisplay.innerHTML = '';
         
         // Create span for each character
@@ -285,16 +525,19 @@
       function resetTest() {
         clearInterval(timer);
         timer = null;
-        timeLeft = 60;
+        timeLeft = settings.timeLimit;
         isTyping = false;
         errors = 0;
         correctChars = 0;
         totalTyped = 0;
+        testStartTime = null;
+        testEndTime = null;
         
         typingInput.value = '';
         wpmDisplay.textContent = '0';
         accuracyDisplay.textContent = '100';
-        timeDisplay.textContent = '60';
+        timeDisplay.textContent = timeLeft;
+        errorsDisplay.textContent = '0';
         
         // Reset all character styles
         const spans = quoteDisplay.querySelectorAll('span');
@@ -311,6 +554,7 @@
       
       // Start the typing test timer
       function startTimer() {
+        testStartTime = Date.now();
         timeDisplay.textContent = timeLeft;
         
         timer = setInterval(() => {
@@ -325,8 +569,11 @@
       
       // Calculate WPM
       function calculateWPM() {
+        if (!testStartTime) return 0;
+        
+        const endTime = testEndTime || Date.now();
+        const minutes = (endTime - testStartTime) / 60000;
         const words = correctChars / 5;
-        const minutes = (60 - timeLeft) / 60;
         return minutes > 0 ? Math.round(words / minutes) : 0;
       }
       
@@ -337,6 +584,7 @@
       
       // Finish the test
       function finishTest() {
+        testEndTime = Date.now();
         clearInterval(timer);
         isTyping = false;
         
@@ -350,6 +598,31 @@
         finalErrors.textContent = `${errors}`;
         
         resultsModal.classList.remove('hidden');
+        
+        // Play sound if enabled
+        if (settings.soundEffects) {
+          playCompletionSound();
+        }
+      }
+      
+      // Play completion sound
+      function playCompletionSound() {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.5);
+        
+        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.5);
       }
       
       // Handle typing input
@@ -359,7 +632,7 @@
         const spans = quoteDisplay.querySelectorAll('span');
         
         // Start timer on first keystroke
-        if (!isTyping) {
+        if (!isTyping && inputText.length > 0) {
           isTyping = true;
           startTimer();
         }
@@ -397,6 +670,7 @@
         
         wpmDisplay.textContent = calculateWPM();
         accuracyDisplay.textContent = calculateAccuracy();
+        errorsDisplay.textContent = errors;
         
         // Check if quote is completed
         if (inputText.length === quoteText.length && errorCount === 0) {
@@ -407,6 +681,9 @@
       // Event listeners for buttons
       newQuoteBtn.addEventListener('click', loadNewQuote);
       restartBtn.addEventListener('click', resetTest);
+      settingsBtn.addEventListener('click', () => {
+        settingsModal.classList.remove('hidden');
+      });
       tryAgainBtn.addEventListener('click', () => {
         resultsModal.classList.add('hidden');
         loadNewQuote();
@@ -414,8 +691,28 @@
       closeModalBtn.addEventListener('click', () => {
         resultsModal.classList.add('hidden');
       });
+      saveSettingsBtn.addEventListener('click', saveSettings);
+      cancelSettingsBtn.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+      });
       
       // Initialize
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      animate();
+      
+      // Mouse movement for background
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+      
+      window.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+      
+      loadSettings();
       loadNewQuote();
     });
   </script>
